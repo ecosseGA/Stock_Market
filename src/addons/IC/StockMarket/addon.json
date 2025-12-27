@@ -1,0 +1,19 @@
+{
+    "legacy_addon_id": "",
+    "title": "Stock Market Game",
+    "description": "Virtual stock trading game with seasons, achievements, and global markets. Self-contained economy with configurable starting balance per season.",
+    "version_id": 1058023,
+    "version_string": "1.58.23",
+    "dev": "IC",
+    "dev_url": "",
+    "faq_url": "",
+    "support_url": "",
+    "extra_urls": [],
+    "require": {
+        "XF": [
+            2030070,
+            "XenForo 2.3.0+"
+        ]
+    },
+    "icon": ""
+}

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<content_type_fields>
+	<field content_type="ic_sm_user_achievement" field_name="alert_handler_class">IC\StockMarket\Alert\Achievement</field>
+	<field content_type="ic_sm_user_achievement" field_name="entity">IC\StockMarket:UserAchievement</field>
+</content_type_fields>

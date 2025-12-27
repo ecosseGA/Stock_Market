@@ -1,0 +1,298 @@
+<?xml version='1.0' encoding='utf-8'?>
+<phrases>
+  
+  
+  <phrase title="admin_navigation.icStockMarket" version_id="1037000" version_string="1.37.0">Stock Market</phrase>
+  
+  
+  <phrase title="admin_navigation.icSMMarkets" version_id="1037000" version_string="1.37.0">Markets</phrase>
+  
+  
+  <phrase title="admin_navigation.icSMSymbols" version_id="1037000" version_string="1.37.0">Symbols</phrase>
+  
+  
+  <phrase title="admin_navigation.icSMSeasons" version_id="1037000" version_string="1.37.0">Seasons</phrase>
+  
+  
+  <phrase title="option_group.icStockMarket" version_id="1037000" version_string="1.37.0">Stock Market Game</phrase>
+  
+  
+  <phrase title="option_group.icStockMarket_description" version_id="1037000" version_string="1.37.0">Settings for the Stock Market trading game addon.</phrase>
+  
+  
+  <phrase title="option.icStockMarket_starting_balance" version_id="1037000" version_string="1.37.0">Starting Balance</phrase>
+  
+  
+  <phrase title="option.icStockMarket_starting_balance_explain" version_id="1037000" version_string="1.37.0">Default starting balance for new traders. Each season can override this with its own starting balance.</phrase>
+  
+  
+  <phrase title="option.icStockMarket_min_balance_to_trade" version_id="1037000" version_string="1.37.0">Minimum Balance to Trade</phrase>
+  
+  
+  <phrase title="option.icStockMarket_min_balance_to_trade_explain" version_id="1037000" version_string="1.37.0">Users must have at least this amount to make trades</phrase>
+  
+  
+  <phrase title="option.icStockMarket_quote_update_interval" version_id="1037000" version_string="1.37.0">Quote Update Interval</phrase>
+  
+  
+  <phrase title="option.icStockMarket_quote_update_interval_explain" version_id="1037000" version_string="1.37.0">How often stock quotes are updated from Yahoo Finance</phrase>
+  
+  
+  <phrase title="ic_sm_market" version_id="1037000" version_string="1.37.0">Market</phrase>
+  
+  
+  <phrase title="ic_sm_markets" version_id="1037000" version_string="1.37.0">Markets</phrase>
+  
+  
+  <phrase title="ic_sm_symbol" version_id="1037000" version_string="1.37.0">Symbol</phrase>
+  
+  
+  <phrase title="ic_sm_symbols" version_id="1037000" version_string="1.37.0">Symbols</phrase>
+  
+  
+  <phrase title="ic_sm_company_name" version_id="1037000" version_string="1.37.0">Company Name</phrase>
+  
+  
+  <phrase title="ic_sm_market_code" version_id="1037000" version_string="1.37.0">Market Code</phrase>
+  
+  
+  <phrase title="ic_sm_market_name" version_id="1037000" version_string="1.37.0">Market Name</phrase>
+  
+  
+  <phrase title="ic_sm_country" version_id="1037000" version_string="1.37.0">Country</phrase>
+  
+  
+  <phrase title="ic_sm_timezone" version_id="1037000" version_string="1.37.0">Timezone</phrase>
+  
+  
+  <phrase title="ic_sm_is_active" version_id="1037000" version_string="1.37.0">Active</phrase>
+  
+  
+  <phrase title="ic_sm_display_order" version_id="1037000" version_string="1.37.0">Display Order</phrase>
+  
+  
+  <phrase title="ic_sm_is_featured" version_id="1037000" version_string="1.37.0">Featured</phrase>
+  
+  
+  <phrase title="ic_sm_current_price" version_id="1037000" version_string="1.37.0">Current Price</phrase>
+  
+  
+  <phrase title="ic_sm_change" version_id="1037000" version_string="1.37.0">Change</phrase>
+  
+  
+  <phrase title="ic_sm_import_symbols" version_id="1037000" version_string="1.37.0">Import Symbols</phrase>
+  
+  
+  <phrase title="ic_sm_csv_file" version_id="1037000" version_string="1.37.0">CSV File</phrase>
+  
+  
+  <phrase title="ic_sm_csv_format_help" version_id="1037000" version_string="1.37.0">Format: SYMBOL,Company Name (one per line, no header)</phrase>
+  
+  
+  <phrase title="ic_sm_season" version_id="1037000" version_string="1.37.0">Season</phrase>
+  
+  
+  <phrase title="ic_sm_seasons" version_id="1037000" version_string="1.37.0">Seasons</phrase>
+  
+  
+  <phrase title="ic_sm_season_name" version_id="1037000" version_string="1.37.0">Season Name</phrase>
+  
+  
+  <phrase title="ic_sm_start_date" version_id="1037000" version_string="1.37.0">Start Date</phrase>
+  
+  
+  <phrase title="ic_sm_end_date" version_id="1037000" version_string="1.37.0">End Date</phrase>
+  
+  
+  <phrase title="ic_sm_starting_balance" version_id="1037000" version_string="1.37.0">Starting Balance</phrase>
+  
+  
+  <phrase title="ic_sm_status" version_id="1037000" version_string="1.37.0">Status</phrase>
+  
+  
+  <phrase title="ic_sm_status_active" version_id="1037000" version_string="1.37.0">Active</phrase>
+  
+  
+  <phrase title="ic_sm_status_ended" version_id="1037000" version_string="1.37.0">Ended</phrase>
+  
+  
+  <phrase title="ic_sm_end_season" version_id="1037000" version_string="1.37.0">End Season</phrase>
+  
+  
+  <phrase title="imported_x_symbols" version_id="1037000" version_string="1.37.0">Imported {count} symbols</phrase>
+  
+  
+  <phrase title="no_quote_data" version_id="1037000" version_string="1.37.0">No Quote Data</phrase>
+  
+  
+  <phrase title="ic_sm_quotes_updated" version_id="1037000" version_string="1.37.0">Updated {total} quotes: {updated} successful, {failed} failed.</phrase>
+  
+  
+  <phrase title="ic_sm_update_quotes" version_id="1037000" version_string="1.37.0">Update Quotes</phrase>
+  
+  
+  <phrase title="ic_sm_no_active_season" version_id="1037000" version_string="1.37.0">No active trading season</phrase>
+  
+  
+  <phrase title="ic_sm_invalid_quantity" version_id="1037000" version_string="1.37.0">Invalid quantity</phrase>
+  
+  
+  <phrase title="ic_sm_no_price_data" version_id="1037000" version_string="1.37.0">No price data available for this stock</phrase>
+  
+  
+  <phrase title="ic_sm_insufficient_funds" version_id="1037000" version_string="1.37.0">Insufficient funds to complete this purchase</phrase>
+  
+  
+  <phrase title="ic_sm_no_account" version_id="1037000" version_string="1.37.0">No trading account found</phrase>
+  
+  
+  <phrase title="ic_sm_insufficient_shares" version_id="1037000" version_string="1.37.0">You don't own enough shares to complete this sale</phrase>
+  
+  
+  <phrase title="ic_sm_trade_successful" version_id="1037000" version_string="1.37.0">Trade executed successfully</phrase>
+  
+  
+  <phrase title="ic_sm_trade_failed" version_id="1037000" version_string="1.37.0">Trade failed. Please try again.</phrase>
+  
+  
+  <phrase title="ic_sm_symbol_not_found" version_id="1037000" version_string="1.37.0">Stock symbol not found</phrase>
+  
+  
+  <phrase title="ic_sm_stock_market" version_id="1037000" version_string="1.37.0">Stock Market</phrase>
+  
+  
+  <phrase title="ic_sm_my_portfolio" version_id="1037000" version_string="1.37.0">My Portfolio</phrase>
+  
+  
+  <phrase title="ic_sm_available_stocks" version_id="1037000" version_string="1.37.0">Available Stocks</phrase>
+  
+  
+  <phrase title="ic_sm_leaderboard" version_id="1037000" version_string="1.37.0">Leaderboard</phrase>
+  
+  
+  <phrase title="ic_sm_cash_balance" version_id="1037000" version_string="1.37.0">Cash Balance</phrase>
+  
+  
+  <phrase title="ic_sm_portfolio_value" version_id="1037000" version_string="1.37.0">Portfolio Value</phrase>
+  
+  
+  <phrase title="ic_sm_total_value" version_id="1037000" version_string="1.37.0">Total Value</phrase>
+  
+  
+  <phrase title="ic_sm_profit_loss" version_id="1037000" version_string="1.37.0">Profit/Loss</phrase>
+  
+  
+  <phrase title="ic_sm_quantity" version_id="1037000" version_string="1.37.0">Quantity</phrase>
+  
+  
+  <phrase title="ic_sm_shares" version_id="1037000" version_string="1.37.0">shares</phrase>
+  
+  
+  <phrase title="ic_sm_owned" version_id="1037000" version_string="1.37.0">Owned</phrase>
+  
+  
+  <phrase title="ic_sm_avg_price" version_id="1037000" version_string="1.37.0">Avg Price</phrase>
+  
+  
+  <phrase title="ic_sm_current_value" version_id="1037000" version_string="1.37.0">Current Value</phrase>
+  
+  
+  <phrase title="ic_sm_gain_loss" version_id="1037000" version_string="1.37.0">Gain/Loss</phrase>
+  
+  
+  <phrase title="ic_sm_rank" version_id="1037000" version_string="1.37.0">Rank</phrase>
+  
+  
+  <phrase title="ic_sm_player" version_id="1037000" version_string="1.37.0">Player</phrase>
+  
+  
+  <phrase title="ic_sm_no_positions" version_id="1037000" version_string="1.37.0">You don't own any stocks yet</phrase>
+  
+  
+  <phrase title="ic_sm_start_trading" version_id="1037000" version_string="1.37.0">Start Trading</phrase>
+  
+  
+  <phrase title="nav.icStockMarket" version_id="1037000" version_string="1.37.0">Stock Market</phrase>
+  
+  
+  <phrase title="ic_sm_watchlist" version_id="1037000" version_string="1.37.0">Watchlist</phrase>
+  
+  
+  <phrase title="nav.icSM_markets" version_id="1037000" version_string="1.37.0">Browse Stocks</phrase><phrase title="nav.icSM_global_markets" version_id="1051000" version_string="1.51.0">Global Markets</phrase><phrase title="nav.icSM_portfolio" version_id="1037000" version_string="1.37.0">My Portfolio</phrase><phrase title="nav.icSM_watchlist" version_id="1037000" version_string="1.37.0">Watchlist</phrase><phrase title="nav.icSM_leaderboard" version_id="1037000" version_string="1.37.0">Leaderboard</phrase><phrase title="ic_sm_my_watchlist" version_id="1037000" version_string="1.37.0">My Watchlist</phrase>
+  
+  
+  <phrase title="ic_sm_add_to_watchlist" version_id="1037000" version_string="1.37.0">Add to Watchlist</phrase>
+  
+  
+  <phrase title="ic_sm_remove_from_watchlist" version_id="1037000" version_string="1.37.0">Remove from Watchlist</phrase>
+  
+  
+  <phrase title="ic_sm_live_prices" version_id="1037000" version_string="1.37.0">Live Prices</phrase>
+  
+  
+  <phrase title="ic_sm_my_holdings" version_id="1037000" version_string="1.37.0">My Holdings</phrase>
+  
+  
+  <phrase title="ic_sm_avg_cost" version_id="1037000" version_string="1.37.0">Avg Cost</phrase>
+  
+  
+  <phrase title="ic_sm_trade_history" version_id="1037000" version_string="1.37.0">Trade History</phrase>
+  
+  
+  <phrase title="to_start_trading" version_id="1037000" version_string="1.37.0">to start trading</phrase>
+  
+  
+  <phrase title="log_in_to_trade" version_id="1037000" version_string="1.37.0">Log in to trade</phrase>
+  
+<phrase title="ic_sm_buy_stock" version_id="1037000" version_string="1.37.0">Buy {stock}</phrase><phrase title="ic_sm_stock" version_id="1037000" version_string="1.37.0">Stock</phrase><phrase title="ic_sm_previous_close" version_id="1037000" version_string="1.37.0">Previous Close</phrase><phrase title="ic_sm_day_range" version_id="1037000" version_string="1.37.0">Day Range</phrase><phrase title="ic_sm_52_week_range" version_id="1037000" version_string="1.37.0">52 Week Range</phrase><phrase title="ic_sm_volume" version_id="1037000" version_string="1.37.0">Volume</phrase><phrase title="ic_sm_exchange" version_id="1037000" version_string="1.37.0">Exchange</phrase><phrase title="ic_sm_back_to_market" version_id="1037000" version_string="1.37.0">Back to Market</phrase><phrase title="ic_sm_total_cost" version_id="1037000" version_string="1.37.0">Total Cost</phrase><phrase title="ic_sm_at_close" version_id="1037000" version_string="1.37.0">At Close</phrase><phrase title="option.icStockMarket_commission_percent" version_id="1037000" version_string="1.37.0">Trading Commission</phrase><phrase title="option_explain.icStockMarket_commission_percent" version_id="1037000" version_string="1.37.0">Percentage commission charged on trades (0 = no commission)</phrase><phrase title="option.icStockMarket_enable_trading" version_id="1037000" version_string="1.37.0">Enable Trading</phrase><phrase title="option_explain.icStockMarket_enable_trading" version_id="1037000" version_string="1.37.0">Allow users to buy and sell stocks</phrase><phrase title="option.icStockMarket_enable_watchlist" version_id="1037000" version_string="1.37.0">Enable Watchlist</phrase><phrase title="option_explain.icStockMarket_enable_watchlist" version_id="1037000" version_string="1.37.0">Allow users to maintain a watchlist of stocks</phrase><phrase title="option.icStockMarket_enable_leaderboard" version_id="1037000" version_string="1.37.0">Enable Leaderboard</phrase><phrase title="option_explain.icStockMarket_enable_leaderboard" version_id="1037000" version_string="1.37.0">Show leaderboard of top traders</phrase><phrase title="option.icStockMarket_leaderboard_limit" version_id="1037000" version_string="1.37.0">Leaderboard Size</phrase><phrase title="option_explain.icStockMarket_leaderboard_limit" version_id="1037000" version_string="1.37.0">Number of users to show on leaderboard</phrase><phrase title="option.icStockMarket_stocks_per_page" version_id="1037000" version_string="1.37.0">Stocks Per Page</phrase><phrase title="option_explain.icStockMarket_stocks_per_page" version_id="1037000" version_string="1.37.0">Number of stocks to display per page</phrase><phrase title="ic_sm_opt_5_minutes" version_id="1037000" version_string="1.37.0">5 minutes</phrase><phrase title="ic_sm_opt_15_minutes" version_id="1037000" version_string="1.37.0">15 minutes</phrase><phrase title="ic_sm_opt_30_minutes" version_id="1037000" version_string="1.37.0">30 minutes</phrase><phrase title="ic_sm_opt_1_hour" version_id="1037000" version_string="1.37.0">1 hour</phrase><phrase title="ic_sm_opt_2_hours" version_id="1037000" version_string="1.37.0">2 hours</phrase><phrase title="ic_sm_csv_upload_explain" version_id="1037000" version_string="1.37.0">Upload a CSV file with stock symbols. Format: SYMBOL,Company Name</phrase><phrase title="ic_sm_paste_csv_data" version_id="1037000" version_string="1.37.0">Paste CSV Data</phrase><phrase title="ic_sm_sell_stock" version_id="1037000" version_string="1.37.0">Sell Stock</phrase><phrase title="ic_sm_latest_trades" version_id="1039003" version_string="1.39.3">Latest Trades</phrase><phrase title="widget.ic_sm_latest_trades" version_id="1039003" version_string="1.39.3">Shows recent buy and sell trades from all users.</phrase><phrase title="ic_sm_top_movers" version_id="1039003" version_string="1.39.3">Top Movers</phrase><phrase title="ic_sm_gainers" version_id="1039003" version_string="1.39.3">Gainers</phrase><phrase title="ic_sm_losers" version_id="1039003" version_string="1.39.3">Losers</phrase><phrase title="widget.ic_sm_top_movers" version_id="1039003" version_string="1.39.3">Shows stocks with biggest price changes (gainers and losers).</phrase><phrase title="ic_sm_leaderboard_preview" version_id="1039003" version_string="1.39.3">Top Traders</phrase><phrase title="ic_sm_view_full_leaderboard" version_id="1039000" version_string="1.39.0">View Full Leaderboard</phrase><phrase title="widget.ic_sm_leaderboard_preview" version_id="1039003" version_string="1.39.3">Shows top traders by total portfolio value.</phrase><phrase title="widget_position.ic_sm_index_sidebar" version_id="1039003" version_string="1.39.3">Stock Market: Index sidebar</phrase><phrase title="widget_position.ic_sm_portfolio_sidebar" version_id="1039003" version_string="1.39.3">Stock Market: Portfolio sidebar</phrase><phrase title="widget_position.ic_sm_leaderboard_sidebar" version_id="1039003" version_string="1.39.3">Stock Market: Leaderboard sidebar</phrase><phrase title="widget_position.ic_sm_index_sidebar_description" version_id="1039003" version_string="1.39.3">Sidebar on the stock market index/home page</phrase><phrase title="widget_position.ic_sm_portfolio_sidebar_description" version_id="1039003" version_string="1.39.3">Sidebar on the user portfolio page</phrase><phrase title="widget_position.ic_sm_leaderboard_sidebar_description" version_id="1039003" version_string="1.39.3">Sidebar on the leaderboard page</phrase><phrase title="ic_sm_number_of_trades_to_show" version_id="1039004" version_string="1.39.4">Number of trades to show</phrase><phrase title="ic_sm_number_of_trades_to_show_explain" version_id="1039004" version_string="1.39.4">Maximum number of recent trades to display in the widget.</phrase><phrase title="ic_sm_number_of_stocks_to_show" version_id="1039004" version_string="1.39.4">Number of stocks to show</phrase><phrase title="ic_sm_number_of_stocks_to_show_explain" version_id="1039004" version_string="1.39.4">Maximum number of stocks to display in each tab (gainers/losers).</phrase><phrase title="ic_sm_display_type" version_id="1039004" version_string="1.39.4">Display type</phrase><phrase title="ic_sm_both_gainers_and_losers" version_id="1039004" version_string="1.39.4">Both gainers and losers</phrase><phrase title="ic_sm_both_gainers_and_losers_hint" version_id="1039004" version_string="1.39.4">Shows tabs allowing users to switch between gainers and losers.</phrase><phrase title="ic_sm_gainers_only" version_id="1039004" version_string="1.39.4">Gainers only</phrase><phrase title="ic_sm_gainers_only_hint" version_id="1039004" version_string="1.39.4">Shows only stocks with positive price changes.</phrase><phrase title="ic_sm_losers_only" version_id="1039004" version_string="1.39.4">Losers only</phrase><phrase title="ic_sm_losers_only_hint" version_id="1039004" version_string="1.39.4">Shows only stocks with negative price changes.</phrase><phrase title="ic_sm_number_of_traders_to_show" version_id="1039004" version_string="1.39.4">Number of traders to show</phrase><phrase title="ic_sm_number_of_traders_to_show_explain" version_id="1039004" version_string="1.39.4">Maximum number of top traders to display in the widget.</phrase><phrase title="widget_def.ic_sm_latest_trades" version_id="1039005" version_string="1.39.5">Stock Market: Latest Trades</phrase><phrase title="widget_def.ic_sm_top_movers" version_id="1039005" version_string="1.39.5">Stock Market: Top Movers</phrase><phrase title="widget_def.ic_sm_leaderboard_preview" version_id="1039005" version_string="1.39.5">Stock Market: Top Traders</phrase><phrase title="add_market" version_id="1039005" version_string="1.39.5">Add market</phrase><phrase title="add_season" version_id="1039005" version_string="1.39.5">Add season</phrase><phrase title="add_symbol" version_id="1039005" version_string="1.39.5">Add symbol</phrase><phrase title="edit_market" version_id="1039005" version_string="1.39.5">Edit market</phrase><phrase title="edit_season" version_id="1039005" version_string="1.39.5">Edit season</phrase><phrase title="edit_symbol" version_id="1039005" version_string="1.39.5">Edit symbol</phrase><phrase title="end_season" version_id="1039005" version_string="1.39.5">End season</phrase><phrase title="ended" version_id="1039005" version_string="1.39.5">Ended</phrase><phrase title="ongoing" version_id="1039005" version_string="1.39.5">Ongoing</phrase><phrase title="never" version_id="1039005" version_string="1.39.5">Never</phrase><phrase title="import" version_id="1039005" version_string="1.39.5">Import</phrase><phrase title="ic_sm_add_symbol" version_id="1039005" version_string="1.39.5">Add stock symbol</phrase><phrase title="ic_sm_country_code" version_id="1039005" version_string="1.39.5">Country code</phrase><phrase title="ic_sm_last_updated" version_id="1039005" version_string="1.39.5">Last updated</phrase><phrase title="ic_sm_no_symbols" version_id="1039005" version_string="1.39.5">No symbols have been added yet.</phrase><phrase title="ic_sm_symbol_overview" version_id="1041001" version_string="1.41.1">Symbol Overview</phrase><phrase title="ic_sm_total_symbols" version_id="1041001" version_string="1.41.1">Total Symbols</phrase><phrase title="ic_sm_market_list" version_id="1041001" version_string="1.41.1">Market List</phrase><phrase title="ic_sm_symbol_list" version_id="1041001" version_string="1.41.1">Symbol List</phrase><phrase title="ic_sm_season_list" version_id="1041001" version_string="1.41.1">Season List</phrase><phrase title="no_markets_found" version_id="1041001" version_string="1.41.1">No markets have been created yet.</phrase><phrase title="no_symbols_found" version_id="1041001" version_string="1.41.1">No symbols have been added yet.</phrase><phrase title="no_seasons_found" version_id="1041001" version_string="1.41.1">No seasons have been created yet.</phrase><phrase title="ic_sm_players" version_id="1041001" version_string="1.41.1">Players</phrase><phrase title="permission_interface_group.icSMPerms" version_id="1050000" version_string="1.50.0">Stock Market permissions</phrase><phrase title="permission.icStockMarket_view" version_id="1050000" version_string="1.50.0">View stock market</phrase><phrase title="permission.icStockMarket_trade" version_id="1050000" version_string="1.50.0">Buy and sell stocks</phrase>
+
+
+<phrase title="ic_sm_average_cost" version_id="1050006" version_string="1.50.6">Average Cost</phrase>
+<phrase title="ic_sm_estimated_total" version_id="1050006" version_string="1.50.6">Estimated Total</phrase>
+<phrase title="ic_sm_market_closed" version_id="1050006" version_string="1.50.6">Market Closed</phrase>
+<phrase title="ic_sm_market_data" version_id="1050006" version_string="1.50.6">Market Data</phrase>
+<phrase title="ic_sm_no_data" version_id="1050006" version_string="1.50.6">No data</phrase>
+<phrase title="ic_sm_no_leaderboard_entries_yet" version_id="1050006" version_string="1.50.6">No leaderboard entries yet</phrase>
+<phrase title="ic_sm_no_price_data_available" version_id="1050006" version_string="1.50.6">No price data available</phrase>
+<phrase title="ic_sm_no_stocks_available" version_id="1050006" version_string="1.50.6">No stocks available</phrase>
+<phrase title="ic_sm_order_summary" version_id="1050006" version_string="1.50.6">Order Summary</phrase>
+<phrase title="ic_sm_price_per_share" version_id="1050006" version_string="1.50.6">Price per share</phrase>
+<phrase title="ic_sm_return" version_id="1050006" version_string="1.50.6">Return</phrase>
+<phrase title="ic_sm_sale_summary" version_id="1050006" version_string="1.50.6">Sale Summary</phrase>
+<phrase title="ic_sm_shares_owned" version_id="1050006" version_string="1.50.6">Shares Owned</phrase>
+<phrase title="ic_sm_trading_profit" version_id="1050006" version_string="1.50.6">Trading Profit</phrase>
+<phrase title="ic_sm_your_available_cash" version_id="1050006" version_string="1.50.6">Your Available Cash</phrase>
+<phrase title="ic_sm_your_position" version_id="1050006" version_string="1.50.6">Your Position</phrase>
+<phrase title="ic_sm_your_rank" version_id="1050006" version_string="1.50.6">Your Rank</phrase>
+
+
+<phrase title="ic_sm_market_open" version_id="1051000" version_string="1.51.0">Open</phrase>
+<phrase title="ic_sm_market_pre_market" version_id="1051000" version_string="1.51.0">Pre-Market</phrase>
+<phrase title="ic_sm_market_after_hours" version_id="1051000" version_string="1.51.0">After Hours</phrase>
+<phrase title="ic_sm_opens_in" version_id="1051000" version_string="1.51.0">Opens in {time}</phrase>
+<phrase title="ic_sm_closes_in" version_id="1051000" version_string="1.51.0">Closes in {time}</phrase>
+<phrase title="ic_sm_all_markets" version_id="1051000" version_string="1.51.0">All Markets</phrase>
+<phrase title="ic_sm_filter_by_market" version_id="1051000" version_string="1.51.0">Filter by Market</phrase>
+<phrase title="ic_sm_global_markets" version_id="1051000" version_string="1.51.0">Global Markets</phrase>
+<phrase title="ic_sm_market_hours" version_id="1051000" version_string="1.51.0">Market Hours</phrase>
+<phrase title="ic_sm_trading_hours" version_id="1051000" version_string="1.51.0">Trading Hours</phrase>
+<phrase title="ic_sm_market_open_time" version_id="1051000" version_string="1.51.0">Market Open Time</phrase>
+<phrase title="ic_sm_market_close_time" version_id="1051000" version_string="1.51.0">Market Close Time</phrase>
+<phrase title="ic_sm_pre_market_open" version_id="1051000" version_string="1.51.0">Pre-Market Open</phrase>
+<phrase title="ic_sm_after_hours_close" version_id="1051000" version_string="1.51.0">After-Hours Close</phrase>
+<phrase title="ic_sm_trading_days" version_id="1051000" version_string="1.51.0">Trading Days</phrase>
+<phrase title="ic_sm_opens_in" version_id="1052000" version_string="1.52.0">Opens in {time}</phrase>
+<phrase title="ic_sm_closes_in" version_id="1052000" version_string="1.52.0">Closes in {time}</phrase>
+<phrase title="ic_sm_bought" version_id="1052000" version_string="1.52.0">bought</phrase>
+<phrase title="ic_sm_sold" version_id="1052000" version_string="1.52.0">sold</phrase>
+<phrase title="ic_sm_available_stocks" version_id="1052000" version_string="1.52.0">Available Stocks</phrase>
+<phrase title="ic_sm_view_stocks" version_id="1052000" version_string="1.52.0">View {code} Stocks</phrase>
+<phrase title="ic_sm_view_on_yahoo_finance" version_id="1052000" version_string="1.52.0">View Full Chart on Yahoo Finance</phrase>
+<phrase title="ic_sm_my_watchlist" version_id="1053000" version_string="1.53.0">My Watchlist</phrase>
+<phrase title="ic_sm_added_to_watchlist" version_id="1053000" version_string="1.53.0">Added to watchlist</phrase>
+<phrase title="ic_sm_removed_from_watchlist" version_id="1053000" version_string="1.53.0">Removed from watchlist</phrase>
+<phrase title="ic_sm_add_to_watchlist" version_id="1053000" version_string="1.53.0">Add to watchlist</phrase>
+<phrase title="ic_sm_remove_from_watchlist" version_id="1053000" version_string="1.53.0">Remove from watchlist</phrase>
+<phrase title="ic_sm_watchlist_empty" version_id="1053000" version_string="1.53.0">Your watchlist is empty. Add stocks by clicking the star icon.</phrase>
+
+<phrase title="ic_sm_back_to_trading" version_id="1053016" version_string="1.53.16">Back to Trading</phrase><phrase title="ic_sm_browse_stocks" version_id="1053016" version_string="1.53.16">Browse Stocks</phrase><phrase title="ic_sm_buy" version_id="1053016" version_string="1.53.16">Buy</phrase><phrase title="ic_sm_buy_shares" version_id="1053016" version_string="1.53.16">Buy Shares</phrase><phrase title="ic_sm_currency" version_id="1053016" version_string="1.53.16">Currency</phrase><phrase title="ic_sm_days_change" version_id="1053016" version_string="1.53.16">Day's Change</phrase><phrase title="ic_sm_market_cap" version_id="1053016" version_string="1.53.16">Market Cap</phrase><phrase title="ic_sm_return_percent" version_id="1053016" version_string="1.53.16">Return %</phrase><phrase title="ic_sm_sell" version_id="1053016" version_string="1.53.16">Sell</phrase><phrase title="ic_sm_sell_shares" version_id="1053016" version_string="1.53.16">Sell Shares</phrase><phrase title="ic_sm_youll_receive" version_id="1053016" version_string="1.53.16">You'll Receive</phrase><phrase title="ic_sm_back_to_market" version_id="1053016" version_string="1.53.16">Back to Market</phrase><phrase title="ic_sm_no_positions_yet" version_id="1053016" version_string="1.53.16">You don't have any positions yet.</phrase><phrase title="nav.icSM_history" version_id="1053027" version_string="1.53.27">Trading History</phrase><phrase title="ic_sm_trading_history" version_id="1053027" version_string="1.53.27">Trading History</phrase><phrase title="ic_sm_trade_history_desc" version_id="1053027" version_string="1.53.27">View all your past trades and transactions</phrase><phrase title="ic_sm_no_trades_yet" version_id="1053027" version_string="1.53.27">You haven't made any trades yet. Start trading to see your history here!</phrase><phrase title="ic_sm_trade_date" version_id="1053027" version_string="1.53.27">Date</phrase><phrase title="ic_sm_trade_type" version_id="1053027" version_string="1.53.27">Type</phrase><phrase title="ic_sm_trade_stock" version_id="1053027" version_string="1.53.27">Stock</phrase><phrase title="ic_sm_trade_quantity" version_id="1053027" version_string="1.53.27">Quantity</phrase><phrase title="ic_sm_trade_price" version_id="1053027" version_string="1.53.27">Price</phrase><phrase title="ic_sm_trade_total" version_id="1053027" version_string="1.53.27">Total</phrase><phrase title="ic_sm_total_buys" version_id="1053027" version_string="1.53.27">Total Buys</phrase><phrase title="ic_sm_total_sells" version_id="1053027" version_string="1.53.27">Total Sells</phrase><phrase title="ic_sm_buy_value" version_id="1053027" version_string="1.53.27">Buy Value</phrase><phrase title="ic_sm_sell_value" version_id="1053027" version_string="1.53.27">Sell Value</phrase><phrase title="ic_sm_experience" version_id="1054000" version_string="1.54.0">Experience</phrase><phrase title="ic_sm_season_xp" version_id="1054000" version_string="1.54.0">Season XP</phrase><phrase title="ic_sm_career_xp" version_id="1054000" version_string="1.54.0">Career XP</phrase><phrase title="ic_sm_lifetime_xp" version_id="1054000" version_string="1.54.0">Lifetime XP</phrase><phrase title="ic_sm_xp_points" version_id="1054000" version_string="1.54.0">XP Points</phrase><phrase title="ic_sm_season_rank" version_id="1054000" version_string="1.54.0">Season Rank</phrase><phrase title="ic_sm_career_rank" version_id="1054000" version_string="1.54.0">Career Rank</phrase><phrase title="ic_sm_next_rank" version_id="1054000" version_string="1.54.0">Next Rank</phrase><phrase title="ic_sm_xp_progress" version_id="1054000" version_string="1.54.0">Progress to Next Rank</phrase><phrase title="ic_sm_xp_needed" version_id="1054000" version_string="1.54.0">{xp} XP needed for next rank</phrase><phrase title="ic_sm_rank_novice" version_id="1054000" version_string="1.54.0">Novice Trader</phrase><phrase title="ic_sm_rank_apprentice" version_id="1054000" version_string="1.54.0">Apprentice Trader</phrase><phrase title="ic_sm_rank_trader" version_id="1054000" version_string="1.54.0">Trader</phrase><phrase title="ic_sm_rank_senior" version_id="1054000" version_string="1.54.0">Senior Trader</phrase><phrase title="ic_sm_rank_expert" version_id="1054000" version_string="1.54.0">Expert Trader</phrase><phrase title="ic_sm_rank_master" version_id="1054000" version_string="1.54.0">Master Trader</phrase><phrase title="ic_sm_rank_legend" version_id="1054000" version_string="1.54.0">Trading Legend</phrase><phrase title="ic_sm_difficulty_easy" version_id="1054000" version_string="1.54.0">Easy</phrase><phrase title="ic_sm_difficulty_medium" version_id="1054000" version_string="1.54.0">Medium</phrase><phrase title="ic_sm_difficulty_hard" version_id="1054000" version_string="1.54.0">Hard</phrase><phrase title="ic_sm_difficulty_very_hard" version_id="1054000" version_string="1.54.0">Very Hard</phrase><phrase title="ic_sm_difficulty_epic" version_id="1054000" version_string="1.54.0">Epic</phrase><phrase title="ic_sm_difficulty_legendary" version_id="1054000" version_string="1.54.0">Legendary</phrase><phrase title="ic_sm_achievements" version_id="1054000" version_string="1.54.0">Achievements</phrase><phrase title="ic_sm_view_achievements" version_id="1054000" version_string="1.54.0">View Achievements</phrase><phrase title="ic_sm_achievement_progress" version_id="1054000" version_string="1.54.0">Achievement Progress</phrase><phrase title="ic_sm_achievements_earned" version_id="1054000" version_string="1.54.0">Achievements Earned</phrase><phrase title="ic_sm_achievements_total" version_id="1054000" version_string="1.54.0">{earned} of {total} achievements unlocked</phrase><phrase title="ic_sm_achievement_unlocked" version_id="1054000" version_string="1.54.0">Achievement Unlocked!</phrase><phrase title="ic_sm_achievement_locked" version_id="1054000" version_string="1.54.0">Locked</phrase><phrase title="ic_sm_achievement_earned_on" version_id="1054000" version_string="1.54.0">Earned on {date}</phrase><phrase title="ic_sm_achievement_not_earned" version_id="1054000" version_string="1.54.0">Not yet earned</phrase><phrase title="ic_sm_achievement_xp_reward" version_id="1054000" version_string="1.54.0">+{xp} XP</phrase><phrase title="ic_sm_no_achievements_yet" version_id="1054000" version_string="1.54.0">No achievements earned yet. Start trading to earn achievements!</phrase><phrase title="ic_sm_achievement_earned_alert" version_id="1054000" version_string="1.54.0">You earned the achievement: {title}</phrase><phrase title="ic_sm_achievement_earned_desc" version_id="1054000" version_string="1.54.0">You earned: {title} (+{xp} XP)</phrase><phrase title="ic_sm_rank_up" version_id="1054000" version_string="1.54.0">Rank Up!</phrase><phrase title="ic_sm_rank_up_desc" version_id="1054000" version_string="1.54.0">You are now a {rank}!</phrase><phrase title="ic_sm_rank_up_season" version_id="1054000" version_string="1.54.0">Season Rank Up!</phrase><phrase title="ic_sm_rank_up_career" version_id="1054000" version_string="1.54.0">Career Rank Up!</phrase><phrase title="ic_sm_your_stats" version_id="1054000" version_string="1.54.0">Your Trading Stats</phrase><phrase title="ic_sm_total_achievements" version_id="1054000" version_string="1.54.0">Total Achievements</phrase><phrase title="ic_sm_seasons_participated" version_id="1054000" version_string="1.54.0">Seasons Participated</phrase><phrase title="ic_sm_lifetime_trades" version_id="1054000" version_string="1.54.0">Lifetime Trades</phrase><phrase title="ic_sm_achievement_title.first_steps" version_id="1054000" version_string="1.54.0">First Steps</phrase><phrase title="ic_sm_achievement_desc.first_steps" version_id="1054000" version_string="1.54.0">Complete your first trade</phrase><phrase title="ic_sm_achievement_title.first_purchase" version_id="1054000" version_string="1.54.0">First Purchase</phrase><phrase title="ic_sm_achievement_desc.first_purchase" version_id="1054000" version_string="1.54.0">Buy your first stock</phrase><phrase title="ic_sm_achievement_title.first_sale" version_id="1054000" version_string="1.54.0">First Sale</phrase><phrase title="ic_sm_achievement_desc.first_sale" version_id="1054000" version_string="1.54.0">Sell your first stock</phrase><phrase title="ic_sm_achievement_title.getting_started" version_id="1054000" version_string="1.54.0">Getting Started</phrase><phrase title="ic_sm_achievement_desc.getting_started" version_id="1054000" version_string="1.54.0">Complete 5 trades</phrase><phrase title="ic_sm_achievement_title.active_beginner" version_id="1054000" version_string="1.54.0">Active Beginner</phrase><phrase title="ic_sm_achievement_desc.active_beginner" version_id="1054000" version_string="1.54.0">Make 3 trades in one day</phrase><phrase title="ic_sm_achievement_title.active_trader" version_id="1054000" version_string="1.54.0">Active Trader</phrase><phrase title="ic_sm_achievement_desc.active_trader" version_id="1054000" version_string="1.54.0">Complete 10 trades</phrase><phrase title="ic_sm_achievement_title.diverse_portfolio_5" version_id="1054000" version_string="1.54.0">Diverse Portfolio</phrase><phrase title="ic_sm_achievement_desc.diverse_portfolio_5" version_id="1054000" version_string="1.54.0">Own 5 different stocks</phrase><phrase title="ic_sm_achievement_title.building_wealth" version_id="1054000" version_string="1.54.0">Building Wealth</phrase><phrase title="ic_sm_achievement_desc.building_wealth" version_id="1054000" version_string="1.54.0">Reach $10,000 portfolio value</phrase><phrase title="ic_sm_achievement_title.market_explorer" version_id="1054000" version_string="1.54.0">Market Explorer</phrase><phrase title="ic_sm_achievement_desc.market_explorer" version_id="1054000" version_string="1.54.0">Trade in 2 different markets</phrase><phrase title="ic_sm_achievement_title.consistent_profit" version_id="1054000" version_string="1.54.0">Consistent Profit</phrase><phrase title="ic_sm_achievement_desc.consistent_profit" version_id="1054000" version_string="1.54.0">Earn $1,000 in total profit</phrase><phrase title="ic_sm_achievement_title.day_trader" version_id="1054000" version_string="1.54.0">Day Trader</phrase><phrase title="ic_sm_achievement_desc.day_trader" version_id="1054000" version_string="1.54.0">Complete 10 trades in one day</phrase><phrase title="ic_sm_achievement_title.consistent_trader" version_id="1054000" version_string="1.54.0">Consistent Trader</phrase><phrase title="ic_sm_achievement_desc.consistent_trader" version_id="1054000" version_string="1.54.0">Complete 100 total trades</phrase><phrase title="ic_sm_achievement_title.bull_run" version_id="1054000" version_string="1.54.0">Bull Run</phrase><phrase title="ic_sm_achievement_desc.bull_run" version_id="1054000" version_string="1.54.0">Complete 5 profitable trades in a row</phrase><phrase title="ic_sm_achievement_title.market_diversification" version_id="1054000" version_string="1.54.0">Market Diversification</phrase><phrase title="ic_sm_achievement_desc.market_diversification" version_id="1054000" version_string="1.54.0">Own stocks from 3 different markets</phrase><phrase title="ic_sm_achievement_title.strategic_investor" version_id="1054000" version_string="1.54.0">Strategic Investor</phrase><phrase title="ic_sm_achievement_desc.strategic_investor" version_id="1054000" version_string="1.54.0">Reach $50,000 portfolio value</phrase><phrase title="ic_sm_achievement_title.high_roller" version_id="1054000" version_string="1.54.0">High Roller</phrase><phrase title="ic_sm_achievement_desc.high_roller" version_id="1054000" version_string="1.54.0">Execute a single trade worth $10,000 or more</phrase><phrase title="ic_sm_achievement_title.portfolio_millionaire" version_id="1054000" version_string="1.54.0">Portfolio Millionaire</phrase><phrase title="ic_sm_achievement_desc.portfolio_millionaire" version_id="1054000" version_string="1.54.0">Reach $1,000,000 portfolio value</phrase><phrase title="ic_sm_achievement_title.diamond_hands" version_id="1054000" version_string="1.54.0">Diamond Hands</phrase><phrase title="ic_sm_achievement_desc.diamond_hands" version_id="1054000" version_string="1.54.0">Hold a stock for 30+ days without selling</phrase><phrase title="ic_sm_achievement_title.profit_champion" version_id="1054000" version_string="1.54.0">Profit Champion</phrase><phrase title="ic_sm_achievement_desc.profit_champion" version_id="1054000" version_string="1.54.0">Earn $100,000 in total profit</phrase><phrase title="ic_sm_achievement_title.volume_king" version_id="1054000" version_string="1.54.0">Volume King</phrase><phrase title="ic_sm_achievement_desc.volume_king" version_id="1054000" version_string="1.54.0">Complete 500 total trades</phrase><phrase title="ic_sm_achievement_title.top_trader" version_id="1054000" version_string="1.54.0">Top Trader</phrase><phrase title="ic_sm_achievement_desc.top_trader" version_id="1054000" version_string="1.54.0">Finish in top 3 on season leaderboard</phrase><phrase title="ic_sm_achievement_title.perfect_week" version_id="1054000" version_string="1.54.0">Perfect Week</phrase><phrase title="ic_sm_achievement_desc.perfect_week" version_id="1054000" version_string="1.54.0">All trades profitable for 7 consecutive days</phrase><phrase title="ic_sm_achievement_title.market_dominator" version_id="1054000" version_string="1.54.0">Market Dominator</phrase><phrase title="ic_sm_achievement_desc.market_dominator" version_id="1054000" version_string="1.54.0">Be #1 trader in a specific market</phrase><phrase title="ic_sm_achievement_title.season_champion" version_id="1054000" version_string="1.54.0">Season Champion</phrase><phrase title="ic_sm_achievement_desc.season_champion" version_id="1054000" version_string="1.54.0">Finish #1 on season leaderboard</phrase><phrase title="ic_sm_achievement_title.trading_legend" version_id="1054000" version_string="1.54.0">Trading Legend</phrase><phrase title="ic_sm_achievement_desc.trading_legend" version_id="1054000" version_string="1.54.0">Reach 10,000 lifetime XP</phrase><phrase title="ic_sm_current_season" version_id="1055000" version_string="1.55.0">Current Season</phrase><phrase title="ic_sm_all_time" version_id="1055000" version_string="1.55.0">All Time</phrase><phrase title="ic_sm_sort_by" version_id="1055000" version_string="1.55.0">Sort by</phrase><phrase title="ic_sm_sort_symbol_asc" version_id="1055000" version_string="1.55.0">Symbol (A-Z)</phrase><phrase title="ic_sm_sort_symbol_desc" version_id="1055000" version_string="1.55.0">Symbol (Z-A)</phrase><phrase title="ic_sm_sort_name_asc" version_id="1055000" version_string="1.55.0">Company Name (A-Z)</phrase><phrase title="ic_sm_sort_name_desc" version_id="1055000" version_string="1.55.0">Company Name (Z-A)</phrase><phrase title="ic_sm_sort_change_desc" version_id="1055000" version_string="1.55.0">Change % (High to Low)</phrase><phrase title="ic_sm_sort_change_asc" version_id="1055000" version_string="1.55.0">Change % (Low to High)</phrase><phrase title="ic_sm_search_stocks" version_id="1055000" version_string="1.55.0">Search stocks...</phrase><phrase title="ic_sm_most_popular_stock" version_id="1055000" version_string="1.55.0">Top Stock</phrase><phrase title="ic_sm_filter_season" version_id="1055001" version_string="1.55.1">Filter by Season</phrase><phrase title="alert_opt_out.ic_sm_user_achievement_earned" version_id="1056002" version_string="1.56.2">Earns a stock market achievement</phrase><phrase title="ic_sm_total_xp_earned" version_id="1056005" version_string="1.56.5">Total XP</phrase><phrase title="ic_sm_earned_on" version_id="1056005" version_string="1.56.5">Earned on</phrase><phrase title="ic_sm_no_achievements_found" version_id="1056005" version_string="1.56.5">No achievements found</phrase><phrase title="ic_sm_achievement_category.trading" version_id="1056005" version_string="1.56.5">Trading Milestones</phrase><phrase title="ic_sm_achievement_category.portfolio" version_id="1056005" version_string="1.56.5">Portfolio Growth</phrase><phrase title="ic_sm_achievement_category.profit" version_id="1056005" version_string="1.56.5">Profit Achievements</phrase><phrase title="ic_sm_achievement_category.diversity" version_id="1056005" version_string="1.56.5">Portfolio Diversity</phrase><phrase title="ic_sm_achievement_category.social" version_id="1056005" version_string="1.56.5">Social &amp; Competition</phrase><phrase title="ic_sm_achievement_title.diamond_hands_30" version_id="1057000" version_string="1.57.0">Diamond Hands II</phrase><phrase title="ic_sm_achievement_desc.diamond_hands_30" version_id="1057000" version_string="1.57.0">Hold a stock for 30+ days without selling</phrase><phrase title="add_achievement" version_id="1058000" version_string="1.58.0">Add Achievement</phrase><phrase title="edit_achievement" version_id="1058000" version_string="1.58.0">Edit Achievement</phrase><phrase title="no_achievements_have_been_created" version_id="1058000" version_string="1.58.0">No achievements have been created yet.</phrase><phrase title="achievement_key" version_id="1058000" version_string="1.58.0">Achievement Key</phrase><phrase title="difficulty_tier" version_id="1058000" version_string="1.58.0">Difficulty Tier</phrase><phrase title="nav.icSM_achievements" addon_id="IC/StockMarket">Achievements</phrase><phrase title="category" addon_id="IC/StockMarket">Category</phrase><phrase title="xp" addon_id="IC/StockMarket">XP</phrase><phrase title="difficulty" addon_id="IC/StockMarket">Difficulty</phrase><phrase title="admin_navigation.icSMAchievements" addon_id="IC/StockMarket">Achievements</phrase><phrase title="ic_sm_achievement_category.holding" addon_id="IC/StockMarket">Long-Term Holding</phrase><phrase title="ic_sm_achievement_category.performance" addon_id="IC/StockMarket">Performance Tracking</phrase><phrase title="admin_navigation.icSMTools" addon_id="IC/StockMarket">Tools</phrase><phrase title="ic_sm_tools" addon_id="IC/StockMarket">Stock Market Tools</phrase><phrase title="ic_sm_rebuild_caches" addon_id="IC/StockMarket">Rebuild Caches</phrase><phrase title="ic_sm_rebuild_achievements" addon_id="IC/StockMarket">Rebuild Achievements</phrase><phrase title="ic_sm_rebuild_achievements_explain" addon_id="IC/StockMarket">Recalculates achievement progress for all users who have traded. This will check which achievements each user should have earned and award any missing achievements.</phrase><phrase title="ic_sm_rebuild_achievements_confirm" addon_id="IC/StockMarket">This will recalculate achievement progress for all users who have trade history. This may take several minutes depending on the number of users. If no users have traded yet, no processing will occur.</phrase><phrase title="ic_sm_achievements_rebuilt" addon_id="IC/StockMarket">Achievement cache rebuilt. {count} achievements checked.</phrase><phrase title="ic_sm_no_achievements_to_rebuild" addon_id="IC/StockMarket">No users found with trading activity. Achievements will be checked automatically as users start trading.</phrase><phrase title="ic_sm_rebuild_error" addon_id="IC/StockMarket">An error occurred during rebuild: {error}</phrase><phrase title="please_confirm_that_you_want_to_delete_the_following" addon_id="IC/StockMarket">Please confirm that you want to delete the following:</phrase><phrase title="ic_sm_market_closed" addon_id="IC/StockMarket">The market is currently closed. Trading is only allowed during market hours.</phrase></phrases>

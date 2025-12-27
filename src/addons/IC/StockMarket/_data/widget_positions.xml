@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget_positions>
+  <widget_position position_id="ic_sm_index_sidebar" active="1" version_id="1039003" version_string="1.39.3" />
+  <widget_position position_id="ic_sm_portfolio_sidebar" active="1" version_id="1039003" version_string="1.39.3" />
+  <widget_position position_id="ic_sm_leaderboard_sidebar" active="1" version_id="1039003" version_string="1.39.3" />
+</widget_positions>

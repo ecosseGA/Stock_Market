@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 30" width="20" height="10">
+  <rect width="60" height="30" fill="#B22234"/>
+  <path d="M0,3.5h60m0,3.5H0m0,3.5h60m0,3.5H0m0,3.5h60m0,3.5H0m0,3.5h60" stroke="#fff" stroke-width="3"/>
+  <rect width="24" height="15" fill="#3C3B6E"/>
+  <g fill="#fff">
+    <g id="s">
+      <path id="t" d="M2,1.5l.3.9h.9l-.7.5.2.9-.7-.5-.7.5.2-.9-.7-.5h.9z"/>
+      <use href="#t" x="4"/>
+      <use href="#t" x="8"/>
+      <use href="#t" x="12"/>
+      <use href="#t" x="16"/>
+      <use href="#t" x="20"/>
+    </g>
+    <use href="#s" y="3"/>
+    <use href="#s" y="6"/>
+    <use href="#s" y="9"/>
+    <use href="#s" y="12"/>
+  </g>
+</svg>

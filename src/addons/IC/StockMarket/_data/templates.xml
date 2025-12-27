@@ -1,0 +1,3133 @@
+<?xml version='1.0' encoding='utf-8'?>
+<templates>
+  
+  
+
+  
+    
+  <template type="admin" title="ic_sm_market_list" version_id="1041009" version_string="1.41.9">&lt;xf:title&gt;{{ phrase('ic_sm_markets') }}&lt;/xf:title&gt;
+
+&lt;div class="block"&gt;
+	&lt;div class="block-container"&gt;
+		&lt;div class="block-body"&gt;
+			&lt;xf:button href="{{ link('stock-market/markets/add') }}" icon="add" overlay="true"&gt;
+				{{ phrase('add_market') }}
+			&lt;/xf:button&gt;
+		&lt;/div&gt;
+	&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;xf:if is="count($markets)"&gt;
+	&lt;div class="block"&gt;
+		&lt;div class="block-container"&gt;
+			&lt;h3 class="block-header"&gt;{{ phrase('ic_sm_market_list') }}&lt;/h3&gt;
+			&lt;div class="block-body"&gt;
+				&lt;xf:datalist&gt;
+					&lt;xf:datarow rowtype="header"&gt;
+						&lt;xf:cell&gt;{{ phrase('ic_sm_market_code') }}&lt;/xf:cell&gt;
+						&lt;xf:cell&gt;{{ phrase('ic_sm_market_name') }}&lt;/xf:cell&gt;
+						&lt;xf:cell&gt;{{ phrase('ic_sm_country_code') }}&lt;/xf:cell&gt;
+						&lt;xf:cell&gt;{{ phrase('ic_sm_timezone') }}&lt;/xf:cell&gt;
+						&lt;xf:cell&gt;{{ phrase('status') }}&lt;/xf:cell&gt;
+						&lt;xf:cell&gt;&lt;/xf:cell&gt;
+					&lt;/xf:datarow&gt;
+					
+					&lt;xf:foreach loop="$markets" value="$market"&gt;
+						&lt;xf:datarow&gt;
+							&lt;xf:cell&gt;&lt;strong&gt;{$market.market_code}&lt;/strong&gt;&lt;/xf:cell&gt;
+							&lt;xf:cell&gt;{$market.market_name}&lt;/xf:cell&gt;
+							&lt;xf:cell&gt;{$market.country_code}&lt;/xf:cell&gt;
+							&lt;xf:cell&gt;{$market.timezone}&lt;/xf:cell&gt;
+							&lt;xf:cell&gt;
+								&lt;xf:if is="$market.is_active"&gt;
+									&lt;span class="label label--green"&gt;{{ phrase('active') }}&lt;/span&gt;
+								&lt;xf:else /&gt;
+									&lt;span class="label label--red"&gt;{{ phrase('inactive') }}&lt;/span&gt;
+								&lt;/xf:if&gt;
+							&lt;/xf:cell&gt;
+							&lt;xf:cell&gt;
+								&lt;a href="{{ link('stock-market/markets/edit', $market) }}" data-xf-click="overlay"&gt;{{ phrase('edit') }}&lt;/a&gt;
+								|
+								&lt;a href="{{ link('stock-market/markets/delete', $market) }}" data-xf-click="overlay"&gt;{{ phrase('delete') }}&lt;/a&gt;
+							&lt;/xf:cell&gt;
+						&lt;/xf:datarow&gt;
+					&lt;/xf:foreach&gt;
+				&lt;/xf:datalist&gt;
+			&lt;/div&gt;
+		&lt;/div&gt;
+	&lt;/div&gt;
+&lt;xf:else /&gt;
+	&lt;div class="blockMessage"&gt;{{ phrase('no_markets_found') }}&lt;/div&gt;
+&lt;/xf:if&gt;</template>
+
+  
+  <template type="admin" title="ic_sm_market_edit" version_id="1051000" version_string="1.51.0">&lt;xf:title&gt;{{ $market.market_id ? phrase('edit_market') : phrase('add_market') }}&lt;/xf:title&gt;
+
+&lt;xf:form action="{{ link('stock-market/markets/save', $market) }}" class="block" ajax="true"&gt;
+	&lt;div class="block-container"&gt;
+		&lt;div class="block-body"&gt;
+			&lt;xf:textboxrow name="market_code" value="{$market.market_code}" label="{{ phrase('ic_sm_market_code') }}" required="required" /&gt;
+			&lt;xf:textboxrow name="market_name" value="{$market.market_name}" label="{{ phrase('ic_sm_market_name') }}" required="required" /&gt;
+			&lt;xf:textboxrow name="country_code" value="{$market.country_code}" label="{{ phrase('ic_sm_country_code') }}" maxlength="5" /&gt;
+			&lt;xf:textboxrow name="timezone" value="{$market.timezone}" label="{{ phrase('ic_sm_timezone') }}" 
+				explain="Use PHP timezone identifier (e.g., America/New_York, Europe/London, Asia/Tokyo)" /&gt;
+		&lt;/div&gt;
+		
+		&lt;h3 class="block-formSectionHeader"&gt;Trading Hours (Market Local Time)&lt;/h3&gt;
+		
+		&lt;div class="block-body"&gt;
+			&lt;xf:textboxrow name="market_open_time" value="{$market.market_open_time}" label="{{ phrase('ic_sm_market_open_time') }}" 
+				explain="Format: HH:MM (24-hour). Example: 09:30" required="required" /&gt;
+			
+			&lt;xf:textboxrow name="market_close_time" value="{$market.market_close_time}" label="{{ phrase('ic_sm_market_close_time') }}" 
+				explain="Format: HH:MM (24-hour). Example: 16:00" required="required" /&gt;
+			
+			&lt;xf:textboxrow name="pre_market_open" value="{$market.pre_market_open}" label="{{ phrase('ic_sm_pre_market_open') }}" 
+				explain="Optional. Pre-market trading start time. Leave blank to disable. Example: 04:00" /&gt;
+			
+			&lt;xf:textboxrow name="after_hours_close" value="{$market.after_hours_close}" label="{{ phrase('ic_sm_after_hours_close') }}" 
+				explain="Optional. After-hours trading end time. Leave blank to disable. Example: 20:00" /&gt;
+			
+			&lt;xf:textboxrow name="trading_days" value="{$market.trading_days}" label="{{ phrase('ic_sm_trading_days') }}" 
+				explain="Comma-separated day numbers: 1=Monday, 2=Tuesday, ... 7=Sunday. Default: 1,2,3,4,5 (Mon-Fri)" required="required" /&gt;
+		&lt;/div&gt;
+		
+		&lt;h3 class="block-formSectionHeader"&gt;Display Options&lt;/h3&gt;
+		
+		&lt;div class="block-body"&gt;
+			&lt;xf:numberboxrow name="display_order" value="{$market.display_order}" label="{{ phrase('ic_sm_display_order') }}" /&gt;
+			&lt;xf:checkboxrow label="{{ phrase('options') }}"&gt;
+				&lt;xf:option name="is_active" value="1" selected="{$market.is_active}" label="{{ phrase('ic_sm_is_active') }}" /&gt;
+			&lt;/xf:checkboxrow&gt;
+		&lt;/div&gt;
+		
+		&lt;xf:submitrow sticky="true" submit="{{ phrase('save') }}" /&gt;
+	&lt;/div&gt;
+&lt;/xf:form&gt;</template>
+
+  
+  <template type="admin" title="ic_sm_market_delete" version_id="1037000" version_string="1.37.0">&lt;xf:title&gt;{{ phrase('confirm_deletion') }}&lt;/xf:title&gt;
+
+&lt;xf:form action="{{ link('stock-market/markets/delete', $market) }}" class="block" ajax="true"&gt;
+	&lt;div class="block-container"&gt;
+		&lt;div class="block-body"&gt;
+			&lt;div class="blockMessage"&gt;
+				{{ phrase('please_confirm_deletion_of_x', {'title': $market.market_name}) }}
+			&lt;/div&gt;
+		&lt;/div&gt;
+		&lt;xf:submitrow sticky="true" submit="{{ phrase('delete') }}" /&gt;
+	&lt;/div&gt;
+&lt;/xf:form&gt;</template>
+
+  
+    
+    
+  
+
+  
+  <template type="admin" title="ic_sm_symbol_edit" version_id="1037000" version_string="1.37.0">&lt;xf:title&gt;{{ $symbol.symbol_id ? phrase('edit_symbol') : phrase('add_symbol') }}&lt;/xf:title&gt;
+
+&lt;xf:form action="{{ link('stock-market/symbols/save', $symbol) }}" class="block" ajax="true"&gt;
+	&lt;div class="block-container"&gt;
+		&lt;div class="block-body"&gt;
+			&lt;xf:select name="market_id" value="{$symbol.market_id}" label="{{ phrase('ic_sm_market') }}" required="required"&gt;
+				&lt;xf:options source="$marketChoices" /&gt;
+			&lt;/xf:select&gt;
+			&lt;xf:textboxrow name="symbol" value="{$symbol.symbol}" label="{{ phrase('ic_sm_symbol') }}" required="required" maxlength="20" /&gt;
+			&lt;xf:textboxrow name="company_name" value="{$symbol.company_name}" label="{{ phrase('ic_sm_company_name') }}" required="required" maxlength="255" /&gt;
+			&lt;xf:numberboxrow name="display_order" value="{$symbol.display_order}" label="{{ phrase('ic_sm_display_order') }}" /&gt;
+			&lt;xf:checkboxrow label="{{ phrase('options') }}"&gt;
+				&lt;xf:option name="is_active" value="1" selected="{$symbol.is_active}" label="{{ phrase('ic_sm_is_active') }}" /&gt;
+				&lt;xf:option name="is_featured" value="1" selected="{$symbol.is_featured}" label="{{ phrase('ic_sm_is_featured') }}" /&gt;
+			&lt;/xf:checkboxrow&gt;
+		&lt;/div&gt;
+		&lt;xf:submitrow sticky="true" submit="{{ phrase('save') }}" /&gt;
+	&lt;/div&gt;
+&lt;/xf:form&gt;</template>
+
+  
+  <template type="admin" title="ic_sm_symbol_delete" version_id="1037000" version_string="1.37.0">&lt;xf:title&gt;{{ phrase('confirm_deletion') }}&lt;/xf:title&gt;
+
+&lt;xf:form action="{{ link('stock-market/symbols/delete', $symbol) }}" class="block" ajax="true"&gt;
+	&lt;div class="block-container"&gt;
+		&lt;div class="block-body"&gt;
+			&lt;div class="blockMessage"&gt;
+				{{ phrase('please_confirm_deletion_of_x', {'title': $symbol.company_name}) }}
+			&lt;/div&gt;
+		&lt;/div&gt;
+		&lt;xf:submitrow sticky="true" submit="{{ phrase('delete') }}" /&gt;
+	&lt;/div&gt;
+&lt;/xf:form&gt;</template>
+
+  
+  
+
+  
+    
+  <template type="admin" title="ic_sm_season_list" version_id="1041009" version_string="1.41.9">&lt;xf:title&gt;{{ phrase('ic_sm_seasons') }}&lt;/xf:title&gt;
+
+&lt;div class="block"&gt;
+	&lt;div class="block-container"&gt;
+		&lt;div class="block-body"&gt;
+			&lt;xf:button href="{{ link('stock-market/seasons/add') }}" icon="add" overlay="true"&gt;
+				{{ phrase('ic_sm_add_season') }}
+			&lt;/xf:button&gt;
+		&lt;/div&gt;
+	&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;xf:if is="count($seasons)"&gt;
+	&lt;div class="block"&gt;
+		&lt;div class="block-container"&gt;
+			&lt;h3 class="block-header"&gt;{{ phrase('ic_sm_season_list') }}&lt;/h3&gt;
+			&lt;div class="block-body"&gt;
+				&lt;xf:datalist&gt;
+					&lt;xf:datarow rowtype="header"&gt;
+						&lt;xf:cell&gt;{{ phrase('ic_sm_season_name') }}&lt;/xf:cell&gt;
+						&lt;xf:cell&gt;{{ phrase('ic_sm_start_date') }}&lt;/xf:cell&gt;
+						&lt;xf:cell&gt;{{ phrase('ic_sm_end_date') }}&lt;/xf:cell&gt;
+						&lt;xf:cell&gt;{{ phrase('ic_sm_starting_balance') }}&lt;/xf:cell&gt;
+						&lt;xf:cell&gt;{{ phrase('status') }}&lt;/xf:cell&gt;
+						&lt;xf:cell&gt;&lt;/xf:cell&gt;
+					&lt;/xf:datarow&gt;
+					
+					&lt;xf:foreach loop="$seasons" value="$season"&gt;
+						&lt;xf:datarow&gt;
+							&lt;xf:cell&gt;
+								&lt;a href="{{ link('stock-market/seasons/edit', $season) }}" data-xf-click="overlay"&gt;
+									&lt;strong&gt;{$season.season_name}&lt;/strong&gt;
+								&lt;/a&gt;
+							&lt;/xf:cell&gt;
+							&lt;xf:cell&gt;&lt;xf:date time="{$season.start_date}" /&gt;&lt;/xf:cell&gt;
+							&lt;xf:cell&gt;
+								&lt;xf:if is="$season.end_date"&gt;
+									&lt;xf:date time="{$season.end_date}" /&gt;
+								&lt;xf:else /&gt;
+									&lt;span class="u-muted"&gt;{{ phrase('ongoing') }}&lt;/span&gt;
+								&lt;/xf:if&gt;
+							&lt;/xf:cell&gt;
+							&lt;xf:cell&gt;&lt;strong&gt;${$season.starting_balance|number(2)}&lt;/strong&gt;&lt;/xf:cell&gt;
+							&lt;xf:cell&gt;
+								&lt;xf:if is="$season.is_active"&gt;
+									&lt;span class="label label--green"&gt;{{ phrase('active') }}&lt;/span&gt;
+								&lt;xf:else /&gt;
+									&lt;span class="label label--silver"&gt;{{ phrase('ended') }}&lt;/span&gt;
+								&lt;/xf:if&gt;
+							&lt;/xf:cell&gt;
+							&lt;xf:cell&gt;
+								&lt;a href="{{ link('stock-market/seasons/edit', $season) }}" data-xf-click="overlay"&gt;{{ phrase('edit') }}&lt;/a&gt;
+								|
+								&lt;xf:if is="$season.is_active"&gt;
+									&lt;a href="{{ link('stock-market/seasons/end', $season) }}" data-xf-click="overlay"&gt;{{ phrase('ic_sm_end_season') }}&lt;/a&gt;
+								&lt;xf:else /&gt;
+									&lt;a href="{{ link('stock-market/seasons/delete', $season) }}" data-xf-click="overlay"&gt;{{ phrase('delete') }}&lt;/a&gt;
+								&lt;/xf:if&gt;
+							&lt;/xf:cell&gt;
+						&lt;/xf:datarow&gt;
+					&lt;/xf:foreach&gt;
+				&lt;/xf:datalist&gt;
+			&lt;/div&gt;
+		&lt;/div&gt;
+	&lt;/div&gt;
+&lt;xf:else /&gt;
+	&lt;div class="blockMessage"&gt;{{ phrase('no_seasons_found') }}&lt;/div&gt;
+&lt;/xf:if&gt;</template>
+
+  
+    
+  <template type="admin" title="ic_sm_season_edit" version_id="1037000" version_string="1.37.0">&lt;xf:title&gt;{{ $season.season_id ? phrase('edit_season') : phrase('add_season') }}&lt;/xf:title&gt;
+
+&lt;xf:form action="{{ link('stock-market/seasons/save', $season) }}" class="block" ajax="true"&gt;
+	&lt;div class="block-container"&gt;
+		&lt;div class="block-body"&gt;
+			&lt;xf:textboxrow name="season_name" value="{$season.season_name}" label="{{ phrase('ic_sm_season_name') }}" required="required" /&gt;
+			&lt;xf:formrow label="{{ phrase('ic_sm_start_date') }}" rowtype="input"&gt;
+				&lt;xf:dateinput name="start_date" value="{{ $season.start_date ? date($season.start_date, 'picker') : '' }}" /&gt;
+			&lt;/xf:formrow&gt;
+			&lt;xf:formrow label="{{ phrase('ic_sm_end_date') }}" rowtype="input"&gt;
+				&lt;xf:dateinput name="end_date" value="{{ $season.end_date ? date($season.end_date, 'picker') : '' }}" /&gt;
+			&lt;/xf:formrow&gt;
+			&lt;xf:numberboxrow name="starting_balance" value="{$season.starting_balance}" label="{{ phrase('ic_sm_starting_balance') }}" step="0.01" /&gt;
+			&lt;xf:checkboxrow label="{{ phrase('options') }}"&gt;
+				&lt;xf:option name="is_active" value="1" selected="{$season.is_active}" label="{{ phrase('ic_sm_is_active') }}" /&gt;
+			&lt;/xf:checkboxrow&gt;
+		&lt;/div&gt;
+		&lt;xf:submitrow sticky="true" submit="{{ phrase('save') }}" /&gt;
+	&lt;/div&gt;
+&lt;/xf:form&gt;</template>
+
+  
+  <template type="admin" title="ic_sm_season_end" version_id="1037000" version_string="1.37.0">&lt;xf:title&gt;{{ phrase('end_season') }}&lt;/xf:title&gt;
+
+&lt;xf:form action="{{ link('stock-market/seasons/end', $season) }}" class="block" ajax="true"&gt;
+	&lt;div class="block-container"&gt;
+		&lt;div class="block-body"&gt;
+			&lt;div class="blockMessage blockMessage--important"&gt;
+				{{ phrase('are_you_sure_you_want_to_end_season_x', {'name': $season.season_name}) }}
+			&lt;/div&gt;
+		&lt;/div&gt;
+		&lt;xf:submitrow sticky="true" submit="{{ phrase('end_season') }}" /&gt;
+	&lt;/div&gt;
+&lt;/xf:form&gt;</template>
+
+  
+  <template type="admin" title="ic_sm_season_delete" version_id="1037000" version_string="1.37.0">&lt;xf:title&gt;{{ phrase('confirm_deletion') }}&lt;/xf:title&gt;
+
+&lt;xf:form action="{{ link('stock-market/seasons/delete', $season) }}" class="block" ajax="true"&gt;
+	&lt;div class="block-container"&gt;
+		&lt;div class="block-body"&gt;
+			&lt;div class="blockMessage"&gt;
+				{{ phrase('please_confirm_deletion_of_x', {'title': $season.season_name}) }}
+			&lt;/div&gt;
+		&lt;/div&gt;
+		&lt;xf:submitrow sticky="true" submit="{{ phrase('delete') }}" /&gt;
+	&lt;/div&gt;
+&lt;/xf:form&gt;</template>
+
+
+  
+  
+
+  
+  <template type="admin" title="ic_sm_symbol_import" version_id="1037000" version_string="1.37.0">&lt;xf:title&gt;{{ phrase('ic_sm_import_symbols') }}&lt;/xf:title&gt;
+
+&lt;xf:form action="{{ link('stock-market/symbols/import-process') }}" upload="true" class="block"&gt;
+	&lt;div class="block-container"&gt;
+		&lt;div class="block-body"&gt;
+			&lt;xf:selectrow name="market_id" label="{{ phrase('ic_sm_market') }}" required="required"&gt;
+				&lt;xf:option value=""&gt;{{ phrase('please_select') }}...&lt;/xf:option&gt;
+				&lt;xf:foreach loop="$markets" value="$market"&gt;
+					&lt;xf:option value="{$market.market_id}"&gt;{$market.market_name} ({$market.market_code})&lt;/xf:option&gt;
+				&lt;/xf:foreach&gt;
+			&lt;/xf:selectrow&gt;
+			
+			&lt;xf:uploadrow name="csv_file" accept=".csv,text/csv" label="{{ phrase('ic_sm_csv_file') }}" explain="{{ phrase('ic_sm_csv_upload_explain') }}" /&gt;
+			
+			&lt;hr class="formRowSep" /&gt;
+			
+			&lt;xf:textarearow name="symbols_data" rows="15" label="{{ phrase('ic_sm_paste_csv_data') }}" explain="{{ phrase('ic_sm_csv_format_help') }}" /&gt;
+		&lt;/div&gt;
+		&lt;xf:submitrow sticky="true" icon="import" submit="{{ phrase('import') }}" /&gt;
+	&lt;/div&gt;
+&lt;/xf:form&gt;</template>
+
+  
+  
+  
+  
+
+  
+  
+
+  
+  <template type="public" title="ic_sm_index" version_id="1055000" version_string="1.55.0">&lt;xf:title&gt;{{ phrase('ic_sm_stock_market') }}&lt;/xf:title&gt;
+
+&lt;xf:css src="ic_stock_market.less" /&gt;
+
+&lt;!-- Quick Navigation Buttons --&gt;
+&lt;div class="block"&gt;
+	&lt;div class="block-container"&gt;
+		&lt;div class="block-body"&gt;
+			&lt;div class="ic-quickNav"&gt;
+				&lt;xf:if is="!$selectedMarket"&gt;
+					&lt;a href="{{ link('stock-market') }}" class="button button--primary"&gt;
+						&lt;xf:fa icon="fa-chart-line" /&gt; {{ phrase('ic_sm_browse_stocks') }}
+					&lt;/a&gt;
+				&lt;xf:else /&gt;
+					&lt;a href="{{ link('stock-market') }}" class="button"&gt;
+						&lt;xf:fa icon="fa-chart-line" /&gt; {{ phrase('ic_sm_browse_stocks') }}
+					&lt;/a&gt;
+				&lt;/xf:if&gt;
+				&lt;xf:if is="$xf.visitor.user_id AND $xf.visitor.hasPermission('icStockMarket', 'trade')"&gt;
+					&lt;a href="{{ link('stock-market/portfolio') }}" class="button"&gt;
+						&lt;xf:fa icon="fa-briefcase" /&gt; {{ phrase('ic_sm_my_portfolio') }}
+					&lt;/a&gt;
+				&lt;/xf:if&gt;
+				&lt;xf:if is="$xf.visitor.user_id"&gt;
+					&lt;a href="{{ link('stock-market/watchlist') }}" class="button"&gt;
+						&lt;xf:fa icon="fa-star" /&gt; {{ phrase('ic_sm_watchlist') }}
+					&lt;/a&gt;
+				&lt;/xf:if&gt;
+				&lt;a href="{{ link('stock-market/leaderboard') }}" class="button"&gt;
+					&lt;xf:fa icon="fa-trophy" /&gt; {{ phrase('ic_sm_leaderboard') }}
+				&lt;/a&gt;
+			&lt;/div&gt;
+		&lt;/div&gt;
+	&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;xf:if is="$account"&gt;
+	&lt;div class="block"&gt;
+		&lt;div class="block-container"&gt;
+			&lt;div class="block-body"&gt;
+				&lt;div class="ic-portfolioSummary"&gt;
+					&lt;h3 class="ic-portfolioSummary-title"&gt;{{ phrase('ic_sm_my_portfolio') }}&lt;/h3&gt;
+					&lt;div class="ic-portfolioSummary-stats"&gt;
+						&lt;div class="ic-portfolioSummary-stat"&gt;
+							&lt;div class="ic-portfolioSummary-label"&gt;{{ phrase('ic_sm_cash_balance') }}&lt;/div&gt;
+							&lt;div class="ic-portfolioSummary-value"&gt;${$cashBalanceDisplay|number(2)}&lt;/div&gt;
+						&lt;/div&gt;
+						&lt;div class="ic-portfolioSummary-stat"&gt;
+							&lt;div class="ic-portfolioSummary-label"&gt;{{ phrase('ic_sm_portfolio_value') }}&lt;/div&gt;
+							&lt;div class="ic-portfolioSummary-value"&gt;${$portfolioValueDisplay|number(2)}&lt;/div&gt;
+						&lt;/div&gt;
+						&lt;div class="ic-portfolioSummary-stat"&gt;
+							&lt;div class="ic-portfolioSummary-label"&gt;{{ phrase('ic_sm_total_value') }}&lt;/div&gt;
+							&lt;div class="ic-portfolioSummary-value ic-portfolioSummary-value--primary"&gt;${$totalValueDisplay|number(2)}&lt;/div&gt;
+						&lt;/div&gt;
+					&lt;/div&gt;
+				&lt;/div&gt;
+			&lt;/div&gt;
+		&lt;/div&gt;
+	&lt;/div&gt;
+&lt;/xf:if&gt;
+
+&lt;xf:if is="count($marketData)"&gt;
+&lt;div class="block"&gt;
+	&lt;div class="block-container"&gt;
+		&lt;h2 class="block-header"&gt;{{ phrase('ic_sm_global_markets') }}&lt;/h2&gt;
+		
+		&lt;div class="block-body"&gt;
+			&lt;div class="ic-markets-grid"&gt;
+				&lt;xf:foreach loop="$marketData" value="$data"&gt;
+					&lt;div class="ic-market-card ic-market-card--{$data.status}"&gt;
+						&lt;div class="ic-market-header"&gt;
+							&lt;div class="ic-market-flag"&gt;
+								&lt;xf:if is="$data.market.country_code == 'US'"&gt;&lt;img src="{{ base_url('data/IC/StockMarket/images/flags/us.svg', 'canonical') }}" alt="US" title="United States" class="ic-flag" /&gt;
+								&lt;xf:elseif is="$data.market.country_code == 'GB'" /&gt;&lt;img src="{{ base_url('data/IC/StockMarket/images/flags/gb.svg', 'canonical') }}" alt="GB" title="United Kingdom" class="ic-flag" /&gt;
+								&lt;xf:elseif is="$data.market.country_code == 'JP'" /&gt;&lt;img src="{{ base_url('data/IC/StockMarket/images/flags/jp.svg', 'canonical') }}" alt="JP" title="Japan" class="ic-flag" /&gt;
+								&lt;xf:elseif is="$data.market.country_code == 'DE'" /&gt;&lt;img src="{{ base_url('data/IC/StockMarket/images/flags/de.svg', 'canonical') }}" alt="DE" title="Germany" class="ic-flag" /&gt;
+								&lt;xf:elseif is="$data.market.country_code == 'FR'" /&gt;&lt;img src="{{ base_url('data/IC/StockMarket/images/flags/fr.svg', 'canonical') }}" alt="FR" title="France" class="ic-flag" /&gt;
+								&lt;xf:elseif is="$data.market.country_code == 'CA'" /&gt;&lt;img src="{{ base_url('data/IC/StockMarket/images/flags/ca.svg', 'canonical') }}" alt="CA" title="Canada" class="ic-flag" /&gt;
+								&lt;xf:elseif is="$data.market.country_code == 'CN'" /&gt;&lt;img src="{{ base_url('data/IC/StockMarket/images/flags/cn.svg', 'canonical') }}" alt="CN" title="China" class="ic-flag" /&gt;
+								&lt;xf:elseif is="$data.market.country_code == 'IN'" /&gt;&lt;img src="{{ base_url('data/IC/StockMarket/images/flags/in.svg', 'canonical') }}" alt="IN" title="India" class="ic-flag" /&gt;
+								&lt;xf:elseif is="$data.market.country_code == 'AU'" /&gt;&lt;img src="{{ base_url('data/IC/StockMarket/images/flags/au.svg', 'canonical') }}" alt="AU" title="Australia" class="ic-flag" /&gt;
+								&lt;xf:else /&gt;&lt;img src="{{ base_url('data/IC/StockMarket/images/flags/default.svg', 'canonical') }}" alt="{$data.market.country_code}" title="{$data.market.country_code}" class="ic-flag" /&gt;
+								&lt;/xf:if&gt;
+							&lt;/div&gt;
+							&lt;div class="ic-market-info"&gt;
+								&lt;h3 class="ic-market-name"&gt;{$data.market.market_name}&lt;/h3&gt;
+								&lt;div class="ic-market-code"&gt;{$data.market.market_code}&lt;/div&gt;
+							&lt;/div&gt;
+						&lt;/div&gt;
+						
+						&lt;div class="ic-market-status"&gt;
+							&lt;xf:if is="$data.status == 'open'"&gt;
+								&lt;span class="badge badge--success badge--large"&gt;
+									&lt;xf:fa icon="fa-circle" /&gt; {{ phrase('ic_sm_market_open') }}
+								&lt;/span&gt;
+							&lt;xf:elseif is="$data.status == 'pre_market'" /&gt;
+								&lt;span class="badge badge--warning badge--large"&gt;
+									&lt;xf:fa icon="fa-circle" /&gt; {{ phrase('ic_sm_market_pre_market') }}
+								&lt;/span&gt;
+							&lt;xf:elseif is="$data.status == 'after_hours'" /&gt;
+								&lt;span class="badge badge--intermediate badge--large"&gt;
+									&lt;xf:fa icon="fa-circle" /&gt; {{ phrase('ic_sm_market_after_hours') }}
+								&lt;/span&gt;
+							&lt;xf:else /&gt;
+								&lt;span class="badge badge--default badge--large"&gt;
+									&lt;xf:fa icon="fa-circle-o" /&gt; {{ phrase('ic_sm_market_closed') }}
+								&lt;/span&gt;
+							&lt;/xf:if&gt;
+						&lt;/div&gt;
+						
+						&lt;div class="ic-market-time"&gt;
+							&lt;div class="ic-market-time-value"&gt;{$data.current_time_formatted}&lt;/div&gt;
+							&lt;div class="ic-market-time-zone"&gt;{$data.timezone_abbr}&lt;/div&gt;
+						&lt;/div&gt;
+						
+						&lt;xf:if is="$data.is_open AND $data.time_until_close"&gt;
+							&lt;div class="ic-market-countdown ic-market-countdown--closing"&gt;
+								&lt;xf:fa icon="fa-clock-o" /&gt;
+								{{ phrase('ic_sm_closes_in', {'time': $data.time_until_close}) }}
+							&lt;/div&gt;
+						&lt;xf:elseif is="!$data.is_open AND $data.time_until_open" /&gt;
+							&lt;div class="ic-market-countdown ic-market-countdown--opening"&gt;
+								&lt;xf:fa icon="fa-clock-o" /&gt;
+								{{ phrase('ic_sm_opens_in', {'time': $data.time_until_open}) }}
+							&lt;/div&gt;
+						&lt;/xf:if&gt;
+						
+						&lt;div class="ic-market-stocks"&gt;
+							&lt;div class="ic-market-stocks-count"&gt;{$data.symbol_count}&lt;/div&gt;
+							&lt;div class="ic-market-stocks-label"&gt;{{ phrase('ic_sm_available_stocks') }}&lt;/div&gt;
+						&lt;/div&gt;
+						
+						&lt;div class="ic-market-actions"&gt;
+							&lt;xf:button href="{{ link('stock-market', '', {'market_id': $data.market.market_id}) }}" class="button--primary button--fullWidth"&gt;
+								&lt;xf:fa icon="fa-line-chart" /&gt; {{ phrase('ic_sm_view_stocks', {'code': $data.market.market_code}) }}
+							&lt;/xf:button&gt;
+						&lt;/div&gt;
+					&lt;/div&gt;
+				&lt;/xf:foreach&gt;
+			&lt;/div&gt;
+		&lt;/div&gt;
+	&lt;/div&gt;
+&lt;/div&gt;
+&lt;/xf:if&gt;
+
+&lt;div class="block u-hiddenResponsiveNarrow"&gt;
+	&lt;div class="block-container"&gt;
+		&lt;h2 class="block-header"&gt;
+			&lt;span class="block-header-text"&gt;{{ phrase('ic_sm_available_stocks') }}&lt;/span&gt;
+		&lt;/h2&gt;
+		
+		&lt;!-- Sort and Search Controls --&gt;
+		&lt;div class="block-filterBar" style="padding: 12px; background: #2d3748; border-bottom: 1px solid #4a5568;"&gt;
+			&lt;div style="display: flex; gap: 12px; align-items: center; flex-wrap: wrap;"&gt;
+				&lt;!-- Search Box --&gt;
+				&lt;form action="{{ link('stock-market') }}" method="get" style="flex: 1; min-width: 200px;"&gt;
+					&lt;xf:if is="$sort"&gt;
+						&lt;input type="hidden" name="sort" value="{$sort}" /&gt;
+					&lt;/xf:if&gt;
+					&lt;xf:if is="$marketId"&gt;
+						&lt;input type="hidden" name="market_id" value="{$marketId}" /&gt;
+					&lt;/xf:if&gt;
+					&lt;div class="inputGroup"&gt;
+						&lt;input type="text" name="search" value="{$search}" 
+							   placeholder="{{ phrase('ic_sm_search_stocks') }}" 
+							   class="input" 
+							   style="background: #1a1d29; color: #e4e6eb; border: 1px solid #4a5568;" /&gt;
+						&lt;span class="inputGroup-splitter"&gt;&lt;/span&gt;
+						&lt;button type="submit" class="button"&gt;
+							&lt;xf:fa icon="fa-search" /&gt;
+						&lt;/button&gt;
+						&lt;xf:if is="$search"&gt;
+							&lt;span class="inputGroup-splitter"&gt;&lt;/span&gt;
+							&lt;a href="{{ link('stock-market', null, $marketId ? {'market_id': $marketId} : {}) }}" class="button"&gt;
+								&lt;xf:fa icon="fa-times" /&gt; {{ phrase('clear') }}
+							&lt;/a&gt;
+						&lt;/xf:if&gt;
+					&lt;/div&gt;
+				&lt;/form&gt;
+				
+				&lt;!-- Sort Dropdown --&gt;
+				&lt;form action="{{ link('stock-market') }}" method="get" style="min-width: 200px;"&gt;
+					&lt;xf:if is="$search"&gt;
+						&lt;input type="hidden" name="search" value="{$search}" /&gt;
+					&lt;/xf:if&gt;
+					&lt;xf:if is="$marketId"&gt;
+						&lt;input type="hidden" name="market_id" value="{$marketId}" /&gt;
+					&lt;/xf:if&gt;
+					&lt;label style="color: #a0aec0; font-size: 11px; text-transform: uppercase; margin-bottom: 4px; display: block;"&gt;
+						{{ phrase('ic_sm_sort_by') }}
+					&lt;/label&gt;
+					&lt;select name="sort" class="input" 
+							   style="background: #1a1d29; color: #e4e6eb; border: 1px solid #4a5568;"
+							   onchange="this.form.submit()"&gt;
+						&lt;option value="symbol_asc" 
+								{{ $sort == 'symbol_asc' ? 'selected="selected"' : '' }}&gt;
+							{{ phrase('ic_sm_sort_symbol_asc') }}
+						&lt;/option&gt;
+						&lt;option value="symbol_desc" 
+								{{ $sort == 'symbol_desc' ? 'selected="selected"' : '' }}&gt;
+							{{ phrase('ic_sm_sort_symbol_desc') }}
+						&lt;/option&gt;
+						&lt;option value="name_asc" 
+								{{ $sort == 'name_asc' ? 'selected="selected"' : '' }}&gt;
+							{{ phrase('ic_sm_sort_name_asc') }}
+						&lt;/option&gt;
+						&lt;option value="name_desc" 
+								{{ $sort == 'name_desc' ? 'selected="selected"' : '' }}&gt;
+							{{ phrase('ic_sm_sort_name_desc') }}
+						&lt;/option&gt;
+						&lt;option value="change_desc" 
+								{{ $sort == 'change_desc' ? 'selected="selected"' : '' }}&gt;
+							{{ phrase('ic_sm_sort_change_desc') }}
+						&lt;/option&gt;
+						&lt;option value="change_asc" 
+								{{ $sort == 'change_asc' ? 'selected="selected"' : '' }}&gt;
+							{{ phrase('ic_sm_sort_change_asc') }}
+						&lt;/option&gt;
+					&lt;/select&gt;
+				&lt;/form&gt;
+			&lt;/div&gt;
+		&lt;/div&gt;
+		
+		&lt;div class="block-body"&gt;
+			&lt;xf:if is="$symbols &amp;&amp; $symbols.count()"&gt;
+				&lt;div class="ic-stockMarket-grid"&gt;
+					&lt;xf:foreach loop="$symbols" value="$symbol"&gt;
+						&lt;div class="ic-stockCard"&gt;
+							
+							&lt;div class="ic-stockCard-header"&gt;
+								&lt;div class="ic-stockCard-symbol"&gt;
+									&lt;a href="{{ link('stock-market/stock', $symbol) }}"&gt;{$symbol.symbol}&lt;/a&gt;
+								&lt;/div&gt;
+								&lt;div class="ic-stockCard-company"&gt;{$symbol.company_name}&lt;/div&gt;
+							&lt;/div&gt;
+							
+							&lt;xf:if is="$symbol.Quote"&gt;
+								&lt;div class="ic-stockCard-price"&gt;
+									${$symbol.Quote.price|number(2)}
+								&lt;/div&gt;
+								
+								&lt;xf:if is="$symbol.Quote.change_amount != 0"&gt;
+									&lt;xf:if is="$symbol.Quote.change_amount &gt; 0"&gt;
+										&lt;div class="ic-stockCard-change ic-stockCard-change--up"&gt;
+											+${$symbol.Quote.change_amount|number(2)} (+{$symbol.Quote.change_percent|number(2)}%)
+										&lt;/div&gt;
+									&lt;xf:else /&gt;
+										&lt;div class="ic-stockCard-change ic-stockCard-change--down"&gt;
+											${$symbol.Quote.change_amount|number(2)} ({$symbol.Quote.change_percent|number(2)}%)
+										&lt;/div&gt;
+									&lt;/xf:if&gt;
+								&lt;/xf:if&gt;
+							&lt;xf:else /&gt;
+								&lt;div class="ic-stockCard-price"&gt;{{ phrase('ic_sm_no_data') }}&lt;/div&gt;
+							&lt;/xf:if&gt;
+							
+							&lt;xf:if is="$xf.visitor.user_id AND $xf.visitor.hasPermission('icStockMarket', 'trade')"&gt;
+								&lt;xf:if is="$symbol.Market.isMarketOpen()"&gt;
+									&lt;a href="{{ link('stock-market/buy', $symbol) }}" class="button button--cta button--fullWidth" data-xf-click="overlay"&gt;
+										Buy
+									&lt;/a&gt;
+								&lt;xf:else /&gt;
+									&lt;a class="button button--disabled button--fullWidth" title="{{ phrase('ic_sm_market_closed') }}"&gt;
+										Buy
+									&lt;/a&gt;
+								&lt;/xf:if&gt;
+							&lt;/xf:if&gt;
+						&lt;/div&gt;
+					&lt;/xf:foreach&gt;
+				&lt;/div&gt;
+				
+				&lt;div class="block-outer block-outer--after"&gt;
+					&lt;xf:pagenav page="{$page}" perpage="{$perPage}" total="{$total}" link="stock-market" /&gt;
+				&lt;/div&gt;
+			&lt;xf:else /&gt;
+				&lt;div class="blockMessage"&gt;{{ phrase('ic_sm_no_stocks_available') }}&lt;/div&gt;
+			&lt;/xf:if&gt;
+		&lt;/div&gt;
+	&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;xf:sidebar&gt;
+	&lt;xf:widgetpos id="ic_sm_index_sidebar" /&gt;
+&lt;/xf:sidebar&gt;
+&lt;xf:js&gt;
+!function() {
+    "use strict";
+    
+    XF.WatchlistToggle = XF.Element.newHandler({
+        init: function() {
+            this.$target.on('ajax-submit:response', XF.proxy(this, 'handleSuccess'));
+        },
+
+        handleSuccess: function(e, data) {
+            if (data.status === 'ok') {
+                var $form = this.$target;
+                var $button = $form.find('button[type="submit"]');
+                
+                // Toggle active class
+                $button.toggleClass('ic-watchlist-btn--active');
+                
+                // Swap icon
+                var $icon = $button.find('i');
+                if ($icon.hasClass('fa-star')) {
+                    $icon.removeClass('fa-star').addClass('fa-star-o');
+                } else {
+                    $icon.removeClass('fa-star-o').addClass('fa-star');
+                }
+                
+                // Swap form action
+                var action = $form.attr('action');
+                if (action.indexOf('watchlist-add') !== -1) {
+                    $form.attr('action', action.replace('watchlist-add', 'watchlist-remove'));
+                } else {
+                    $form.attr('action', action.replace('watchlist-remove', 'watchlist-add'));
+                }
+            }
+        }
+    });
+
+    XF.Element.register('watchlist-toggle', 'XF.WatchlistToggle');
+
+}();
+&lt;/xf:js&gt;
+</template>
+
+  
+  <template type="admin" title="ic_sm_symbol_list" version_id="1041009" version_string="1.41.9">&lt;xf:title&gt;{{ phrase('ic_sm_symbols') }}&lt;/xf:title&gt;
+
+&lt;div class="block"&gt;
+	&lt;div class="block-container"&gt;
+		&lt;h3 class="block-minorHeader"&gt;{{ phrase('ic_sm_symbol_overview') }}&lt;/h3&gt;
+		&lt;div class="block-body block-row"&gt;
+			&lt;dl class="pairs pairs--justified"&gt;
+				&lt;dt&gt;{{ phrase('ic_sm_total_symbols') }}&lt;/dt&gt;
+				&lt;dd&gt;&lt;span class="label label--primary"&gt;{$totalSymbols}&lt;/span&gt;&lt;/dd&gt;
+			&lt;/dl&gt;
+			&lt;dl class="pairs pairs--justified"&gt;
+				&lt;dt&gt;{{ phrase('active') }}&lt;/dt&gt;
+				&lt;dd&gt;&lt;span class="label label--green"&gt;{$activeSymbols}&lt;/span&gt;&lt;/dd&gt;
+			&lt;/dl&gt;
+			&lt;dl class="pairs pairs--justified"&gt;
+				&lt;dt&gt;{{ phrase('inactive') }}&lt;/dt&gt;
+				&lt;dd&gt;&lt;span class="label label--red"&gt;{$inactiveSymbols}&lt;/span&gt;&lt;/dd&gt;
+			&lt;/dl&gt;
+			&lt;dl class="pairs pairs--justified"&gt;
+				&lt;dt&gt;{{ phrase('ic_sm_last_updated') }}&lt;/dt&gt;
+				&lt;dd&gt;
+					&lt;xf:if is="$lastUpdated"&gt;
+						&lt;xf:date time="{$lastUpdated}" /&gt;
+					&lt;xf:else /&gt;
+						{{ phrase('never') }}
+					&lt;/xf:if&gt;
+				&lt;/dd&gt;
+			&lt;/dl&gt;
+		&lt;/div&gt;
+		&lt;div class="block-footer"&gt;
+			&lt;span class="block-footer-controls"&gt;
+				&lt;xf:button href="{{ link('stock-market/symbols/add') }}" icon="add" overlay="true"&gt;
+					{{ phrase('ic_sm_add_symbol') }}
+				&lt;/xf:button&gt;
+				&lt;xf:button href="{{ link('stock-market/symbols/import') }}" icon="import" overlay="true"&gt;
+					{{ phrase('import') }}
+				&lt;/xf:button&gt;
+				&lt;xf:button href="{{ link('stock-market/symbols/update-quotes') }}&amp;update-quotes=1" icon="refresh"&gt;
+					{{ phrase('ic_sm_update_quotes') }}
+				&lt;/xf:button&gt;
+			&lt;/span&gt;
+		&lt;/div&gt;
+	&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;xf:if is="count($symbols)"&gt;
+	&lt;div class="block"&gt;
+		&lt;div class="block-container"&gt;
+			&lt;h3 class="block-header"&gt;{{ phrase('ic_sm_symbol_list') }}&lt;/h3&gt;
+			&lt;div class="block-body"&gt;
+				&lt;xf:datalist&gt;
+					&lt;xf:datarow rowtype="header"&gt;
+						&lt;xf:cell&gt;{{ phrase('ic_sm_symbol') }}&lt;/xf:cell&gt;
+						&lt;xf:cell&gt;{{ phrase('ic_sm_company_name') }}&lt;/xf:cell&gt;
+						&lt;xf:cell&gt;{{ phrase('ic_sm_market') }}&lt;/xf:cell&gt;
+						&lt;xf:cell&gt;{{ phrase('ic_sm_current_price') }}&lt;/xf:cell&gt;
+						&lt;xf:cell&gt;{{ phrase('ic_sm_last_updated') }}&lt;/xf:cell&gt;
+						&lt;xf:cell&gt;{{ phrase('status') }}&lt;/xf:cell&gt;
+						&lt;xf:cell&gt;&lt;/xf:cell&gt;
+					&lt;/xf:datarow&gt;
+					
+					&lt;xf:foreach loop="$symbols" value="$symbol"&gt;
+						&lt;xf:datarow&gt;
+							&lt;xf:cell&gt;
+								&lt;a href="{{ link('stock-market/symbols/edit', $symbol) }}" data-xf-click="overlay"&gt;
+									&lt;strong&gt;{$symbol.symbol}&lt;/strong&gt;
+								&lt;/a&gt;
+							&lt;/xf:cell&gt;
+							&lt;xf:cell&gt;{$symbol.company_name}&lt;/xf:cell&gt;
+							&lt;xf:cell&gt;
+								&lt;xf:if is="$symbol.Market"&gt;
+									{$symbol.Market.market_name}
+								&lt;xf:else /&gt;
+									&lt;span class="u-muted"&gt;{{ phrase('n_a') }}&lt;/span&gt;
+								&lt;/xf:if&gt;
+							&lt;/xf:cell&gt;
+							&lt;xf:cell&gt;
+								&lt;xf:if is="$symbol.Quote"&gt;
+									&lt;div&gt;&lt;strong&gt;${$symbol.Quote.price|number(2)}&lt;/strong&gt;&lt;/div&gt;
+									&lt;xf:if is="$symbol.Quote.change_percent != 0"&gt;
+										&lt;xf:if is="$symbol.Quote.change_percent &gt; 0"&gt;
+											&lt;div style="font-size: 11px; color: #4CAF50;"&gt;+{$symbol.Quote.change_percent|number(2)}%&lt;/div&gt;
+										&lt;xf:else /&gt;
+											&lt;div style="font-size: 11px; color: #f44336;"&gt;{$symbol.Quote.change_percent|number(2)}%&lt;/div&gt;
+										&lt;/xf:if&gt;
+									&lt;/xf:if&gt;
+								&lt;xf:else /&gt;
+									&lt;span class="u-muted"&gt;-&lt;/span&gt;
+								&lt;/xf:if&gt;
+							&lt;/xf:cell&gt;
+							&lt;xf:cell&gt;
+								&lt;xf:if is="$symbol.Quote AND $symbol.Quote.last_updated"&gt;
+									&lt;xf:date time="{$symbol.Quote.last_updated}" /&gt;
+								&lt;xf:else /&gt;
+									&lt;span class="u-muted"&gt;{{ phrase('never') }}&lt;/span&gt;
+								&lt;/xf:if&gt;
+							&lt;/xf:cell&gt;
+							&lt;xf:cell&gt;
+								&lt;xf:if is="$symbol.is_active AND $symbol.Market.is_active"&gt;
+									&lt;span class="label label--green"&gt;Active&lt;/span&gt;
+								&lt;xf:elseif is="$symbol.is_active AND !$symbol.Market.is_active" /&gt;
+									&lt;span class="label label--orange"&gt;Active (Market Inactive)&lt;/span&gt;
+								&lt;xf:else /&gt;
+									&lt;span class="label label--red"&gt;Inactive&lt;/span&gt;
+								&lt;/xf:if&gt;
+							&lt;/xf:cell&gt;
+							&lt;xf:cell&gt;
+								&lt;a href="{{ link('stock-market/symbols/edit', $symbol) }}" data-xf-click="overlay"&gt;{{ phrase('edit') }}&lt;/a&gt;
+								|
+								&lt;a href="{{ link('stock-market/symbols/delete', $symbol) }}" data-xf-click="overlay"&gt;{{ phrase('delete') }}&lt;/a&gt;
+							&lt;/xf:cell&gt;
+						&lt;/xf:datarow&gt;
+					&lt;/xf:foreach&gt;
+				&lt;/xf:datalist&gt;
+			&lt;/div&gt;
+			&lt;div class="block-footer"&gt;
+				&lt;span class="block-footer-controls"&gt;
+					&lt;xf:pagenav page="{$page}" perpage="{$perPage}" total="{$total}" link="stock-market/symbols" /&gt;
+				&lt;/span&gt;
+			&lt;/div&gt;
+		&lt;/div&gt;
+	&lt;/div&gt;
+&lt;xf:else /&gt;
+	&lt;div class="blockMessage"&gt;{{ phrase('no_symbols_found') }}&lt;/div&gt;
+&lt;/xf:if&gt;</template>
+
+  
+  <template type="public" title="ic_sm_buy" version_id="1037000" version_string="1.37.0">&lt;xf:title&gt;Buy {$symbol.symbol}&lt;/xf:title&gt;
+
+&lt;xf:css src="ic_stock_market.less" /&gt;
+
+&lt;xf:form action="{{ link('stock-market/buy', $symbol) }}" ajax="true" class="block"&gt;
+	&lt;div class="block-container"&gt;
+		&lt;div class="block-body"&gt;
+			&lt;div class="ic-tradeOverlay-header ic-tradeOverlay-header--buy"&gt;
+				&lt;div class="ic-tradeOverlay-symbol"&gt;{$symbol.symbol}&lt;/div&gt;
+				&lt;div class="ic-tradeOverlay-company"&gt;{$symbol.company_name}&lt;/div&gt;
+				&lt;div class="ic-tradeOverlay-price"&gt;${$price|number(2)}&lt;/div&gt;
+				&lt;div class="ic-tradeOverlay-priceLabel"&gt;{{ phrase('ic_sm_current_price') }}&lt;/div&gt;
+			&lt;/div&gt;
+			
+			&lt;div class="ic-tradeOverlay-info"&gt;
+				&lt;div class="ic-tradeOverlay-infoRow"&gt;
+					&lt;div class="ic-tradeOverlay-infoLabel"&gt;{{ phrase('ic_sm_your_available_cash') }}&lt;/div&gt;
+					&lt;div class="ic-tradeOverlay-infoValue ic-tradeOverlay-infoValue--green"&gt;${$cashBalanceDisplay|number(2)}&lt;/div&gt;
+				&lt;/div&gt;
+			&lt;/div&gt;
+			
+			&lt;xf:numberboxrow name="quantity" value="1" min="1" label="Quantity (Shares)" explain="How many shares do you want to buy?" /&gt;
+			
+			&lt;div class="ic-tradeOverlay-summary"&gt;
+				&lt;div class="ic-tradeOverlay-summaryTitle"&gt;{{ phrase('ic_sm_order_summary') }}&lt;/div&gt;
+				&lt;div class="ic-tradeOverlay-summaryRow"&gt;
+					&lt;div class="ic-tradeOverlay-summaryLabel"&gt;{{ phrase('ic_sm_price_per_share') }}&lt;/div&gt;
+					&lt;div class="ic-tradeOverlay-summaryValue"&gt;${$price|number(2)}&lt;/div&gt;
+				&lt;/div&gt;
+				&lt;div class="ic-tradeOverlay-summaryRow ic-tradeOverlay-summaryRow--total"&gt;
+					&lt;div class="ic-tradeOverlay-summaryLabel ic-tradeOverlay-summaryLabel--total"&gt;{{ phrase('ic_sm_estimated_total') }}&lt;/div&gt;
+					&lt;div class="ic-tradeOverlay-summaryValue ic-tradeOverlay-summaryValue--total" id="buyTotal"&gt;${$price|number(2)}&lt;/div&gt;
+				&lt;/div&gt;
+			&lt;/div&gt;
+		&lt;/div&gt;
+		
+		&lt;xf:submitrow submit="{{ phrase('ic_sm_buy_shares') }}" icon="shopping-cart" sticky="true" /&gt;
+	&lt;/div&gt;
+&lt;/xf:form&gt;
+
+&lt;script&gt;
+(function() {
+	const pricePerShare = {$price};
+	const quantityInput = document.querySelector('input[name="quantity"]');
+	const totalDisplay = document.getElementById('buyTotal');
+	
+	if (quantityInput &amp;&amp; totalDisplay) {
+		function updateTotal() {
+			const quantity = parseInt(quantityInput.value) || 1;
+			const total = quantity * pricePerShare;
+			totalDisplay.textContent = '$' + total.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+		}
+		
+		quantityInput.addEventListener('input', updateTotal);
+		quantityInput.addEventListener('change', updateTotal);
+		updateTotal();
+	}
+})();
+&lt;/script&gt;</template>
+
+  
+  <template type="public" title="ic_sm_sell" version_id="1037000" version_string="1.37.0">&lt;xf:title&gt;Sell {$symbol.symbol}&lt;/xf:title&gt;
+
+&lt;xf:css src="ic_stock_market.less" /&gt;
+
+&lt;xf:form action="{{ link('stock-market/sell', $symbol) }}" ajax="true" class="block"&gt;
+	&lt;div class="block-container"&gt;
+		&lt;div class="block-body"&gt;
+			&lt;div class="ic-tradeOverlay-header ic-tradeOverlay-header--sell"&gt;
+				&lt;div class="ic-tradeOverlay-symbol"&gt;{$symbol.symbol}&lt;/div&gt;
+				&lt;div class="ic-tradeOverlay-company"&gt;{$symbol.company_name}&lt;/div&gt;
+				&lt;div class="ic-tradeOverlay-price"&gt;${$price|number(2)}&lt;/div&gt;
+				&lt;div class="ic-tradeOverlay-priceLabel"&gt;{{ phrase('ic_sm_current_price') }}&lt;/div&gt;
+			&lt;/div&gt;
+			
+			&lt;div class="ic-tradeOverlay-position"&gt;
+				&lt;div class="ic-tradeOverlay-positionTitle"&gt;{{ phrase('ic_sm_your_position') }}&lt;/div&gt;
+				&lt;div class="ic-tradeOverlay-positionGrid"&gt;
+					&lt;div&gt;
+						&lt;div class="ic-tradeOverlay-positionLabel"&gt;{{ phrase('ic_sm_shares_owned') }}&lt;/div&gt;
+						&lt;div class="ic-tradeOverlay-positionValue"&gt;{$position.quantity|number}&lt;/div&gt;
+					&lt;/div&gt;
+					&lt;div&gt;
+						&lt;div class="ic-tradeOverlay-positionLabel"&gt;{{ phrase('ic_sm_average_cost') }}&lt;/div&gt;
+						&lt;div class="ic-tradeOverlay-positionValue"&gt;${$position.average_price|number(2)}&lt;/div&gt;
+					&lt;/div&gt;
+				&lt;/div&gt;
+			&lt;/div&gt;
+			
+			&lt;xf:numberboxrow name="quantity" value="1" min="1" max="{$position.quantity}" label="Quantity (Shares)" explain="How many shares do you want to sell? (Max: {$position.quantity|number})" /&gt;
+			
+			&lt;div class="ic-tradeOverlay-summary"&gt;
+				&lt;div class="ic-tradeOverlay-summaryTitle"&gt;{{ phrase('ic_sm_sale_summary') }}&lt;/div&gt;
+				&lt;div class="ic-tradeOverlay-summaryRow"&gt;
+					&lt;div class="ic-tradeOverlay-summaryLabel"&gt;{{ phrase('ic_sm_price_per_share') }}&lt;/div&gt;
+					&lt;div class="ic-tradeOverlay-summaryValue"&gt;${$price|number(2)}&lt;/div&gt;
+				&lt;/div&gt;
+				&lt;div class="ic-tradeOverlay-summaryRow ic-tradeOverlay-summaryRow--total"&gt;
+					&lt;div class="ic-tradeOverlay-summaryLabel ic-tradeOverlay-summaryLabel--total"&gt;{{ phrase('ic_sm_youll_receive') }}&lt;/div&gt;
+					&lt;div class="ic-tradeOverlay-summaryValue ic-tradeOverlay-summaryValue--total" id="sellTotal"&gt;${$price|number(2)}&lt;/div&gt;
+				&lt;/div&gt;
+			&lt;/div&gt;
+		&lt;/div&gt;
+		
+		&lt;xf:submitrow submit="{{ phrase('ic_sm_sell_shares') }}" icon="dollar-sign" sticky="true" /&gt;
+	&lt;/div&gt;
+&lt;/xf:form&gt;
+
+&lt;script&gt;
+(function() {
+	const pricePerShare = {$price};
+	const quantityInput = document.querySelector('input[name="quantity"]');
+	const totalDisplay = document.getElementById('sellTotal');
+	
+	if (quantityInput &amp;&amp; totalDisplay) {
+		function updateTotal() {
+			const quantity = parseInt(quantityInput.value) || 1;
+			const total = quantity * pricePerShare;
+			totalDisplay.textContent = '$' + total.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+		}
+		
+		quantityInput.addEventListener('input', updateTotal);
+		quantityInput.addEventListener('change', updateTotal);
+		updateTotal();
+	}
+})();
+&lt;/script&gt;</template>
+
+  
+  
+
+  
+  <template type="public" title="ic_sm_portfolio" version_id="1055001" version_string="1.55.1">&lt;xf:title&gt;{{ phrase('ic_sm_my_portfolio') }}&lt;/xf:title&gt;
+
+&lt;xf:css src="ic_stock_market.less" /&gt;
+
+&lt;div class="block"&gt;
+	&lt;div class="block-container"&gt;
+		&lt;div class="block-body"&gt;
+			&lt;div class="ic-portfolio-summary"&gt;
+				&lt;h2 class="ic-portfolio-summary-title"&gt;{{ phrase('ic_sm_my_portfolio') }}&lt;/h2&gt;
+				&lt;div class="ic-portfolio-summary-stats"&gt;
+					&lt;div class="ic-portfolio-summary-stat"&gt;
+						&lt;div class="ic-portfolio-summary-label"&gt;{{ phrase('ic_sm_cash_balance') }}&lt;/div&gt;
+						&lt;div class="ic-portfolio-summary-value"&gt;${$cashBalanceDisplay|number(2)}&lt;/div&gt;
+					&lt;/div&gt;
+					&lt;div class="ic-portfolio-summary-stat"&gt;
+						&lt;div class="ic-portfolio-summary-label"&gt;{{ phrase('ic_sm_portfolio_value') }}&lt;/div&gt;
+						&lt;div class="ic-portfolio-summary-value"&gt;${$portfolioValueDisplay|number(2)}&lt;/div&gt;
+					&lt;/div&gt;
+					&lt;div class="ic-portfolio-summary-stat"&gt;
+						&lt;div class="ic-portfolio-summary-label"&gt;{{ phrase('ic_sm_profit_loss') }}&lt;/div&gt;
+						&lt;div class="ic-portfolio-summary-value ic-portfolio-summary-value--primary"&gt;&lt;xf:if is="$totalProfitLoss &gt;= 0"&gt;
+						&lt;span class="ic-sm-positive"&gt;+${$totalProfitLoss|number(2)}&lt;/span&gt;
+					&lt;xf:else /&gt;
+						&lt;span class="ic-sm-negative"&gt;${$totalProfitLoss|number(2)}&lt;/span&gt;
+					&lt;/xf:if&gt;&lt;/div&gt;
+					&lt;/div&gt;
+				&lt;/div&gt;
+			&lt;/div&gt;
+			
+			&lt;h3 class="ic-portfolio-section-title"&gt;{{ phrase('ic_sm_my_holdings') }}&lt;/h3&gt;
+			
+			&lt;xf:if is="$positionsWithValues"&gt;
+				&lt;div class="ic-holdingsGrid"&gt;
+					&lt;xf:foreach loop="$positionsWithValues" value="$item"&gt;
+						&lt;div class="ic-holdingCard"&gt;
+							&lt;div class="ic-holdingCard-header"&gt;
+								&lt;div&gt;
+									&lt;div class="ic-holdingCard-symbol"&gt;
+										&lt;a href="{{ link('stock-market/stock', $item.position.Symbol) }}"&gt;{$item.position.Symbol.symbol}&lt;/a&gt;
+									&lt;/div&gt;
+									&lt;div class="ic-holdingCard-company"&gt;{$item.position.Symbol.company_name}&lt;/div&gt;
+								&lt;/div&gt;
+								&lt;div class="ic-holdingCard-shares"&gt;{$item.position.quantity|number} shares&lt;/div&gt;
+							&lt;/div&gt;
+							
+							&lt;div class="ic-holdingCard-price"&gt;
+								${$item.position.Symbol.Quote.price|number(2)}
+							&lt;/div&gt;
+							
+							&lt;div class="ic-holdingCard-stats"&gt;
+								&lt;div&gt;
+									&lt;div class="ic-holdingCard-stat-label"&gt;{{ phrase('ic_sm_avg_cost') }}&lt;/div&gt;
+									&lt;div class="ic-holdingCard-stat-value"&gt;${$item.position.average_price|number(2)}&lt;/div&gt;
+								&lt;/div&gt;
+								&lt;div&gt;
+									&lt;div class="ic-holdingCard-stat-label"&gt;{{ phrase('ic_sm_profit_loss') }}&lt;/div&gt;
+									&lt;div class="ic-holdingCard-stat-value"&gt;${$item.currentValue|number(2)}&lt;/div&gt;
+								&lt;/div&gt;
+								&lt;div&gt;
+									&lt;div class="ic-holdingCard-stat-label"&gt;{{ phrase('ic_sm_gain_loss') }}&lt;/div&gt;
+									&lt;xf:if is="$item.gainLoss &gt; 0"&gt;
+										&lt;div class="ic-holdingCard-stat-value ic-holdingCard-stat-value--gain"&gt;+${$item.gainLoss|number(2)}&lt;/div&gt;
+									&lt;xf:elseif is="$item.gainLoss &lt; 0" /&gt;
+										&lt;div class="ic-holdingCard-stat-value ic-holdingCard-stat-value--loss"&gt;${$item.gainLoss|number(2)}&lt;/div&gt;
+									&lt;xf:else /&gt;
+										&lt;div class="ic-holdingCard-stat-value"&gt;${$item.gainLoss|number(2)}&lt;/div&gt;
+									&lt;/xf:if&gt;
+								&lt;/div&gt;
+								&lt;div&gt;
+									&lt;div class="ic-holdingCard-stat-label"&gt;{{ phrase('ic_sm_return') }}&lt;/div&gt;
+									&lt;xf:if is="$item.returnPercent &gt; 0"&gt;
+										&lt;div class="ic-holdingCard-stat-value ic-holdingCard-stat-value--gain"&gt;+{$item.returnPercent|number(2)}%&lt;/div&gt;
+									&lt;xf:elseif is="$item.returnPercent &lt; 0" /&gt;
+										&lt;div class="ic-holdingCard-stat-value ic-holdingCard-stat-value--loss"&gt;{$item.returnPercent|number(2)}%&lt;/div&gt;
+									&lt;xf:else /&gt;
+										&lt;div class="ic-holdingCard-stat-value"&gt;{$item.returnPercent|number(2)}%&lt;/div&gt;
+									&lt;/xf:if&gt;
+								&lt;/div&gt;
+							&lt;/div&gt;
+							
+							&lt;xf:if is="$xf.visitor.user_id AND $xf.visitor.hasPermission('icStockMarket', 'trade')"&gt;
+								&lt;xf:if is="$item.position.Symbol.Market.isMarketOpen()"&gt;
+									&lt;a href="{{ link('stock-market/sell', $item.position.Symbol) }}" class="button button--fullWidth" data-xf-click="overlay"&gt;
+										Sell
+									&lt;/a&gt;
+								&lt;xf:else /&gt;
+									&lt;a class="button button--disabled button--fullWidth" title="{{ phrase('ic_sm_market_closed') }}"&gt;
+										Sell
+									&lt;/a&gt;
+								&lt;/xf:if&gt;
+							&lt;/xf:if&gt;
+						&lt;/div&gt;
+					&lt;/xf:foreach&gt;
+				&lt;/div&gt;
+			&lt;xf:else /&gt;
+				&lt;div class="blockMessage"&gt;
+					{{ phrase('ic_sm_no_positions_yet') }} Start trading to build your portfolio!
+				&lt;/div&gt;
+			&lt;/xf:if&gt;
+			
+			&lt;div style="margin-top: 20px;"&gt;
+				&lt;a href="{{ link('stock-market') }}" class="button button--primary"&gt;
+					&lt;xf:fa icon="fa-arrow-left" /&gt; {{ phrase('ic_sm_back_to_market') }}
+				&lt;/a&gt;
+			&lt;/div&gt;
+		&lt;/div&gt;
+	&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;xf:sidebar&gt;
+	&lt;xf:widgetpos id="ic_sm_portfolio_sidebar" /&gt;
+&lt;/xf:sidebar&gt;</template>
+
+  
+  <template type="public" title="ic_sm_stock_detail" version_id="1041000" version_string="1.41.0">&lt;xf:title&gt;{$symbol.symbol} - {$symbol.company_name}&lt;/xf:title&gt;
+
+&lt;xf:css src="ic_stock_market.less" /&gt;
+
+&lt;div class="block"&gt;
+	&lt;div class="block-container"&gt;
+		&lt;div class="block-body" style="padding: 0;"&gt;
+			&lt;xf:if is="$stockDetails"&gt;
+				&lt;!-- Stock Header --&gt;
+				&lt;div class="ic-stockDetail-header"&gt;
+					&lt;div class="ic-stockDetail-headerTop"&gt;
+						&lt;div&gt;
+							&lt;h1 class="ic-stockDetail-symbol"&gt;{$symbol.symbol}&lt;/h1&gt;
+							&lt;p class="ic-stockDetail-company"&gt;{$symbol.company_name}&lt;/p&gt;
+						&lt;/div&gt;
+						&lt;xf:if is="$xf.visitor.user_id AND $xf.visitor.hasPermission('icStockMarket', 'trade')"&gt;
+							&lt;div class="ic-stockDetail-actions"&gt;
+								&lt;xf:if is="$symbol.Market.isMarketOpen()"&gt;
+									&lt;a href="{{ link('stock-market/buy', $symbol) }}" class="button button--cta" data-xf-click="overlay"&gt;
+										Buy
+									&lt;/a&gt;
+								&lt;xf:else /&gt;
+									&lt;a class="button button--disabled" title="{{ phrase('ic_sm_market_closed') }}"&gt;
+										Buy
+									&lt;/a&gt;
+								&lt;/xf:if&gt;
+								&lt;xf:if is="$xf.visitor.user_id AND $xf.visitor.hasPermission('icStockMarket', 'trade') AND $position"&gt;
+									&lt;xf:if is="$symbol.Market.isMarketOpen()"&gt;
+										&lt;a href="{{ link('stock-market/sell', $symbol) }}" class="button" data-xf-click="overlay"&gt;
+											Sell
+										&lt;/a&gt;
+									&lt;xf:else /&gt;
+										&lt;a class="button button--disabled" title="{{ phrase('ic_sm_market_closed') }}"&gt;
+											Sell
+										&lt;/a&gt;
+									&lt;/xf:if&gt;
+								&lt;/xf:if&gt;
+							&lt;/div&gt;
+						&lt;/xf:if&gt;
+					&lt;/div&gt;
+					
+					&lt;div class="ic-stockDetail-price"&gt;${$stockDetails.current.price|number(2)}&lt;/div&gt;
+					&lt;xf:if is="$stockDetails.current.change_amount != 0"&gt;
+						&lt;xf:if is="$stockDetails.current.change_amount &gt; 0"&gt;
+							&lt;div class="ic-stockDetail-change ic-stockDetail-change--up"&gt;
+								▲ +${$stockDetails.current.change_amount|number(2)} (+{$stockDetails.current.change_percent|number(2)}%)
+							&lt;/div&gt;
+						&lt;xf:else /&gt;
+							&lt;div class="ic-stockDetail-change ic-stockDetail-change--down"&gt;
+								▼ ${$stockDetails.current.change_amount|number(2)} ({$stockDetails.current.change_percent|number(2)}%)
+							&lt;/div&gt;
+						&lt;/xf:if&gt;
+					&lt;/xf:if&gt;
+					&lt;div class="ic-stockDetail-status"&gt;{{ phrase('ic_sm_market_closed') }}&lt;/div&gt;
+				&lt;/div&gt;
+				
+				&lt;!-- Main Content --&gt;
+				&lt;div class="ic-stockDetail-content"&gt;
+					&lt;!-- Chart Column --&gt;
+					&lt;div&gt;
+						&lt;!-- TradingView Chart (US Stocks Only) --&gt;
+						&lt;xf:if is="$symbol.isTradingViewSupported()"&gt;
+							&lt;div class="ic-stockDetail-chartSection"&gt;
+								&lt;div id="tradingview_chart" style="height: 400px;"&gt;&lt;/div&gt;
+							&lt;/div&gt;
+							
+							&lt;script src="https://s3.tradingview.com/tv.js"&gt;&lt;/script&gt;
+							&lt;script&gt;
+							new TradingView.widget({
+								"width": "100%",
+								"height": 400,
+								"symbol": "{$symbol.getTradingViewSymbol()}",
+								"interval": "D",
+								"timezone": "Etc/UTC",
+								"theme": "dark",
+								"style": "1",
+								"locale": "en",
+								"toolbar_bg": "#1a1d29",
+								"enable_publishing": false,
+								"backgroundColor": "#1a1d29",
+								"gridColor": "#2d3748",
+								"hide_top_toolbar": false,
+								"hide_legend": false,
+								"save_image": false,
+								"container_id": "tradingview_chart"
+							});
+							&lt;/script&gt;
+						&lt;xf:else /&gt;
+							&lt;!-- Enhanced Data Section for TSE/LSE stocks (no chart) --&gt;
+							&lt;div class="ic-stockDetail-enhancedData"&gt;
+								&lt;h3 class="ic-stockDetail-marketData-title"&gt;{{ phrase('ic_sm_market_data') }}&lt;/h3&gt;
+								
+								&lt;div class="ic-stockDetail-enhancedData-grid"&gt;
+									&lt;!-- Row 1: Trading Range --&gt;
+									&lt;div class="ic-stockDetail-enhancedData-item"&gt;
+										&lt;div class="ic-stockDetail-enhancedData-label"&gt;{{ phrase('ic_sm_day_range') }}&lt;/div&gt;
+										&lt;div class="ic-stockDetail-enhancedData-value"&gt;
+											${$stockDetails.current.day_low|number(2)} - ${$stockDetails.current.day_high|number(2)}
+										&lt;/div&gt;
+									&lt;/div&gt;
+									
+									&lt;div class="ic-stockDetail-enhancedData-item"&gt;
+										&lt;div class="ic-stockDetail-enhancedData-label"&gt;{{ phrase('ic_sm_52_week_range') }}&lt;/div&gt;
+										&lt;div class="ic-stockDetail-enhancedData-value"&gt;
+											${$stockDetails.stats.fifty_two_week_low|number(2)} - ${$stockDetails.stats.fifty_two_week_high|number(2)}
+										&lt;/div&gt;
+									&lt;/div&gt;
+									
+									&lt;!-- Row 2: Price Metrics --&gt;
+									&lt;div class="ic-stockDetail-enhancedData-item"&gt;
+										&lt;div class="ic-stockDetail-enhancedData-label"&gt;{{ phrase('ic_sm_previous_close') }}&lt;/div&gt;
+										&lt;div class="ic-stockDetail-enhancedData-value"&gt;
+											${$stockDetails.current.previous_close|number(2)}
+										&lt;/div&gt;
+									&lt;/div&gt;
+									
+									&lt;div class="ic-stockDetail-enhancedData-item"&gt;
+										&lt;div class="ic-stockDetail-enhancedData-label"&gt;{{ phrase('ic_sm_days_change') }}&lt;/div&gt;
+										&lt;div class="ic-stockDetail-enhancedData-value"&gt;
+											&lt;xf:if is="$stockDetails.current.change_amount &gt; 0"&gt;
+												&lt;span class="ic-sm-positive"&gt;+${$stockDetails.current.change_amount|number(2)} (+{$stockDetails.current.change_percent|number(2)}%)&lt;/span&gt;
+											&lt;xf:elseif is="$stockDetails.current.change_amount &lt; 0" /&gt;
+												&lt;span class="ic-sm-negative"&gt;${$stockDetails.current.change_amount|number(2)} ({$stockDetails.current.change_percent|number(2)}%)&lt;/span&gt;
+											&lt;xf:else /&gt;
+												${$stockDetails.current.change_amount|number(2)} ({$stockDetails.current.change_percent|number(2)}%)
+											&lt;/xf:if&gt;
+										&lt;/div&gt;
+									&lt;/div&gt;
+									
+									&lt;!-- Row 3: Volume &amp; Market Cap --&gt;
+									&lt;div class="ic-stockDetail-enhancedData-item"&gt;
+										&lt;div class="ic-stockDetail-enhancedData-label"&gt;Volume&lt;/div&gt;
+										&lt;div class="ic-stockDetail-enhancedData-value"&gt;
+											{$stockDetails.current.volume|number}
+										&lt;/div&gt;
+									&lt;/div&gt;
+									
+									&lt;xf:if is="$stockDetails.stats.market_cap"&gt;
+										&lt;div class="ic-stockDetail-enhancedData-item"&gt;
+											&lt;div class="ic-stockDetail-enhancedData-label"&gt;{{ phrase('ic_sm_market_cap') }}&lt;/div&gt;
+											&lt;div class="ic-stockDetail-enhancedData-value"&gt;
+												${$stockDetails.stats.market_cap|number_short}
+											&lt;/div&gt;
+										&lt;/div&gt;
+									&lt;/xf:if&gt;
+									
+									&lt;!-- Row 4: Exchange Info --&gt;
+									&lt;xf:if is="$stockDetails.stats.exchange"&gt;
+										&lt;div class="ic-stockDetail-enhancedData-item"&gt;
+											&lt;div class="ic-stockDetail-enhancedData-label"&gt;Exchange&lt;/div&gt;
+											&lt;div class="ic-stockDetail-enhancedData-value"&gt;
+												{$stockDetails.stats.exchange}
+											&lt;/div&gt;
+										&lt;/div&gt;
+									&lt;/xf:if&gt;
+									
+									&lt;div class="ic-stockDetail-enhancedData-item"&gt;
+										&lt;div class="ic-stockDetail-enhancedData-label"&gt;{{ phrase('ic_sm_currency') }}&lt;/div&gt;
+										&lt;div class="ic-stockDetail-enhancedData-value"&gt;
+											{$stockDetails.current.currency}
+										&lt;/div&gt;
+									&lt;/div&gt;
+								&lt;/div&gt;
+								
+								&lt;!-- Link to Yahoo Finance for full chart --&gt;
+								&lt;div style="text-align: center; margin-top: 20px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1);"&gt;
+									&lt;a href="https://finance.yahoo.com/quote/{$symbol.symbol}" target="_blank" class="button"&gt;
+										&lt;xf:fa icon="fa-chart-line" /&gt; {{ phrase('ic_sm_view_on_yahoo_finance') }}
+									&lt;/a&gt;
+								&lt;/div&gt;
+							&lt;/div&gt;
+						&lt;/xf:if&gt;
+						
+						&lt;!-- Market Data --&gt;
+						&lt;div class="ic-stockDetail-marketData"&gt;
+							&lt;h3 class="ic-stockDetail-marketData-title"&gt;{{ phrase('ic_sm_market_data') }}&lt;/h3&gt;
+							&lt;div class="ic-stockDetail-marketData-grid"&gt;
+								&lt;div&gt;
+									&lt;div class="ic-stockDetail-marketData-item-label"&gt;{{ phrase('ic_sm_day_range') }}&lt;/div&gt;
+									&lt;div class="ic-stockDetail-marketData-item-value"&gt;${$stockDetails.current.day_low|number(2)} - ${$stockDetails.current.day_high|number(2)}&lt;/div&gt;
+								&lt;/div&gt;
+								&lt;div&gt;
+									&lt;div class="ic-stockDetail-marketData-item-label"&gt;{{ phrase('ic_sm_52_week_range') }}&lt;/div&gt;
+									&lt;div class="ic-stockDetail-marketData-item-value"&gt;${$stockDetails.stats.fifty_two_week_low|number(2)} - ${$stockDetails.stats.fifty_two_week_high|number(2)}&lt;/div&gt;
+								&lt;/div&gt;
+								&lt;div&gt;
+									&lt;div class="ic-stockDetail-marketData-item-label"&gt;{{ phrase('ic_sm_volume') }}&lt;/div&gt;
+									&lt;div class="ic-stockDetail-marketData-item-value"&gt;{$stockDetails.current.volume|number}&lt;/div&gt;
+								&lt;/div&gt;
+								&lt;div&gt;
+									&lt;div class="ic-stockDetail-marketData-item-label"&gt;{{ phrase('ic_sm_previous_close') }}&lt;/div&gt;
+									&lt;div class="ic-stockDetail-marketData-item-value"&gt;${$stockDetails.current.previous_close|number(2)}&lt;/div&gt;
+								&lt;/div&gt;
+							&lt;/div&gt;
+						&lt;/div&gt;
+					&lt;/div&gt;
+					
+					&lt;!-- Sidebar --&gt;
+					&lt;div&gt;
+						&lt;!-- Your Position --&gt;
+						&lt;xf:if is="$position"&gt;
+							&lt;div class="ic-stockDetail-position"&gt;
+								&lt;h3 class="ic-stockDetail-position-title"&gt;{{ phrase('ic_sm_your_position') }}&lt;/h3&gt;
+								&lt;div class="ic-stockDetail-position-stat"&gt;
+									&lt;div class="ic-stockDetail-position-stat-label"&gt;{{ phrase('ic_sm_shares_owned') }}&lt;/div&gt;
+									&lt;div class="ic-stockDetail-position-stat-value ic-stockDetail-position-stat-value--large"&gt;{$position.quantity|number}&lt;/div&gt;
+								&lt;/div&gt;
+								&lt;div class="ic-stockDetail-position-stat"&gt;
+									&lt;div class="ic-stockDetail-position-stat-label"&gt;{{ phrase('ic_sm_average_cost') }}&lt;/div&gt;
+									&lt;div class="ic-stockDetail-position-stat-value"&gt;${$position.average_price|number(2)}&lt;/div&gt;
+								&lt;/div&gt;
+								&lt;div class="ic-stockDetail-position-stat"&gt;
+									&lt;div class="ic-stockDetail-position-stat-label"&gt;{{ phrase('ic_sm_current_value') }}&lt;/div&gt;
+									&lt;div class="ic-stockDetail-position-stat-value"&gt;${$positionValue|number(2)}&lt;/div&gt;
+								&lt;/div&gt;
+								&lt;div class="ic-stockDetail-position-stat"&gt;
+									&lt;div class="ic-stockDetail-position-stat-label"&gt;{{ phrase('ic_sm_gain_loss') }}&lt;/div&gt;
+									&lt;xf:if is="$positionGainLoss &gt; 0"&gt;
+										&lt;div class="ic-stockDetail-position-stat-value ic-stockDetail-position-stat-value--gain"&gt;+${$positionGainLoss|number(2)}&lt;/div&gt;
+									&lt;xf:elseif is="$positionGainLoss &lt; 0" /&gt;
+										&lt;div class="ic-stockDetail-position-stat-value ic-stockDetail-position-stat-value--loss"&gt;${$positionGainLoss|number(2)}&lt;/div&gt;
+									&lt;xf:else /&gt;
+										&lt;div class="ic-stockDetail-position-stat-value"&gt;${$positionGainLoss|number(2)}&lt;/div&gt;
+									&lt;/xf:if&gt;
+								&lt;/div&gt;
+							&lt;/div&gt;
+						&lt;/xf:if&gt;
+					&lt;/div&gt;
+				&lt;/div&gt;
+				
+				&lt;!-- Back Button --&gt;
+				&lt;div style="padding: 16px; border-top: 1px solid #2d3748;"&gt;
+					&lt;a href="{{ link('stock-market') }}" class="button button--primary"&gt;
+						&lt;xf:fa icon="fa-arrow-left" /&gt; {{ phrase('ic_sm_back_to_market') }}
+					&lt;/a&gt;
+				&lt;/div&gt;
+			&lt;xf:else /&gt;
+				&lt;div class="blockMessage"&gt;{{ phrase('ic_sm_no_price_data_available') }}&lt;/div&gt;
+			&lt;/xf:if&gt;
+		&lt;/div&gt;
+	&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;xf:sidebar&gt;
+	
+&lt;/xf:sidebar&gt;
+&lt;xf:js&gt;
+!function() {
+    "use strict";
+    
+    if (typeof XF.WatchlistToggle === 'undefined') {
+        XF.WatchlistToggle = XF.Element.newHandler({
+            init: function() {
+                this.$target.on('ajax-submit:response', XF.proxy(this, 'handleSuccess'));
+            },
+
+            handleSuccess: function(e, data) {
+                if (data.status === 'ok') {
+                    var $form = this.$target;
+                    var $button = $form.find('button[type="submit"]');
+                    
+                    // Toggle active class
+                    $button.toggleClass('ic-watchlist-btn--active');
+                    
+                    // Swap icon
+                    var $icon = $button.find('i');
+                    if ($icon.hasClass('fa-star')) {
+                        $icon.removeClass('fa-star').addClass('fa-star-o');
+                    } else {
+                        $icon.removeClass('fa-star-o').addClass('fa-star');
+                    }
+                    
+                    // Swap form action
+                    var action = $form.attr('action');
+                    if (action.indexOf('watchlist-add') !== -1) {
+                        $form.attr('action', action.replace('watchlist-add', 'watchlist-remove'));
+                    } else {
+                        $form.attr('action', action.replace('watchlist-remove', 'watchlist-add'));
+                    }
+                }
+            }
+        });
+
+        XF.Element.register('watchlist-toggle', 'XF.WatchlistToggle');
+    }
+}();
+&lt;/xf:js&gt;
+</template>
+<template type="public" title="ic_stock_market.less" version_id="1037000" version_string="1.37.0">/* ============================================
+   STOCK MARKET - PROPER XENFORO RESPONSIVE
+   ============================================ */
+
+/* ============================================
+   INDEX PAGE
+   ============================================ */
+.ic-portfolioSummary {
+	background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+	padding: 16px;
+	margin-bottom: 16px;
+	border-radius: 8px;
+	
+	@media (max-width: @xf-responsiveNarrow) {
+		padding: 12px;
+	}
+}
+
+.ic-portfolioSummary-title {
+	color: white;
+	margin: 0 0 16px 0;
+	font-size: 18px;
+	font-weight: 700;
+	
+	@media (max-width: @xf-responsiveNarrow) {
+		font-size: 16px;
+		margin-bottom: 12px;
+	}
+}
+
+.ic-portfolioSummary-stats {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+	gap: 12px;
+	
+	@media (max-width: @xf-responsiveNarrow) {
+		grid-template-columns: 1fr;
+		gap: 8px;
+	}
+}
+
+.ic-portfolioSummary-stat {
+	text-align: center;
+}
+
+.ic-portfolioSummary-label {
+	color: rgba(255,255,255,0.8);
+	font-size: 10px;
+	text-transform: uppercase;
+	letter-spacing: 0.5px;
+	margin-bottom: 6px;
+	
+	@media (max-width: @xf-responsiveNarrow) {
+		font-size: 9px;
+	}
+}
+
+.ic-portfolioSummary-value {
+	color: white;
+	font-size: 20px;
+	font-weight: 700;
+	
+	@media (max-width: @xf-responsiveNarrow) {
+		font-size: 18px;
+	}
+	
+	&amp;--primary {
+		color: #6ee7b7;
+	}
+}
+
+.ic-stockMarket-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+	gap: 16px;
+	
+	@media (max-width: @xf-responsiveNarrow) {
+		grid-template-columns: 1fr;
+	}
+	
+	@media (min-width: @xf-responsiveMedium) and (max-width: @xf-responsiveWide) {
+		grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+	}
+}
+
+.ic-stockCard {
+	background: #242938;
+	border-radius: 8px;
+	padding: 16px;
+	border: 1px solid #2d3748;
+	transition: all 0.2s;
+	
+	&amp;:hover {
+		border-color: #4a5568;
+		transform: translateY(-2px);
+		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+	}
+}
+
+.ic-stockCard-header {
+	margin-bottom: 12px;
+}
+
+.ic-stockCard-symbol {
+	font-size: 18px;
+	font-weight: 700;
+	margin-bottom: 4px;
+	
+	a {
+		color: #ffffff;
+		text-decoration: none;
+		
+		&amp;:hover {
+			color: #4299e1;
+		}
+	}
+}
+
+.ic-stockCard-company {
+	font-size: 12px;
+	color: #a0aec0;
+}
+
+.ic-stockCard-price {
+	font-size: 22px;
+	font-weight: 700;
+	color: #e4e6eb;
+	margin: 10px 0;
+}
+
+.ic-stockCard-change {
+	font-size: 13px;
+	font-weight: 600;
+	margin-bottom: 10px;
+	
+	&amp;--up { color: #48bb78; }
+	&amp;--down { color: #f56565; }
+}
+
+/* ============================================
+   HOLDINGS GRID
+   ============================================ */
+.ic-holdingsGrid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+	gap: 16px;
+	
+	@media (max-width: @xf-responsiveNarrow) {
+		grid-template-columns: 1fr;
+	}
+}
+
+.ic-holdingCard {
+	background: #242938;
+	border-radius: 8px;
+	padding: 16px;
+	border: 1px solid #2d3748;
+}
+
+.ic-holdingCard-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: start;
+	margin-bottom: 12px;
+}
+
+.ic-holdingCard-symbol {
+	font-size: 18px;
+	font-weight: 700;
+	
+	a {
+		color: #ffffff;
+		text-decoration: none;
+		
+		&amp;:hover {
+			color: #4299e1;
+		}
+	}
+}
+
+.ic-holdingCard-company {
+	font-size: 12px;
+	color: #a0aec0;
+	margin-top: 2px;
+}
+
+.ic-holdingCard-shares {
+	font-size: 13px;
+	color: #a0aec0;
+}
+
+.ic-holdingCard-price {
+	font-size: 22px;
+	font-weight: 700;
+	color: #e4e6eb;
+	margin-bottom: 12px;
+}
+
+.ic-holdingCard-stats {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 10px;
+	padding-top: 12px;
+	border-top: 1px solid #2d3748;
+}
+
+.ic-holdingCard-stat {
+	&amp;-label {
+		font-size: 10px;
+		color: #718096;
+		margin-bottom: 4px;
+	}
+	
+	&amp;-value {
+		font-size: 14px;
+		font-weight: 600;
+		color: #e4e6eb;
+		
+		&amp;--gain { color: #48bb78; }
+		&amp;--loss { color: #f56565; }
+	}
+}
+
+/* ============================================
+   STOCK DETAIL PAGE
+   ============================================ */
+.ic-stockDetail-header {
+	background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+	padding: 16px;
+	color: white;
+	border-radius: 8px 8px 0 0;
+	
+	@media (max-width: @xf-responsiveNarrow) {
+		padding: 12px;
+	}
+}
+
+.ic-stockDetail-headerTop {
+	display: flex;
+	justify-content: space-between;
+	align-items: start;
+	flex-wrap: wrap;
+	gap: 12px;
+	margin-bottom: 16px;
+	
+	@media (max-width: @xf-responsiveNarrow) {
+		margin-bottom: 12px;
+	}
+}
+
+.ic-stockDetail-symbol {
+	font-size: 24px;
+	font-weight: 700;
+	margin: 0;
+	
+	@media (max-width: @xf-responsiveNarrow) {
+		font-size: 20px;
+	}
+}
+
+.ic-stockDetail-company {
+	font-size: 14px;
+	opacity: 0.9;
+	margin: 4px 0 0 0;
+	
+	@media (max-width: @xf-responsiveNarrow) {
+		font-size: 13px;
+	}
+}
+
+.ic-stockDetail-actions {
+	display: flex;
+	gap: 8px;
+}
+
+.ic-stockDetail-price {
+	font-size: 36px;
+	font-weight: 700;
+	
+	@media (max-width: @xf-responsiveNarrow) {
+		font-size: 28px;
+	}
+}
+
+.ic-stockDetail-change {
+	font-size: 16px;
+	margin-top: 6px;
+	
+	@media (max-width: @xf-responsiveNarrow) {
+		font-size: 14px;
+	}
+	
+	&amp;--up { color: #6ee7b7; }
+	&amp;--down { color: #fca5a5; }
+}
+
+.ic-stockDetail-status {
+	font-size: 12px;
+	opacity: 0.8;
+	margin-top: 4px;
+}
+
+.ic-stockDetail-content {
+	display: grid;
+	grid-template-columns: 1fr 320px;
+	gap: 20px;
+	padding: 16px;
+	
+	@media (max-width: @xf-responsiveWide) {
+		grid-template-columns: 1fr;
+		padding: 12px;
+	}
+}
+
+.ic-stockDetail-chartSection {
+	background: #1a1d29;
+	border-radius: 8px;
+	padding: 16px;
+	margin-bottom: 16px;
+}
+
+.ic-stockDetail-marketData {
+	background: #242938;
+	border-radius: 8px;
+	padding: 16px;
+}
+
+.ic-stockDetail-marketData-title {
+	margin: 0 0 12px 0;
+	font-size: 16px;
+	color: #e4e6eb;
+}
+
+.ic-stockDetail-marketData-grid {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 12px;
+}
+
+.ic-stockDetail-marketData-item {
+	&amp;-label {
+		font-size: 11px;
+		color: #a0aec0;
+		margin-bottom: 4px;
+	}
+	
+	&amp;-value {
+		font-size: 14px;
+		color: #e4e6eb;
+		font-weight: 600;
+	}
+}
+
+/* Enhanced Data Section (for TSE/LSE stocks without charts) */
+.ic-stockDetail-enhancedData {
+	background: #242938;
+	border-radius: 8px;
+	padding: 20px;
+	margin-bottom: 20px;
+}
+
+.ic-stockDetail-enhancedData-grid {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	gap: 20px;
+	
+	@media (max-width: @xf-responsiveNarrow) {
+		grid-template-columns: 1fr;
+		gap: 16px;
+	}
+}
+
+.ic-stockDetail-enhancedData-item {
+	padding: 12px;
+	background: rgba(255, 255, 255, 0.03);
+	border-radius: 6px;
+	border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.ic-stockDetail-enhancedData-label {
+	font-size: 12px;
+	color: #a0aec0;
+	margin-bottom: 6px;
+	text-transform: uppercase;
+	letter-spacing: 0.5px;
+	font-weight: 600;
+}
+
+.ic-stockDetail-enhancedData-value {
+	font-size: 16px;
+	color: #e4e6eb;
+	font-weight: 700;
+}
+
+.ic-stockDetail-position {
+	background: #065f46;
+	border-radius: 8px;
+	padding: 16px;
+	border: 2px solid #10b981;
+	margin-bottom: 16px;
+}
+
+.ic-stockDetail-position-title {
+	margin: 0 0 12px 0;
+	font-size: 16px;
+	color: #d1fae5;
+}
+
+.ic-stockDetail-position-stat {
+	margin-bottom: 10px;
+	
+	&amp;:last-child {
+		margin-bottom: 0;
+	}
+	
+	&amp;-label {
+		font-size: 11px;
+		color: #a7f3d0;
+		margin-bottom: 4px;
+	}
+	
+	&amp;-value {
+		font-size: 18px;
+		color: #ffffff;
+		font-weight: 700;
+		
+		&amp;--large {
+			font-size: 22px;
+		}
+		
+		&amp;--gain { color: #6ee7b7; }
+		&amp;--loss { color: #fca5a5; }
+	}
+}
+
+/* ============================================
+   PORTFOLIO PAGE
+   ============================================ */
+.ic-portfolio-summary {
+	background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+	padding: 20px;
+	margin-bottom: 20px;
+	border-radius: 8px;
+	
+	@media (max-width: @xf-responsiveNarrow) {
+		padding: 16px;
+		margin-bottom: 16px;
+	}
+}
+
+.ic-portfolio-summary-title {
+	color: white;
+	margin: 0 0 16px 0;
+	font-size: 20px;
+	font-weight: 700;
+	
+	@media (max-width: @xf-responsiveNarrow) {
+		font-size: 18px;
+	}
+}
+
+.ic-portfolio-summary-stats {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+	gap: 14px;
+	
+	@media (max-width: @xf-responsiveNarrow) {
+		grid-template-columns: 1fr;
+		gap: 10px;
+	}
+}
+
+.ic-portfolio-summary-stat {
+	text-align: center;
+}
+
+.ic-portfolio-summary-label {
+	color: rgba(255,255,255,0.8);
+	font-size: 10px;
+	text-transform: uppercase;
+	letter-spacing: 0.5px;
+	margin-bottom: 6px;
+}
+
+.ic-portfolio-summary-value {
+	color: white;
+	font-size: 24px;
+	font-weight: 700;
+	
+	@media (max-width: @xf-responsiveNarrow) {
+		font-size: 20px;
+	}
+	
+	&amp;--primary {
+		color: #6ee7b7;
+	}
+}
+
+.ic-portfolio-section-title {
+	margin: 0 0 14px 0;
+	font-size: 16px;
+	color: #e4e6eb;
+}
+
+/* ============================================
+   BUY/SELL OVERLAYS
+   ============================================ */
+.ic-tradeOverlay-header {
+	padding: 16px;
+	margin: -12px -12px 16px -12px;
+	border-radius: 8px;
+	text-align: center;
+	color: white;
+	
+	@media (max-width: @xf-responsiveNarrow) {
+		padding: 12px;
+		margin-bottom: 12px;
+	}
+	
+	&amp;--buy {
+		background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+	}
+	
+	&amp;--sell {
+		background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+	}
+}
+
+.ic-tradeOverlay-symbol {
+	font-size: 24px;
+	font-weight: 700;
+	margin-bottom: 4px;
+	
+	@media (max-width: @xf-responsiveNarrow) {
+		font-size: 20px;
+	}
+}
+
+.ic-tradeOverlay-company {
+	font-size: 13px;
+	opacity: 0.9;
+	margin-bottom: 10px;
+}
+
+.ic-tradeOverlay-price {
+	font-size: 28px;
+	font-weight: 700;
+	margin-top: 6px;
+	
+	@media (max-width: @xf-responsiveNarrow) {
+		font-size: 24px;
+	}
+}
+
+.ic-tradeOverlay-priceLabel {
+	font-size: 11px;
+	opacity: 0.8;
+	margin-top: 4px;
+}
+
+.ic-tradeOverlay-info {
+	background: #242938;
+	border-radius: 8px;
+	padding: 14px;
+	margin-bottom: 16px;
+	border: 1px solid #2d3748;
+}
+
+.ic-tradeOverlay-infoRow {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.ic-tradeOverlay-infoLabel {
+	color: #a0aec0;
+	font-size: 12px;
+}
+
+.ic-tradeOverlay-infoValue {
+	font-size: 18px;
+	font-weight: 700;
+	
+	&amp;--green { color: #10b981; }
+}
+
+.ic-tradeOverlay-position {
+	background: #242938;
+	border-radius: 8px;
+	padding: 14px;
+	margin-bottom: 16px;
+	border: 1px solid #2d3748;
+}
+
+.ic-tradeOverlay-positionTitle {
+	color: #a0aec0;
+	font-size: 11px;
+	text-transform: uppercase;
+	letter-spacing: 0.5px;
+	margin-bottom: 10px;
+}
+
+.ic-tradeOverlay-positionGrid {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 12px;
+}
+
+.ic-tradeOverlay-positionLabel {
+	color: #718096;
+	font-size: 12px;
+	margin-bottom: 4px;
+}
+
+.ic-tradeOverlay-positionValue {
+	color: #e4e6eb;
+	font-size: 18px;
+	font-weight: 700;
+}
+
+.ic-tradeOverlay-summary {
+	background: #1a1d29;
+	border-radius: 8px;
+	padding: 14px;
+	margin-top: 14px;
+	border: 2px solid #3b82f6;
+}
+
+.ic-tradeOverlay-summaryTitle {
+	color: #a0aec0;
+	font-size: 11px;
+	text-transform: uppercase;
+	letter-spacing: 0.5px;
+	margin-bottom: 10px;
+}
+
+.ic-tradeOverlay-summaryRow {
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 8px;
+	
+	&amp;--total {
+		padding-top: 10px;
+		border-top: 1px solid #2d3748;
+		margin-bottom: 0;
+	}
+}
+
+.ic-tradeOverlay-summaryLabel {
+	color: #a0aec0;
+	font-size: 13px;
+	
+	&amp;--total {
+		color: #e4e6eb;
+		font-size: 15px;
+		font-weight: 600;
+	}
+}
+
+.ic-tradeOverlay-summaryValue {
+	color: #e4e6eb;
+	font-size: 13px;
+	font-weight: 600;
+	
+	&amp;--total {
+		color: #10b981;
+		font-size: 16px;
+		font-weight: 700;
+	}
+}
+
+/* ============================================
+   GLOBAL MARKETS DASHBOARD (v1.52.0)
+   ============================================ */
+.ic-markets-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+	gap: @xf-paddingMedium;
+	margin: @xf-paddingLarge 0;
+	
+	@media (max-width: @xf-responsiveNarrow) {
+		grid-template-columns: 1fr;
+	}
+}
+
+.ic-market-card {
+	background: @xf-contentBg;
+	border: @xf-borderSize solid @xf-borderColor;
+	border-radius: @xf-borderRadiusMedium;
+	padding: @xf-paddingLarge;
+	transition: box-shadow 0.2s ease;
+	
+	&amp;:hover {
+		box-shadow: @xf-boxShadow;
+	}
+	
+	&amp;--open {
+		border-color: @xf-successText;
+		background: @xf-successBg;
+	}
+	
+	&amp;--pre_market {
+		border-color: @xf-warningText;
+		background: @xf-warningBg;
+	}
+	
+	&amp;--after_hours {
+		border-color: @xf-warningText;
+		background: @xf-warningBg;
+	}
+	
+	&amp;--closed {
+		border-color: @xf-borderColor;
+		background: @xf-contentAltBg;
+	}
+}
+
+.ic-market-header {
+	display: flex;
+	align-items: center;
+	margin-bottom: @xf-paddingMedium;
+	padding-bottom: @xf-paddingMedium;
+	border-bottom: @xf-borderSize solid @xf-borderColorLight;
+}
+
+.ic-market-flag {
+	font-size: 32px;
+	margin-right: @xf-paddingMedium;
+}
+
+.ic-market-info {
+	flex: 1;
+}
+
+.ic-market-name {
+	margin: 0;
+	font-size: @xf-fontSizeLarge;
+	font-weight: @xf-fontWeightHeavy;
+	color: @xf-textColor;
+}
+
+.ic-market-code {
+	font-size: @xf-fontSizeSmall;
+	color: @xf-textColorMuted;
+	font-weight: @xf-fontWeightNormal;
+}
+
+.ic-market-status {
+	text-align: center;
+	margin: @xf-paddingMedium 0;
+}
+
+.ic-market-time {
+	text-align: center;
+	margin: @xf-paddingMedium 0;
+	padding: @xf-paddingSmall;
+	background: @xf-contentAltBg;
+	border-radius: @xf-borderRadiusSmall;
+	
+	&amp;-value {
+		font-size: @xf-fontSizeLarge;
+		font-weight: @xf-fontWeightHeavy;
+		color: @xf-textColor;
+	}
+	
+	&amp;-zone {
+		font-size: @xf-fontSizeSmaller;
+		color: @xf-textColorMuted;
+	}
+}
+
+.ic-market-countdown {
+	text-align: center;
+	padding: @xf-paddingSmall;
+	margin: @xf-paddingSmall 0;
+	border-radius: @xf-borderRadiusSmall;
+	font-weight: @xf-fontWeightHeavy;
+	
+	&amp;--closing {
+		background: @xf-warningBg;
+		color: @xf-warningText;
+	}
+	
+	&amp;--opening {
+		background: @xf-infoItemBg;
+		color: @xf-infoItemText;
+	}
+}
+
+.ic-market-stocks {
+	text-align: center;
+	padding: @xf-paddingMedium 0;
+	margin-top: @xf-paddingSmall;
+	border-top: @xf-borderSize solid @xf-borderColorLight;
+	
+	&amp;-count {
+		font-size: 24px;
+		font-weight: @xf-fontWeightHeavy;
+		color: @xf-textColor;
+	}
+	
+	&amp;-label {
+		font-size: @xf-fontSizeSmall;
+		color: @xf-textColorMuted;
+	}
+}
+
+.ic-market-actions {
+	margin-top: @xf-paddingMedium;
+}
+
+/* ============================================
+   WIDGET STYLING (v1.52.0)
+   ============================================ */
+   
+/* Color Utilities for Widgets */
+.ic-sm-positive {
+	color: @xf-textColorSuccess;
+	font-weight: @xf-fontWeightNormal;
+}
+
+.ic-sm-negative {
+	color: @xf-textColorError;
+	font-weight: @xf-fontWeightNormal;
+}
+
+/* Leaderboard Ranks */
+.ic-sm-rank-medal {
+	font-size: 16px;
+	margin-right: @xf-paddingSmall;
+}
+
+.ic-sm-rank-number {
+	display: inline-block;
+	min-width: 20px;
+	margin-right: @xf-paddingSmall;
+	color: @xf-textColorMuted;
+	font-weight: @xf-fontWeightHeavy;
+	text-align: right;
+}
+
+/* Compact Widget Rows */
+.ic-sm-widget-row {
+	padding: @xf-paddingSmall @xf-paddingMedium;
+	
+	.contentRow-title {
+		font-size: @xf-fontSizeSmall;
+		margin-bottom: 2px;
+	}
+	
+	.contentRow-minor {
+		font-size: @xf-fontSizeSmaller;
+		line-height: 1.3;
+	}
+}
+
+/* Quick Navigation Buttons */
+.ic-quickNav {
+	display: flex;
+	gap: 10px;
+	flex-wrap: wrap;
+	justify-content: center;
+	padding: @xf-paddingMedium 0;
+	
+	@media (max-width: @xf-responsiveNarrow) {
+		gap: 8px;
+	}
+	
+	.button {
+		flex: 0 1 auto;
+		white-space: nowrap;
+		
+		i {
+			margin-right: 6px;
+		}
+		
+		@media (max-width: @xf-responsiveNarrow) {
+			font-size: @xf-fontSizeSmaller;
+			padding: @xf-paddingSmall @xf-paddingMedium;
+			
+			i {
+				margin-right: 4px;
+			}
+		}
+	}
+}
+
+/* Watchlist Star Icons */
+.ic-stockCard {
+	position: relative; // For absolute positioning of star
+}
+
+.ic-stockCard-star {
+	position: absolute;
+	top: 8px;
+	right: 8px;
+	z-index: 10;
+}
+
+.ic-watchlist-toggle {
+	display: inline-block;
+	margin: 0;
+	padding: 0;
+}
+
+.ic-watchlist-btn {
+	background: none;
+	border: none;
+	padding: 4px 8px;
+	cursor: pointer;
+	color: @xf-textColorMuted;
+	font-size: 18px;
+	transition: all 0.2s ease;
+	
+	&amp;:hover {
+		color: @xf-textColorAttention;
+		transform: scale(1.1);
+	}
+	
+	&amp;--active {
+		color: @xf-textColorAttention;
+		
+		&amp;:hover {
+			color: @xf-textColorMuted;
+		}
+	}
+	
+	&amp;:focus {
+		outline: none;
+	}
+}
+
+/* Stock Card Market Badge */
+.ic-stockCard-market {
+	margin-top: 4px;
+	
+	.label {
+		font-size: 10px;
+		padding: 2px 6px;
+	}
+}
+
+
+// Flag images
+.ic-flag {
+	display: inline-block;
+	width: 20px;
+	height: 10px;
+	vertical-align: middle;
+	margin-right: 5px;
+	border: 1px solid rgba(0, 0, 0, 0.1);
+	border-radius: 2px;
+}
+
+.ic-market-flag {
+	display: inline-flex;
+	align-items: center;
+	gap: 5px;
+}
+</template><template type="public" title="ic_sm_widget_latest_trades" version_id="1052000" version_string="1.52.0">&lt;xf:if is="$trades is not empty"&gt;
+	&lt;div class="block" data-widget-section="latest-trades"&gt;
+		&lt;div class="block-container"&gt;
+			&lt;h3 class="block-minorHeader"&gt;
+				&lt;a href="{{ link('stock-market') }}"&gt;{$title}&lt;/a&gt;
+			&lt;/h3&gt;
+			&lt;div class="block-body"&gt;
+				&lt;xf:foreach loop="$trades" value="$trade"&gt;
+					&lt;div class="block-row block-row--separated ic-sm-widget-row"&gt;
+						&lt;div class="contentRow"&gt;
+							&lt;div class="contentRow-main"&gt;
+								&lt;h3 class="contentRow-title"&gt;
+									&lt;xf:username user="{$trade}" /&gt;
+									&lt;xf:if is="$trade.type == 'buy'"&gt;
+										&lt;span class="ic-sm-positive"&gt; {{ phrase('ic_sm_bought') }} &lt;/span&gt;
+									&lt;xf:else /&gt;
+										&lt;span class="ic-sm-negative"&gt; {{ phrase('ic_sm_sold') }} &lt;/span&gt;
+									&lt;/xf:if&gt;
+									&lt;strong&gt;{$trade.quantity|number}&lt;/strong&gt; &lt;a href="{{ link('stock-market/stock', $trade) }}"&gt;{$trade.symbol}&lt;/a&gt;
+								&lt;/h3&gt;
+								&lt;div class="contentRow-minor"&gt;
+									{$trade.company_name} · &lt;span class="label label--primary label--smallest"&gt;{$trade.market_code}&lt;/span&gt; · &lt;strong&gt;${$trade.price|number(2)}&lt;/strong&gt; · &lt;xf:date time="{$trade.trade_date}" class="u-dt" /&gt;
+								&lt;/div&gt;
+							&lt;/div&gt;
+						&lt;/div&gt;
+					&lt;/div&gt;
+				&lt;/xf:foreach&gt;
+			&lt;/div&gt;
+		&lt;/div&gt;
+	&lt;/div&gt;
+&lt;/xf:if&gt;</template><template type="public" title="ic_sm_widget_top_movers" version_id="1052000" version_string="1.52.0">&lt;xf:if is="$gainers is not empty OR $losers is not empty"&gt;
+	&lt;div class="block" data-widget-section="top-movers"&gt;
+		&lt;div class="block-container"&gt;
+			&lt;h3 class="block-minorHeader"&gt;
+				&lt;a href="{{ link('stock-market') }}"&gt;{$title}&lt;/a&gt;
+			&lt;/h3&gt;
+			&lt;div class="block-body"&gt;
+				&lt;xf:if is="$showType == 'both' AND $gainers is not empty AND $losers is not empty"&gt;
+					&lt;div class="tabs tabs--standalone" data-xf-init="tabs" role="tablist"&gt;
+						&lt;a class="tabs-tab is-active" role="tab" tabindex="0" aria-controls="gainers-pane"&gt;
+							{{ phrase('ic_sm_gainers') }}
+						&lt;/a&gt;
+						&lt;a class="tabs-tab" role="tab" tabindex="0" aria-controls="losers-pane"&gt;
+							{{ phrase('ic_sm_losers') }}
+						&lt;/a&gt;
+					&lt;/div&gt;
+					
+					&lt;ul class="tabPanes"&gt;
+						&lt;li class="is-active" role="tabpanel" id="gainers-pane"&gt;
+							&lt;div class="listPlain"&gt;
+								&lt;xf:foreach loop="$gainers" value="$stock"&gt;
+									&lt;div class="block-row block-row--separated ic-sm-widget-row"&gt;
+										&lt;div class="contentRow"&gt;
+											&lt;div class="contentRow-main"&gt;
+												&lt;h3 class="contentRow-title"&gt;
+													&lt;a href="{{ link('stock-market/stock', $stock) }}"&gt;{$stock.symbol}&lt;/a&gt; · &lt;span class="label label--primary label--smallest"&gt;{$stock.market_code}&lt;/span&gt;
+												&lt;/h3&gt;
+												&lt;div class="contentRow-minor"&gt;
+													{$stock.company_name}
+												&lt;/div&gt;
+											&lt;/div&gt;
+											&lt;div class="contentRow-extra"&gt;
+												&lt;div&gt;&lt;strong class="ic-sm-positive"&gt;+{$stock.change_percent|number(2)}%&lt;/strong&gt;&lt;/div&gt;
+												&lt;div class="u-muted u-textSmaller"&gt;${$stock.price|number(2)}&lt;/div&gt;
+											&lt;/div&gt;
+										&lt;/div&gt;
+									&lt;/div&gt;
+								&lt;/xf:foreach&gt;
+							&lt;/div&gt;
+						&lt;/li&gt;
+						&lt;li role="tabpanel" id="losers-pane"&gt;
+							&lt;div class="listPlain"&gt;
+								&lt;xf:foreach loop="$losers" value="$stock"&gt;
+									&lt;div class="block-row block-row--separated ic-sm-widget-row"&gt;
+										&lt;div class="contentRow"&gt;
+											&lt;div class="contentRow-main"&gt;
+												&lt;h3 class="contentRow-title"&gt;
+													&lt;a href="{{ link('stock-market/stock', $stock) }}"&gt;{$stock.symbol}&lt;/a&gt; · &lt;span class="label label--primary label--smallest"&gt;{$stock.market_code}&lt;/span&gt;
+												&lt;/h3&gt;
+												&lt;div class="contentRow-minor"&gt;
+													{$stock.company_name}
+												&lt;/div&gt;
+											&lt;/div&gt;
+											&lt;div class="contentRow-extra"&gt;
+												&lt;div&gt;&lt;strong class="ic-sm-negative"&gt;{$stock.change_percent|number(2)}%&lt;/strong&gt;&lt;/div&gt;
+												&lt;div class="u-muted u-textSmaller"&gt;${$stock.price|number(2)}&lt;/div&gt;
+											&lt;/div&gt;
+										&lt;/div&gt;
+									&lt;/div&gt;
+								&lt;/xf:foreach&gt;
+							&lt;/div&gt;
+						&lt;/li&gt;
+					&lt;/ul&gt;
+				&lt;xf:elseif is="$gainers is not empty" /&gt;
+					&lt;div class="listPlain"&gt;
+						&lt;xf:foreach loop="$gainers" value="$stock"&gt;
+							&lt;div class="block-row block-row--separated ic-sm-widget-row"&gt;
+								&lt;div class="contentRow"&gt;
+									&lt;div class="contentRow-main"&gt;
+										&lt;h3 class="contentRow-title"&gt;
+											&lt;a href="{{ link('stock-market/stock', $stock) }}"&gt;{$stock.symbol}&lt;/a&gt; · &lt;span class="label label--primary label--smallest"&gt;{$stock.market_code}&lt;/span&gt;
+										&lt;/h3&gt;
+										&lt;div class="contentRow-minor"&gt;
+											{$stock.company_name}
+										&lt;/div&gt;
+									&lt;/div&gt;
+									&lt;div class="contentRow-extra"&gt;
+										&lt;div&gt;&lt;strong class="ic-sm-positive"&gt;+{$stock.change_percent|number(2)}%&lt;/strong&gt;&lt;/div&gt;
+										&lt;div class="u-muted u-textSmaller"&gt;${$stock.price|number(2)}&lt;/div&gt;
+									&lt;/div&gt;
+								&lt;/div&gt;
+							&lt;/div&gt;
+						&lt;/xf:foreach&gt;
+					&lt;/div&gt;
+				&lt;xf:elseif is="$losers is not empty" /&gt;
+					&lt;div class="listPlain"&gt;
+						&lt;xf:foreach loop="$losers" value="$stock"&gt;
+							&lt;div class="block-row block-row--separated ic-sm-widget-row"&gt;
+								&lt;div class="contentRow"&gt;
+									&lt;div class="contentRow-main"&gt;
+										&lt;h3 class="contentRow-title"&gt;
+											&lt;a href="{{ link('stock-market/stock', $stock) }}"&gt;{$stock.symbol}&lt;/a&gt; · &lt;span class="label label--primary label--smallest"&gt;{$stock.market_code}&lt;/span&gt;
+										&lt;/h3&gt;
+										&lt;div class="contentRow-minor"&gt;
+											{$stock.company_name}
+										&lt;/div&gt;
+									&lt;/div&gt;
+									&lt;div class="contentRow-extra"&gt;
+										&lt;div&gt;&lt;strong class="ic-sm-negative"&gt;{$stock.change_percent|number(2)}%&lt;/strong&gt;&lt;/div&gt;
+										&lt;div class="u-muted u-textSmaller"&gt;${$stock.price|number(2)}&lt;/div&gt;
+									&lt;/div&gt;
+								&lt;/div&gt;
+							&lt;/div&gt;
+						&lt;/xf:foreach&gt;
+					&lt;/div&gt;
+				&lt;/xf:if&gt;
+			&lt;/div&gt;
+		&lt;/div&gt;
+	&lt;/div&gt;
+&lt;/xf:if&gt;</template><template type="admin" title="widget_def_options_ic_sm_latest_trades" version_id="1039004" version_string="1.39.4">&lt;hr class="formRowSep" /&gt;
+
+&lt;xf:numberboxrow name="options[limit]" value="{$options.limit}" min="1" max="50"
+	label="{{ phrase('ic_sm_number_of_trades_to_show') }}"
+	explain="{{ phrase('ic_sm_number_of_trades_to_show_explain') }}" /&gt;</template><template type="admin" title="widget_def_options_ic_sm_top_movers" version_id="1039004" version_string="1.39.4">&lt;hr class="formRowSep" /&gt;
+
+&lt;xf:numberboxrow name="options[limit]" value="{$options.limit}" min="1" max="20"
+	label="{{ phrase('ic_sm_number_of_stocks_to_show') }}"
+	explain="{{ phrase('ic_sm_number_of_stocks_to_show_explain') }}" /&gt;
+
+&lt;xf:radiorow name="options[show_type]" value="{$options.show_type}"
+	label="{{ phrase('ic_sm_display_type') }}"&gt;
+	&lt;xf:option value="both" label="{{ phrase('ic_sm_both_gainers_and_losers') }}"
+		hint="{{ phrase('ic_sm_both_gainers_and_losers_hint') }}" /&gt;
+	&lt;xf:option value="gainers" label="{{ phrase('ic_sm_gainers_only') }}"
+		hint="{{ phrase('ic_sm_gainers_only_hint') }}" /&gt;
+	&lt;xf:option value="losers" label="{{ phrase('ic_sm_losers_only') }}"
+		hint="{{ phrase('ic_sm_losers_only_hint') }}" /&gt;
+&lt;/xf:radiorow&gt;</template><template type="public" title="ic_sm_widget_leaderboard_preview" version_id="1053010" version_string="1.53.10">&lt;xf:if is="$leaders is not empty"&gt;
+	&lt;div class="block" data-widget-section="leaderboard-preview"&gt;
+		&lt;div class="block-container"&gt;
+			&lt;h3 class="block-minorHeader"&gt;
+				&lt;a href="{$link}"&gt;{$title}&lt;/a&gt;
+			&lt;/h3&gt;
+			&lt;div class="block-body"&gt;
+				&lt;xf:foreach loop="$leaders" value="$leader"&gt;
+					&lt;div class="block-row block-row--separated ic-sm-widget-row"&gt;
+						&lt;div class="contentRow"&gt;
+							&lt;div class="contentRow-main"&gt;
+								&lt;h3 class="contentRow-title"&gt;
+									&lt;xf:if is="$leader.rank == 1"&gt;
+										&lt;span class="ic-sm-rank-medal"&gt;🥇&lt;/span&gt;
+									&lt;xf:elseif is="$leader.rank == 2" /&gt;
+										&lt;span class="ic-sm-rank-medal"&gt;🥈&lt;/span&gt;
+									&lt;xf:elseif is="$leader.rank == 3" /&gt;
+										&lt;span class="ic-sm-rank-medal"&gt;🥉&lt;/span&gt;
+									&lt;xf:else /&gt;
+										&lt;span class="ic-sm-rank-number"&gt;#{$leader.rank}&lt;/span&gt;
+									&lt;/xf:if&gt;
+									{$leader.username}
+								&lt;/h3&gt;
+							&lt;/div&gt;
+							&lt;div class="contentRow-extra"&gt;
+								&lt;strong class="ic-sm-positive"&gt;${$leader.total_value|number(2)}&lt;/strong&gt;
+							&lt;/div&gt;
+						&lt;/div&gt;
+					&lt;/div&gt;
+				&lt;/xf:foreach&gt;
+			&lt;/div&gt;
+			&lt;div class="block-footer"&gt;
+				&lt;a href="{$link}" class="block-footer-link"&gt;{{ phrase('ic_sm_view_full_leaderboard') }}&lt;/a&gt;
+			&lt;/div&gt;
+		&lt;/div&gt;
+	&lt;/div&gt;
+&lt;/xf:if&gt;</template>
+  <template type="admin" title="widget_def_options_ic_sm_leaderboard_preview" version_id="1053010" version_string="1.53.10">&lt;hr class="formRowSep" /&gt;
+
+&lt;xf:selectrow name="options[limit]" value="{$options.limit}" label="{{ phrase('ic_sm_number_of_traders_to_show') }}"&gt;
+	&lt;xf:option value="3"&gt;3&lt;/xf:option&gt;
+	&lt;xf:option value="5" selected="true"&gt;5&lt;/xf:option&gt;
+	&lt;xf:option value="10"&gt;10&lt;/xf:option&gt;
+	&lt;xf:option value="15"&gt;15&lt;/xf:option&gt;
+	&lt;xf:option value="20"&gt;20&lt;/xf:option&gt;
+&lt;/xf:selectrow&gt;</template>
+<template title="ic_sm_history" version_id="1053029" version_string="1.53.29" type="public">&lt;xf:title&gt;{{ phrase('ic_sm_trading_history') }}&lt;/xf:title&gt;
+
+&lt;xf:css src="ic_stock_market.less" /&gt;
+
+&lt;div class="block"&gt;
+	&lt;div class="block-container"&gt;
+		&lt;div class="block-body"&gt;
+			&lt;div class="block-row block-row--separated"&gt;
+				&lt;h2 class="block-header"&gt;
+					&lt;span class="block-header-text"&gt;{{ phrase('ic_sm_trading_history') }}&lt;/span&gt;
+				&lt;/h2&gt;
+			&lt;/div&gt;
+			
+			&lt;!-- Filter Bar - ALL IN ONE FORM --&gt;
+			&lt;div class="block-row" style="background: #2d3748; margin: 16px; padding: 16px; border-radius: 8px;"&gt;
+				&lt;form action="{{ link('stock-market/history') }}" method="get" id="historyFilterForm"&gt;
+					&lt;div style="display: flex; gap: 16px; flex-wrap: wrap; align-items: center;"&gt;
+						&lt;!-- Trade Type Filter - Now Radio Buttons --&gt;
+						&lt;div style="display: flex; gap: 8px; align-items: center;"&gt;
+							&lt;label style="color: #a0aec0; font-size: 12px; text-transform: uppercase; margin-right: 8px;"&gt;Type:&lt;/label&gt;
+							&lt;label class="button {{ !$filters.trade_type ? 'button--primary' : '' }}" style="min-width: 70px; cursor: pointer;"&gt;
+								&lt;input type="radio" name="trade_type" value="" {{ !$filters.trade_type ? 'checked' : '' }} 
+									   onchange="this.form.submit()" style="display: none;" /&gt;
+								All
+							&lt;/label&gt;
+							&lt;label class="button {{ $filters.trade_type == 'buy' ? 'button--primary' : '' }}" style="min-width: 70px; cursor: pointer;"&gt;
+								&lt;input type="radio" name="trade_type" value="buy" {{ $filters.trade_type == 'buy' ? 'checked' : '' }} 
+									   onchange="this.form.submit()" style="display: none;" /&gt;
+								Buys
+							&lt;/label&gt;
+							&lt;label class="button {{ $filters.trade_type == 'sell' ? 'button--primary' : '' }}" style="min-width: 70px; cursor: pointer;"&gt;
+								&lt;input type="radio" name="trade_type" value="sell" {{ $filters.trade_type == 'sell' ? 'checked' : '' }} 
+									   onchange="this.form.submit()" style="display: none;" /&gt;
+								Sells
+							&lt;/label&gt;
+						&lt;/div&gt;
+						
+						&lt;!-- Market Filter --&gt;
+						&lt;xf:if is="$markets.count()"&gt;
+							&lt;div style="display: flex; align-items: center; gap: 8px;"&gt;
+								&lt;label style="color: #a0aec0; font-size: 12px; text-transform: uppercase;"&gt;Market:&lt;/label&gt;
+								&lt;select name="market_id" class="input" style="width: auto; min-width: 150px;" onchange="this.form.submit()"&gt;
+									&lt;option value=""&gt;All Markets&lt;/option&gt;
+									&lt;xf:foreach loop="$markets" value="$market"&gt;
+										&lt;option value="{$market.market_id}" {{ $filters.market_id == $market.market_id ? 'selected' : '' }}&gt;
+											{$market.market_code}
+										&lt;/option&gt;
+									&lt;/xf:foreach&gt;
+								&lt;/select&gt;
+							&lt;/div&gt;
+						&lt;/xf:if&gt;
+						
+						&lt;!-- Sort Filter --&gt;
+						&lt;div style="display: flex; align-items: center; gap: 8px; margin-left: auto;"&gt;
+							&lt;label style="color: #a0aec0; font-size: 12px; text-transform: uppercase;"&gt;Sort:&lt;/label&gt;
+							&lt;select name="sort" class="input" style="width: auto; min-width: 180px;" onchange="this.form.submit()"&gt;
+								&lt;option value="date_desc" {{ !$filters.sort || $filters.sort == 'date_desc' ? 'selected' : '' }}&gt;
+									Date (Newest First)
+								&lt;/option&gt;
+								&lt;option value="date_asc" {{ $filters.sort == 'date_asc' ? 'selected' : '' }}&gt;
+									Date (Oldest First)
+								&lt;/option&gt;
+								&lt;option value="amount_desc" {{ $filters.sort == 'amount_desc' ? 'selected' : '' }}&gt;
+									Amount (High to Low)
+								&lt;/option&gt;
+								&lt;option value="amount_asc" {{ $filters.sort == 'amount_asc' ? 'selected' : '' }}&gt;
+									Amount (Low to High)
+								&lt;/option&gt;
+							&lt;/select&gt;
+						&lt;/div&gt;
+					&lt;/div&gt;
+				&lt;/form&gt;
+			&lt;/div&gt;
+			
+			&lt;xf:if is="$trades AND $trades.count()"&gt;
+				&lt;!-- Stats Summary --&gt;
+				&lt;div style="background: #2d3748; margin: 16px; padding: 20px; border-radius: 8px; display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 16px;"&gt;
+					&lt;div style="text-align: center;"&gt;
+						&lt;div style="font-size: 11px; color: #a0aec0; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px;"&gt;{{ phrase('ic_sm_total_buys') }}&lt;/div&gt;
+						&lt;div style="font-size: 24px; color: #48bb78; font-weight: 700;"&gt;{$totalBuys}&lt;/div&gt;
+					&lt;/div&gt;
+					&lt;div style="text-align: center;"&gt;
+						&lt;div style="font-size: 11px; color: #a0aec0; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px;"&gt;{{ phrase('ic_sm_total_sells') }}&lt;/div&gt;
+						&lt;div style="font-size: 24px; color: #f56565; font-weight: 700;"&gt;{$totalSells}&lt;/div&gt;
+					&lt;/div&gt;
+					&lt;div style="text-align: center;"&gt;
+						&lt;div style="font-size: 11px; color: #a0aec0; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px;"&gt;{{ phrase('ic_sm_buy_value') }}&lt;/div&gt;
+						&lt;div style="font-size: 24px; color: #ffffff; font-weight: 700;"&gt;${$totalBuyValue|number(2)}&lt;/div&gt;
+					&lt;/div&gt;
+					&lt;div style="text-align: center;"&gt;
+						&lt;div style="font-size: 11px; color: #a0aec0; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px;"&gt;{{ phrase('ic_sm_sell_value') }}&lt;/div&gt;
+						&lt;div style="font-size: 24px; color: #ffffff; font-weight: 700;"&gt;${$totalSellValue|number(2)}&lt;/div&gt;
+					&lt;/div&gt;
+				&lt;/div&gt;
+				
+				&lt;!-- Trades Table --&gt;
+				&lt;div class="block-row" style="background: #242938; margin: 16px; padding: 0; border-radius: 8px; overflow: hidden;"&gt;
+					&lt;div style="overflow-x: auto;"&gt;
+						&lt;table class="dataList" style="width: 100%; margin: 0;"&gt;
+							&lt;thead style="background: #1a1d29;"&gt;
+								&lt;tr&gt;
+									&lt;th style="padding: 12px; text-align: left; color: #a0aec0; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px;"&gt;{{ phrase('ic_sm_trade_date') }}&lt;/th&gt;
+									&lt;th style="padding: 12px; text-align: center; color: #a0aec0; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px;"&gt;{{ phrase('ic_sm_trade_type') }}&lt;/th&gt;
+									&lt;th style="padding: 12px; text-align: left; color: #a0aec0; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px;"&gt;{{ phrase('ic_sm_trade_stock') }}&lt;/th&gt;
+									&lt;th style="padding: 12px; text-align: center; color: #a0aec0; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px;"&gt;Market&lt;/th&gt;
+									&lt;th style="padding: 12px; text-align: right; color: #a0aec0; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px;"&gt;{{ phrase('ic_sm_trade_quantity') }}&lt;/th&gt;
+									&lt;th style="padding: 12px; text-align: right; color: #a0aec0; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px;"&gt;{{ phrase('ic_sm_trade_price') }}&lt;/th&gt;
+									&lt;th style="padding: 12px; text-align: right; color: #a0aec0; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px;"&gt;{{ phrase('ic_sm_trade_total') }}&lt;/th&gt;
+								&lt;/tr&gt;
+							&lt;/thead&gt;
+							&lt;tbody&gt;
+								&lt;xf:foreach loop="$trades" value="$trade"&gt;
+									&lt;tr style="border-bottom: 1px solid #2d3748;"&gt;
+										&lt;td style="padding: 14px; color: #a0aec0; font-size: 13px;"&gt;
+											&lt;xf:date time="{$trade.trade_date}" /&gt;
+										&lt;/td&gt;
+										
+										&lt;td style="padding: 14px; text-align: center;"&gt;
+											&lt;xf:if is="$trade.trade_type == 'buy'"&gt;
+												&lt;span style="display: inline-block; padding: 4px 12px; border-radius: 12px; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; background: rgba(72, 187, 120, 0.15); color: #48bb78; border: 1px solid rgba(72, 187, 120, 0.3);"&gt;
+													{{ phrase('ic_sm_buy') }}
+												&lt;/span&gt;
+											&lt;xf:else /&gt;
+												&lt;span style="display: inline-block; padding: 4px 12px; border-radius: 12px; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; background: rgba(245, 101, 101, 0.15); color: #f56565; border: 1px solid rgba(245, 101, 101, 0.3);"&gt;
+													{{ phrase('ic_sm_sell') }}
+												&lt;/span&gt;
+											&lt;/xf:if&gt;
+										&lt;/td&gt;
+										
+										&lt;td style="padding: 14px;"&gt;
+											&lt;div&gt;
+												&lt;a href="{{ link('stock-market/stock', $trade.Symbol) }}" style="color: #4299e1; text-decoration: none; font-weight: 600; font-size: 14px;"&gt;
+													{$trade.Symbol.symbol}
+												&lt;/a&gt;
+											&lt;/div&gt;
+											&lt;div style="font-size: 12px; color: #718096; margin-top: 2px;"&gt;
+												{$trade.Symbol.company_name}
+											&lt;/div&gt;
+										&lt;/td&gt;
+										
+										&lt;td style="padding: 14px; text-align: center; color: #e4e6eb; font-size: 12px; font-weight: 500;"&gt;
+											{$trade.Symbol.Market.market_code}
+										&lt;/td&gt;
+										
+										&lt;td style="padding: 14px; text-align: right; color: #e4e6eb; font-size: 14px; font-weight: 500;"&gt;
+											{$trade.quantity|number}
+										&lt;/td&gt;
+										
+										&lt;td style="padding: 14px; text-align: right; color: #e4e6eb; font-size: 14px; font-weight: 500;"&gt;
+											${$trade.price|number(2)}
+										&lt;/td&gt;
+										
+										&lt;td style="padding: 14px; text-align: right; font-size: 14px; font-weight: 600;"&gt;
+											&lt;xf:if is="$trade.trade_type == 'buy'"&gt;
+												&lt;span style="color: #f56565;"&gt;-${$trade.total_cost|number(2)}&lt;/span&gt;
+											&lt;xf:else /&gt;
+												&lt;span style="color: #48bb78;"&gt;+${$trade.total_cost|number(2)}&lt;/span&gt;
+											&lt;/xf:if&gt;
+										&lt;/td&gt;
+									&lt;/tr&gt;
+								&lt;/xf:foreach&gt;
+							&lt;/tbody&gt;
+						&lt;/table&gt;
+					&lt;/div&gt;
+				&lt;/div&gt;
+				
+				&lt;!-- Pagination --&gt;
+				&lt;xf:if is="$total &gt; $perPage"&gt;
+					&lt;div class="block-outer block-outer--after"&gt;
+						&lt;div class="block-outer-main"&gt;
+							&lt;div class="block-footer"&gt;
+								&lt;span class="block-footer-counter"&gt;
+									{{ phrase('showing_x_of_y_items', {'count': $trades.count(), 'total': $total|number}) }}
+								&lt;/span&gt;
+							&lt;/div&gt;
+						&lt;/div&gt;
+						&lt;div class="block-outer-opposite"&gt;
+							&lt;xf:pagenav page="{$page}" perpage="{$perPage}" total="{$total}" link="stock-market/history" params="{$filters}" /&gt;
+						&lt;/div&gt;
+					&lt;/div&gt;
+				&lt;/xf:if&gt;
+			&lt;xf:else /&gt;
+				&lt;div class="blockMessage"&gt;
+					&lt;xf:if is="$filters.trade_type || $filters.market_id"&gt;
+						No trades found matching your filters. &lt;a href="{{ link('stock-market/history') }}"&gt;Clear filters&lt;/a&gt;
+					&lt;xf:else /&gt;
+						{{ phrase('ic_sm_no_trades_yet') }}
+					&lt;/xf:if&gt;
+				&lt;/div&gt;
+			&lt;/xf:if&gt;
+			
+			&lt;div style="margin-top: 20px;"&gt;
+				&lt;a href="{{ link('stock-market') }}" class="button button--primary"&gt;
+					&lt;xf:fa icon="fa-arrow-left" /&gt; {{ phrase('ic_sm_back_to_market') }}
+				&lt;/a&gt;
+			&lt;/div&gt;
+		&lt;/div&gt;
+	&lt;/div&gt;
+&lt;/div&gt;</template>
+
+  <template title="ic_sm_leaderboard" version_id="1055001" version_string="1.55.1" type="public">&lt;xf:title&gt;{{ phrase('ic_sm_leaderboard') }}&lt;/xf:title&gt;
+
+&lt;xf:css src="ic_stock_market.less" /&gt;
+
+&lt;div class="block"&gt;
+	&lt;div class="block-container"&gt;
+		&lt;div class="block-body"&gt;
+			&lt;div class="block-row block-row--separated"&gt;
+				&lt;h2 class="block-header"&gt;
+					&lt;span class="block-header-text"&gt;LEADERBOARD&lt;/span&gt;
+				&lt;/h2&gt;
+			&lt;/div&gt;
+			
+			&lt;!-- Season Filter Dropdown --&gt;
+			&lt;div style="background: #2d3748; margin: 16px; padding: 16px; border-radius: 8px;"&gt;
+				&lt;form action="{{ link('stock-market/leaderboard') }}" method="get"&gt;
+					&lt;div style="display: flex; align-items: center; gap: 12px;"&gt;
+						&lt;label style="color: #a0aec0; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; white-space: nowrap;"&gt;
+							{{ phrase('ic_sm_filter_season') }}:
+						&lt;/label&gt;
+						&lt;select name="season" 
+								   class="input" 
+								   style="flex: 1; max-width: 400px; background: #1a1d29; color: #e4e6eb; border: 1px solid #4a5568;"
+								   data-xf-init="season-filter"&gt;
+							&lt;option value="" {{ !$seasonFilter ? 'selected="selected"' : '' }}&gt;
+								{{ phrase('ic_sm_current_season') }}
+							&lt;/option&gt;
+							&lt;option value="all" {{ $seasonFilter == 'all' ? 'selected="selected"' : '' }}&gt;
+								{{ phrase('ic_sm_all_time') }}
+							&lt;/option&gt;
+							&lt;xf:if is="$availableSeasons"&gt;
+								&lt;xf:foreach loop="$availableSeasons" value="$pastSeason"&gt;
+									&lt;option value="{$pastSeason.season_id}" {{ $seasonFilter == $pastSeason.season_id ? 'selected="selected"' : '' }}&gt;
+										{$pastSeason.season_name}
+									&lt;/option&gt;
+								&lt;/xf:foreach&gt;
+							&lt;/xf:if&gt;
+						&lt;/select&gt;
+					&lt;/div&gt;
+				&lt;/form&gt;
+			&lt;/div&gt;
+			
+			&lt;xf:if is="$leaderboardWithValues"&gt;
+				&lt;!-- User's Rank Card (at top) --&gt;
+				&lt;xf:if is="$userRank"&gt;
+					&lt;div style="background: #2d3748; margin: 16px; padding: 16px; border-radius: 8px; border: 2px solid #4299e1;"&gt;
+						&lt;div style="text-align: center; color: #4299e1; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px;"&gt;{{ phrase('ic_sm_your_rank') }}&lt;/div&gt;
+						&lt;div style="text-align: center; color: #ffffff; font-size: 32px; font-weight: 700;"&gt;#{{$userRank.entry.rank}}&lt;/div&gt;
+						&lt;div style="display: flex; justify-content: space-around; margin-top: 12px; padding-top: 12px; border-top: 1px solid #4a5568;"&gt;
+							&lt;div style="text-align: center;"&gt;
+								&lt;div style="font-size: 11px; color: #a0aec0; margin-bottom: 4px;"&gt;{{ phrase('ic_sm_total_value') }}&lt;/div&gt;
+								&lt;div style="font-size: 14px; color: #e4e6eb; font-weight: 600;"&gt;{{ $userRank.totalValue|currency }}&lt;/div&gt;
+							&lt;/div&gt;
+							&lt;div style="text-align: center;"&gt;
+								&lt;div style="font-size: 11px; color: #a0aec0; margin-bottom: 4px;"&gt;{{ phrase('ic_sm_trading_profit') }}&lt;/div&gt;
+								&lt;xf:if is="$userRank.tradingProfit &gt; 0"&gt;
+									&lt;div style="font-size: 14px; color: #48bb78; font-weight: 600;"&gt;+{{ $userRank.tradingProfit|currency }}&lt;/div&gt;
+								&lt;xf:elseif is="$userRank.tradingProfit &lt; 0" /&gt;
+									&lt;div style="font-size: 14px; color: #f56565; font-weight: 600;"&gt;{{ $userRank.tradingProfit|currency }}&lt;/div&gt;
+								&lt;xf:else /&gt;
+									&lt;div style="font-size: 14px; color: #a0aec0; font-weight: 600;"&gt;{{ $userRank.tradingProfit|currency }}&lt;/div&gt;
+								&lt;/xf:if&gt;
+							&lt;/div&gt;
+							&lt;div style="text-align: center;"&gt;
+								&lt;div style="font-size: 11px; color: #a0aec0; margin-bottom: 4px;"&gt;{{ phrase('ic_sm_return') }}&lt;/div&gt;
+								&lt;xf:if is="$userRank.returnPercent &gt; 0"&gt;
+									&lt;div style="font-size: 14px; color: #48bb78; font-weight: 600;"&gt;+{$userRank.returnPercent|number_format(2)}%&lt;/div&gt;
+								&lt;xf:elseif is="$userRank.returnPercent &lt; 0" /&gt;
+									&lt;div style="font-size: 14px; color: #f56565; font-weight: 600;"&gt;{$userRank.returnPercent|number_format(2)}%&lt;/div&gt;
+								&lt;xf:else /&gt;
+									&lt;div style="font-size: 14px; color: #a0aec0; font-weight: 600;"&gt;{$userRank.returnPercent|number_format(2)}%&lt;/div&gt;
+								&lt;/xf:if&gt;
+							&lt;/div&gt;
+							&lt;xf:if is="$userRank.topStock"&gt;
+								&lt;div style="text-align: center;"&gt;
+									&lt;div style="font-size: 11px; color: #a0aec0; margin-bottom: 4px;"&gt;{{ phrase('ic_sm_most_popular_stock') }}&lt;/div&gt;
+									&lt;div style="font-size: 14px; color: #4299e1; font-weight: 600;"&gt;{$userRank.topStock.symbol}&lt;/div&gt;
+									&lt;div style="font-size: 11px; color: #a0aec0;"&gt;{$userRank.topStock.shares} {{ phrase('ic_sm_shares') }}&lt;/div&gt;
+								&lt;/div&gt;
+							&lt;/xf:if&gt;
+						&lt;/div&gt;
+					&lt;/div&gt;
+				&lt;/xf:if&gt;
+				
+				&lt;!-- Leaderboard Table --&gt;
+				&lt;div class="block-row" style="background: #242938; margin: 16px; padding: 0; border-radius: 8px; overflow: hidden;"&gt;
+					&lt;table class="dataList" style="width: 100%; margin: 0;"&gt;
+						&lt;thead style="background: #1a1d29;"&gt;
+							&lt;tr&gt;
+								&lt;th style="padding: 12px; text-align: center; width: 80px; color: #a0aec0; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px;"&gt;{{ phrase('ic_sm_rank') }}&lt;/th&gt;
+								&lt;th style="padding: 12px; text-align: left; color: #a0aec0; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px;"&gt;{{ phrase('ic_sm_player') }}&lt;/th&gt;
+								&lt;th style="padding: 12px; text-align: right; color: #a0aec0; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px;"&gt;{{ phrase('ic_sm_total_value') }}&lt;/th&gt;
+								&lt;th style="padding: 12px; text-align: right; color: #a0aec0; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px;"&gt;{{ phrase('ic_sm_trading_profit') }}&lt;/th&gt;
+								&lt;th style="padding: 12px; text-align: right; color: #a0aec0; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px;"&gt;Return %&lt;/th&gt;
+								&lt;th style="padding: 12px; text-align: left; color: #a0aec0; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px;"&gt;{{ phrase('ic_sm_most_popular_stock') }}&lt;/th&gt;
+							&lt;/tr&gt;
+						&lt;/thead&gt;
+						&lt;tbody&gt;
+							&lt;xf:foreach loop="$leaderboardWithValues" value="$item"&gt;
+								&lt;tr style="border-bottom: 1px solid #2d3748;"&gt;
+									&lt;!-- Rank --&gt;
+									&lt;td style="padding: 14px; text-align: center; font-weight: 700; font-size: 16px; color: #ffffff;"&gt;
+										&lt;xf:if is="$item.entry.rank == 1"&gt;
+											&lt;span style="color: #ffd700;"&gt;🥇 {$item.entry.rank}&lt;/span&gt;
+										&lt;xf:elseif is="$item.entry.rank == 2" /&gt;
+											&lt;span style="color: #c0c0c0;"&gt;🥈 {$item.entry.rank}&lt;/span&gt;
+										&lt;xf:elseif is="$item.entry.rank == 3" /&gt;
+											&lt;span style="color: #cd7f32;"&gt;🥉 {$item.entry.rank}&lt;/span&gt;
+										&lt;xf:else /&gt;
+											{$item.entry.rank}
+										&lt;/xf:if&gt;
+									&lt;/td&gt;
+									
+									&lt;!-- Player --&gt;
+									&lt;td style="padding: 14px; color: #e4e6eb; font-size: 14px; font-weight: 500;"&gt;
+										&lt;xf:username user="$item.entry.User" defaultname="Unknown User" /&gt;
+									&lt;/td&gt;
+									
+									&lt;!-- Total Value --&gt;
+									&lt;td style="padding: 14px; text-align: right; font-weight: 600; font-size: 14px; color: #e4e6eb;"&gt;
+										{{ $item.totalValue|currency }}
+									&lt;/td&gt;
+									
+									&lt;!-- Trading Profit --&gt;
+									&lt;td style="padding: 14px; text-align: right; font-weight: 600; font-size: 14px;"&gt;
+										&lt;xf:if is="$item.tradingProfit &gt; 0"&gt;
+											&lt;span style="color: #48bb78;"&gt;+{{ $item.tradingProfit|currency }}&lt;/span&gt;
+										&lt;xf:elseif is="$item.tradingProfit &lt; 0" /&gt;
+											&lt;span style="color: #f56565;"&gt;{{ $item.tradingProfit|currency }}&lt;/span&gt;
+										&lt;xf:else /&gt;
+											&lt;span style="color: #a0aec0;"&gt;{{ $item.tradingProfit|currency }}&lt;/span&gt;
+										&lt;/xf:if&gt;
+									&lt;/td&gt;
+									
+									&lt;!-- Return % --&gt;
+									&lt;td style="padding: 14px; text-align: right; font-weight: 600; font-size: 14px;"&gt;
+										&lt;xf:if is="$item.returnPercent &gt; 0"&gt;
+											&lt;span style="color: #48bb78;"&gt;+{$item.returnPercent|number_format(2)}%&lt;/span&gt;
+										&lt;xf:elseif is="$item.returnPercent &lt; 0" /&gt;
+											&lt;span style="color: #f56565;"&gt;{$item.returnPercent|number_format(2)}%&lt;/span&gt;
+										&lt;xf:else /&gt;
+											&lt;span style="color: #a0aec0;"&gt;{$item.returnPercent|number_format(2)}%&lt;/span&gt;
+										&lt;/xf:if&gt;
+									&lt;/td&gt;
+									
+									&lt;!-- Top Stock --&gt;
+									&lt;td style="padding: 14px; color: #e4e6eb; font-size: 13px;"&gt;
+										&lt;xf:if is="$item.topStock"&gt;
+											&lt;div style="display: flex; flex-direction: column; gap: 2px;"&gt;
+												&lt;span style="font-weight: 600; color: #4299e1;"&gt;{$item.topStock.symbol}&lt;/span&gt;
+												&lt;span style="font-size: 11px; color: #a0aec0;"&gt;{$item.topStock.shares} {{ phrase('ic_sm_shares') }}&lt;/span&gt;
+											&lt;/div&gt;
+										&lt;xf:else /&gt;
+											&lt;span style="color: #718096;"&gt;—&lt;/span&gt;
+										&lt;/xf:if&gt;
+									&lt;/td&gt;
+								&lt;/tr&gt;
+							&lt;/xf:foreach&gt;
+						&lt;/tbody&gt;
+					&lt;/table&gt;
+				&lt;/div&gt;
+			&lt;xf:else /&gt;
+				&lt;div class="blockMessage"&gt;{{ phrase('ic_sm_no_leaderboard_entries_yet') }}&lt;/div&gt;
+			&lt;/xf:if&gt;
+			
+			&lt;div class="block-row" style="padding: 16px;"&gt;
+				&lt;a href="{{ link('stock-market') }}" class="button button--primary"&gt;
+					&lt;xf:fa icon="fa-arrow-left" /&gt; {{ phrase('ic_sm_back_to_trading') }}
+				&lt;/a&gt;
+			&lt;/div&gt;
+		&lt;/div&gt;
+	&lt;/div&gt;
+&lt;/div&gt;
+
+
+&lt;xf:js&gt;
+!function() {
+	"use strict";
+	
+	// Season filter dropdown handler
+	XF.Element.extend('season-filter', {
+		__backup: {
+			'init': '_init'
+		},
+		
+		init: function() {
+			this._init();
+			this.$target.on('change', XF.proxy(this, 'submit'));
+		},
+		
+		submit: function(e) {
+			this.$target.closest('form').submit();
+		}
+	});
+}();
+&lt;/xf:js&gt;
+
+&lt;xf:sidebar&gt;
+	&lt;xf:widgetpos id="ic_sm_leaderboard_sidebar" /&gt;
+&lt;/xf:sidebar&gt;</template><template title="alert_ic_sm_user_achievement_earned" version_id="1056002" version_string="1.56.2" type="public">&lt;xf:if is="$extra.title"&gt;
+	You earned the achievement "{$extra.title}"
+&lt;xf:else /&gt;
+	You earned an achievement
+&lt;/xf:if&gt;</template><template title="ic_sm_achievements" version_id="1056005" version_string="1.56.5" type="public">&lt;xf:title&gt;{{ phrase('ic_sm_achievements') }}&lt;/xf:title&gt;
+
+&lt;xf:breadcrumb href="{{ link('stock-market') }}"&gt;{{ phrase('ic_sm_stock_market') }}&lt;/xf:breadcrumb&gt;
+
+&lt;xf:css src="ic_stock_market.less" /&gt;
+
+&lt;div class="block"&gt;
+	&lt;div class="block-container"&gt;
+		&lt;div class="block-body"&gt;
+			&lt;!-- Header --&gt;
+			&lt;div class="block-row block-row--separated"&gt;
+				&lt;h2 class="block-header"&gt;
+					&lt;span class="block-header-text"&gt;ACHIEVEMENTS&lt;/span&gt;
+				&lt;/h2&gt;
+			&lt;/div&gt;
+			
+			&lt;!-- Stats Dashboard --&gt;
+			&lt;div style="background: #2d3748; margin: 16px; padding: 20px; border-radius: 8px;"&gt;
+				&lt;div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 20px; text-align: center;"&gt;
+					&lt;div&gt;
+						&lt;div style="font-size: 32px; font-weight: bold; color: #4caf50;"&gt;
+							{$earnedCount}&lt;span style="color: #a0aec0; font-size: 24px;"&gt;/{$totalCount}&lt;/span&gt;
+						&lt;/div&gt;
+						&lt;div style="font-size: 11px; color: #a0aec0; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 4px;"&gt;
+							Unlocked
+						&lt;/div&gt;
+					&lt;/div&gt;
+					&lt;div&gt;
+						&lt;div style="font-size: 32px; font-weight: bold; color: #3b82f6;"&gt;
+							{$progressPercent}%
+						&lt;/div&gt;
+						&lt;div style="font-size: 11px; color: #a0aec0; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 4px;"&gt;
+							Progress
+						&lt;/div&gt;
+					&lt;/div&gt;
+					&lt;div&gt;
+						&lt;div style="font-size: 32px; font-weight: bold; color: #f59e0b;"&gt;
+							{$totalXp}
+						&lt;/div&gt;
+						&lt;div style="font-size: 11px; color: #a0aec0; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 4px;"&gt;
+							Total XP
+						&lt;/div&gt;
+					&lt;/div&gt;
+				&lt;/div&gt;
+				
+				&lt;!-- Progress Bar --&gt;
+				&lt;xf:if is="$totalCount &gt; 0"&gt;
+					&lt;div style="margin-top: 20px;"&gt;
+						&lt;div style="background: #1a202c; height: 28px; border-radius: 14px; overflow: hidden; position: relative; border: 1px solid #4a5568;"&gt;
+							&lt;div style="background: linear-gradient(90deg, #10b981, #059669); height: 100%; width: {$progressPercent}%; transition: width 0.5s ease;"&gt;&lt;/div&gt;
+							&lt;div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 12px; font-weight: 600; color: #fff; text-shadow: 0 1px 3px rgba(0,0,0,0.8); letter-spacing: 0.5px;"&gt;
+								{$earnedCount} OF {$totalCount} UNLOCKED
+							&lt;/div&gt;
+						&lt;/div&gt;
+					&lt;/div&gt;
+				&lt;/xf:if&gt;
+			&lt;/div&gt;
+			
+			&lt;!-- Achievements List --&gt;
+			&lt;xf:if is="count($progress)"&gt;
+				&lt;xf:foreach loop="$progress" value="$item"&gt;
+					&lt;div class="block-row block-row--separated" style="display: flex; align-items: center; padding: 16px 20px; {xf:if $item.earned, 'background: rgba(76, 175, 80, 0.05); border-left: 3px solid #4caf50;', 'opacity: 0.6; border-left: 3px solid transparent;'}"&gt;
+						
+						&lt;!-- Icon --&gt;
+						&lt;div style="flex-shrink: 0; margin-right: 16px;"&gt;
+							&lt;xf:if is="$item.earned"&gt;
+								&lt;div style="width: 56px; height: 56px; border-radius: 50%; background: linear-gradient(135deg, #10b981, #059669); display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);"&gt;
+									&lt;i class="fa fa-trophy" style="font-size: 28px; color: #fff;"&gt;&lt;/i&gt;
+								&lt;/div&gt;
+							&lt;xf:else /&gt;
+								&lt;div style="width: 56px; height: 56px; border-radius: 50%; background: #2d3748; display: flex; align-items: center; justify-content: center; border: 2px dashed #4a5568;"&gt;
+									&lt;i class="fa fa-lock" style="font-size: 24px; color: #718096;"&gt;&lt;/i&gt;
+								&lt;/div&gt;
+							&lt;/xf:if&gt;
+						&lt;/div&gt;
+						
+						&lt;!-- Details --&gt;
+						&lt;div style="flex-grow: 1; min-width: 0;"&gt;
+							&lt;div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;"&gt;
+								&lt;span style="font-weight: 600; font-size: 16px; {xf:if $item.earned, 'color: #10b981;', 'color: #cbd5e0;'}"&gt;
+									{$item.achievement.title}
+								&lt;/span&gt;
+								&lt;xf:if is="$item.earned"&gt;
+									&lt;span style="display: inline-flex; align-items: center; background: #10b981; color: #fff; font-size: 10px; padding: 3px 8px; border-radius: 4px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;"&gt;
+										&lt;i class="fa fa-check" style="margin-right: 4px;"&gt;&lt;/i&gt;Unlocked
+									&lt;/span&gt;
+								&lt;xf:else /&gt;
+									&lt;span style="display: inline-flex; align-items: center; background: #4a5568; color: #cbd5e0; font-size: 10px; padding: 3px 8px; border-radius: 4px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;"&gt;
+										&lt;i class="fa fa-lock" style="margin-right: 4px;"&gt;&lt;/i&gt;Locked
+									&lt;/span&gt;
+								&lt;/xf:if&gt;
+							&lt;/div&gt;
+							&lt;div style="color: #a0aec0; font-size: 14px; margin-top: 6px; line-height: 1.4;"&gt;
+								{$item.achievement.description}
+							&lt;/div&gt;
+							&lt;xf:if is="$item.earned AND $item.earned_date"&gt;
+								&lt;div style="color: #718096; font-size: 12px; margin-top: 6px;"&gt;
+									&lt;i class="fa fa-calendar" style="margin-right: 4px;"&gt;&lt;/i&gt;
+									&lt;xf:date time="{$item.earned_date}" /&gt;
+								&lt;/div&gt;
+							&lt;/xf:if&gt;
+						&lt;/div&gt;
+						
+						&lt;!-- XP Badge --&gt;
+						&lt;div style="flex-shrink: 0; text-align: right; margin-left: 12px;"&gt;
+							&lt;div style="background: {xf:if $item.earned, 'linear-gradient(135deg, #f59e0b, #d97706)', '#4a5568'}; color: #fff; padding: 10px 16px; border-radius: 8px; font-weight: 700; font-size: 15px; box-shadow: {xf:if $item.earned, '0 4px 12px rgba(245, 158, 11, 0.4)', '0 2px 4px rgba(0,0,0,0.2)'}; min-width: 80px;"&gt;
+								+{$item.achievement.xp_points} XP
+							&lt;/div&gt;
+						&lt;/div&gt;
+					&lt;/div&gt;
+				&lt;/xf:foreach&gt;
+			&lt;xf:else /&gt;
+				&lt;div class="block-row"&gt;
+					{{ phrase('ic_sm_no_achievements_found') }}
+				&lt;/div&gt;
+			&lt;/xf:if&gt;
+		&lt;/div&gt;
+	&lt;/div&gt;
+&lt;/div&gt;</template><template title="ic_sm_achievement_list" type="admin" version_id="1058000" version_string="1.58.0">&lt;xf:title&gt;{{ phrase('ic_sm_achievements') }}&lt;/xf:title&gt;
+
+&lt;div class="block"&gt;
+	&lt;div class="block-container"&gt;
+		&lt;div class="block-body"&gt;
+			&lt;xf:button href="{{ link('stock-market/achievements/add') }}" icon="add" overlay="true"&gt;
+				{{ phrase('ic_sm_add_achievement') }}
+			&lt;/xf:button&gt;
+		&lt;/div&gt;
+	&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;xf:if is="count($achievements)"&gt;
+	&lt;div class="block"&gt;
+		&lt;div class="block-container"&gt;
+			&lt;h3 class="block-header"&gt;{{ phrase('ic_sm_achievement_list') }}&lt;/h3&gt;
+			&lt;div class="block-body"&gt;
+				&lt;xf:datalist&gt;
+					&lt;xf:datarow rowtype="header"&gt;
+						&lt;xf:cell&gt;{{ phrase('ic_sm_achievement') }}&lt;/xf:cell&gt;
+						&lt;xf:cell&gt;{{ phrase('ic_sm_category') }}&lt;/xf:cell&gt;
+						&lt;xf:cell&gt;{{ phrase('ic_sm_xp_points') }}&lt;/xf:cell&gt;
+						&lt;xf:cell&gt;{{ phrase('ic_sm_difficulty') }}&lt;/xf:cell&gt;
+						&lt;xf:cell&gt;{{ phrase('status') }}&lt;/xf:cell&gt;
+						&lt;xf:cell&gt;&lt;/xf:cell&gt;
+					&lt;/xf:datarow&gt;
+					
+					&lt;xf:foreach loop="$achievements" value="$achievement"&gt;
+						&lt;xf:datarow&gt;
+							&lt;xf:cell&gt;
+								&lt;strong&gt;{$achievement.title}&lt;/strong&gt;
+								&lt;div class="u-muted u-smaller" style="margin-top: 2px;"&gt;{$achievement.description}&lt;/div&gt;
+							&lt;/xf:cell&gt;
+							&lt;xf:cell&gt;{$achievement.achievement_category}&lt;/xf:cell&gt;
+							&lt;xf:cell&gt;{$achievement.xp_points}&lt;/xf:cell&gt;
+							&lt;xf:cell&gt;{$achievement.difficulty_tier}&lt;/xf:cell&gt;
+							&lt;xf:cell&gt;
+								&lt;xf:if is="$achievement.is_active"&gt;
+									&lt;span class="label label--green"&gt;{{ phrase('active') }}&lt;/span&gt;
+								&lt;xf:else /&gt;
+									&lt;span class="label label--red"&gt;{{ phrase('inactive') }}&lt;/span&gt;
+								&lt;/xf:if&gt;
+							&lt;/xf:cell&gt;
+							&lt;xf:cell&gt;
+								&lt;a href="{{ link('stock-market/achievements/edit', $achievement) }}" data-xf-click="overlay"&gt;{{ phrase('edit') }}&lt;/a&gt;
+								|
+								&lt;a href="{{ link('stock-market/achievements/delete', $achievement) }}" data-xf-click="overlay"&gt;{{ phrase('delete') }}&lt;/a&gt;
+							&lt;/xf:cell&gt;
+						&lt;/xf:datarow&gt;
+					&lt;/xf:foreach&gt;
+				&lt;/xf:datalist&gt;
+			&lt;/div&gt;
+		&lt;/div&gt;
+	&lt;/div&gt;
+&lt;xf:else /&gt;
+	&lt;div class="blockMessage"&gt;{{ phrase('no_items_to_display') }}&lt;/div&gt;
+&lt;/xf:if&gt;</template><template title="ic_sm_achievement_edit" type="admin" version_id="1058000" version_string="1.58.0">&lt;xf:title&gt;
+	&lt;xf:if is="$achievement.exists()"&gt;
+		{{ phrase('edit_achievement') }}: {$achievement.title}
+	&lt;xf:else /&gt;
+		{{ phrase('add_achievement') }}
+	&lt;/xf:if&gt;
+&lt;/xf:title&gt;
+
+&lt;xf:form action="{{ link('stock-market/achievements/save', $achievement) }}" ajax="true" class="block"&gt;
+	&lt;div class="block-container"&gt;
+		&lt;div class="block-body"&gt;
+			&lt;xf:textboxrow name="achievement_key" value="{$achievement.achievement_key}" label="{{ phrase('achievement_key') }}" required="true" explain="Internal identifier (e.g. first_steps, diamond_hands). Use underscores, no spaces." /&gt;
+			
+			&lt;xf:textboxrow name="title" value="{$achievement.MasterTitle.phrase_text}" label="{{ phrase('title') }}" required="true" explain="Display name shown to users (e.g. First Steps, Diamond Hands)" /&gt;
+			
+			&lt;xf:textarearow name="description" value="{$achievement.MasterDescription.phrase_text}" label="{{ phrase('description') }}" explain="What the user needs to do to earn this achievement" autosize="true" /&gt;
+			
+			&lt;xf:selectrow name="achievement_category" value="{$achievement.achievement_category}" label="{{ phrase('category') }}" required="true"&gt;
+				&lt;xf:foreach loop="$categories" key="$key" value="$label"&gt;
+					&lt;xf:option value="{$key}"&gt;{$label}&lt;/xf:option&gt;
+				&lt;/xf:foreach&gt;
+			&lt;/xf:selectrow&gt;
+			
+			&lt;xf:numberboxrow name="xp_points" value="{$achievement.xp_points}" label="{{ phrase('ic_sm_xp_points') }}" min="0" step="5" explain="Experience points awarded for earning this achievement" /&gt;
+			
+			&lt;xf:selectrow name="difficulty_tier" value="{$achievement.difficulty_tier}" label="{{ phrase('difficulty') }}"&gt;
+				&lt;xf:foreach loop="$difficultyTiers" key="$key" value="$label"&gt;
+					&lt;xf:option value="{$key}"&gt;{$label}&lt;/xf:option&gt;
+				&lt;/xf:foreach&gt;
+			&lt;/xf:selectrow&gt;
+			
+			&lt;xf:numberboxrow name="points" value="{$achievement.points}" label="{{ phrase('points') }}" min="0" step="1" explain="Optional points value (currently unused)" /&gt;
+			
+			&lt;xf:numberboxrow name="display_order" value="{$achievement.display_order}" label="{{ phrase('display_order') }}" min="0" max="9999" step="10" /&gt;
+			
+			&lt;xf:checkboxrow label="{{ phrase('options') }}"&gt;
+				&lt;xf:option name="is_active" value="1" selected="{$achievement.is_active}" label="{{ phrase('active') }}" /&gt;
+			&lt;/xf:checkboxrow&gt;
+		&lt;/div&gt;
+		&lt;xf:submitrow sticky="true" icon="save" /&gt;
+	&lt;/div&gt;
+&lt;/xf:form&gt;</template><template title="ic_sm_achievement_delete" type="admin" version_id="1058000" version_string="1.58.0">&lt;xf:title&gt;{{ phrase('confirm_deletion') }}&lt;/xf:title&gt;
+
+&lt;xf:form action="{{ link('stock-market/achievements/delete', $achievement) }}" ajax="true" class="block"&gt;
+	&lt;div class="block-container"&gt;
+		&lt;div class="block-body"&gt;
+			&lt;p&gt;{{ phrase('please_confirm_that_you_want_to_delete_the_following') }}: &lt;strong&gt;{$achievement.title}&lt;/strong&gt;&lt;/p&gt;
+		&lt;/div&gt;
+		&lt;xf:submitrow sticky="true" icon="delete" /&gt;
+	&lt;/div&gt;
+&lt;/xf:form&gt;</template><template title="ic_sm_tools" type="admin" addon_id="IC/StockMarket">&lt;xf:title&gt;{{ phrase('ic_sm_tools') }}&lt;/xf:title&gt;
+
+&lt;div class="block"&gt;
+	&lt;div class="block-container"&gt;
+		&lt;div class="block-body"&gt;
+			&lt;div class="block-row"&gt;
+				&lt;h3 class="block-formSectionHeader"&gt;
+					&lt;span class="block-formSectionHeader-aligner"&gt;{{ phrase('ic_sm_rebuild_caches') }}&lt;/span&gt;
+				&lt;/h3&gt;
+			&lt;/div&gt;
+			
+			&lt;div class="block-row"&gt;
+				&lt;a href="{{ link('stock-market/tools/rebuild-achievements') }}" class="button"&gt;
+					{{ phrase('ic_sm_rebuild_achievements') }}
+				&lt;/a&gt;
+				&lt;div class="block-row-minor"&gt;
+					{{ phrase('ic_sm_rebuild_achievements_explain') }}
+				&lt;/div&gt;
+			&lt;/div&gt;
+		&lt;/div&gt;
+	&lt;/div&gt;
+&lt;/div&gt;</template><template title="ic_sm_tools_rebuild_achievements" type="admin" addon_id="IC/StockMarket">&lt;xf:title&gt;{{ phrase('ic_sm_rebuild_achievements') }}&lt;/xf:title&gt;
+
+&lt;xf:form action="{{ link('stock-market/tools/rebuild-achievements') }}" class="block"&gt;
+	&lt;div class="block-container"&gt;
+		&lt;div class="block-body"&gt;
+			&lt;div class="block-row"&gt;
+				{{ phrase('ic_sm_rebuild_achievements_confirm') }}
+			&lt;/div&gt;
+		&lt;/div&gt;
+		&lt;xf:submitrow submit="{{ phrase('rebuild') }}" icon="refresh" /&gt;
+	&lt;/div&gt;
+&lt;/xf:form&gt;</template></templates>

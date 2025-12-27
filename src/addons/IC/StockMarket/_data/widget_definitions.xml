@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget_definitions>
+  <widget_definition definition_id="ic_sm_latest_trades" definition_class="IC\StockMarket\Widget\LatestTrades" />
+  <widget_definition definition_id="ic_sm_top_movers" definition_class="IC\StockMarket\Widget\TopMovers" />
+  <widget_definition definition_id="ic_sm_leaderboard_preview" definition_class="IC\StockMarket\Widget\LeaderboardPreview" />
+</widget_definitions>

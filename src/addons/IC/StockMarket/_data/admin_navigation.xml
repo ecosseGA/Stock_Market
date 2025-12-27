@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='utf-8'?>
+<admin_navigation>
+  <admin_navigation_entry navigation_id="icStockMarket" display_order="550" link="stock-market/markets" icon="fa-chart-line" debug_only="0" development_only="0" hide_no_children="1" />
+  <admin_navigation_entry navigation_id="icSMMarkets" parent_navigation_id="icStockMarket" display_order="10" link="stock-market/markets" debug_only="0" development_only="0" hide_no_children="0" />
+  <admin_navigation_entry navigation_id="icSMSymbols" parent_navigation_id="icStockMarket" display_order="20" link="stock-market/symbols" debug_only="0" development_only="0" hide_no_children="0" />
+  <admin_navigation_entry navigation_id="icSMSeasons" parent_navigation_id="icStockMarket" display_order="30" link="stock-market/seasons" debug_only="0" development_only="0" hide_no_children="0" />
+  <admin_navigation_entry navigation_id="icSMAchievements" parent_navigation_id="icStockMarket" display_order="40" link="stock-market/achievements" debug_only="0" development_only="0" hide_no_children="0" />
+  <admin_navigation_entry navigation_id="icSMTools" parent_navigation_id="icStockMarket" display_order="50" link="stock-market/tools" debug_only="0" development_only="0" hide_no_children="0" />
+</admin_navigation>

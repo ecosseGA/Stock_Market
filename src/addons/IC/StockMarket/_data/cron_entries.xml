@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cron>
+  <entry entry_id="icSMUpdateQuotes" cron_class="IC\StockMarket\Cron\UpdateQuotes" cron_method="runUpdate" active="1"><![CDATA[{"day_type":"dom","dom":[-1],"hours":[-1],"minutes":[0,15,30,45]}]]></entry>
+</cron>

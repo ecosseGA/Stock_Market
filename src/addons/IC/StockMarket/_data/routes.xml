@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='utf-8'?>
+<routes>
+	<route route_type="public" route_prefix="stock-market" controller="IC\StockMarket:Index" context="icStockMarket" />
+	<route route_type="public" route_prefix="stock-market" sub_name="portfolio" format="portfolio/" controller="IC\StockMarket:Index" context="icStockMarket" action_prefix="portfolio" />
+	<route route_type="public" route_prefix="stock-market" sub_name="history" format="history/" controller="IC\StockMarket:Index" context="icStockMarket" action_prefix="history" />
+	<route route_type="public" route_prefix="stock-market" sub_name="leaderboard" format="leaderboard/" controller="IC\StockMarket:Index" context="icStockMarket" action_prefix="leaderboard" />
+	<route route_type="public" route_prefix="stock-market" sub_name="achievements" format="achievements/" controller="IC\StockMarket:Index" context="icStockMarket" action_prefix="achievements" />
+	<route route_type="public" route_prefix="stock-market" sub_name="buy" format="buy/:int&lt;symbol_id&gt;/" controller="IC\StockMarket:Index" context="icStockMarket" action_prefix="buy" />
+	<route route_type="public" route_prefix="stock-market" sub_name="sell" format="sell/:int&lt;symbol_id&gt;/" controller="IC\StockMarket:Index" context="icStockMarket" action_prefix="sell" />
+	<route route_type="public" route_prefix="stock-market" sub_name="stock" format="stock/:int&lt;symbol_id&gt;/" controller="IC\StockMarket:Index" context="icStockMarket" action_prefix="stock" />
+	<route route_type="admin" route_prefix="stock-market" sub_name="markets" format="markets/:int&lt;market_id&gt;/" controller="IC\StockMarket:Market" context="icStockMarket" />
+	<route route_type="admin" route_prefix="stock-market" sub_name="symbols" format="symbols/:action/:int&lt;symbol_id&gt;/" controller="IC\StockMarket:Symbol" context="icStockMarket" />
+	<route route_type="admin" route_prefix="stock-market" sub_name="seasons" format="seasons/:int&lt;season_id&gt;/" controller="IC\StockMarket:Season" context="icStockMarket" />
+	<route route_prefix="stock-market" route_type="admin" controller="IC\StockMarket:Achievement" context="ic_sm_achievements" addon_id="IC/StockMarket" sub_name="achievements" format="achievements/:int&lt;achievement_id&gt;/" />
+<route route_prefix="stock-market" route_type="admin" controller="IC\StockMarket:Tools" context="ic_sm_tools" sub_name="tools" format="tools/" addon_id="IC/StockMarket" /></routes>

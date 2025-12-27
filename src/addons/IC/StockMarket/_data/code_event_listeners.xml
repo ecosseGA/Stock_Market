@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<code_event_listeners>
+  <listener event_id="app_setup" execute_order="10" callback_class="IC\StockMarket\Listener" callback_method="appSetup" active="1" description="Sets up fundamental portions of Stock Market addon"/>
+  <listener event_id="criteria_user" execute_order="10" callback_class="IC\StockMarket\Listener" callback_method="criteriaUser" active="1" description="Adds custom user criteria for trading statistics"/>
+  <listener event_id="templater_setup" execute_order="10" callback_class="IC\StockMarket\Listener" callback_method="templaterSetup" active="1" description="Registers custom template functions"/>
+  <listener event_id="user_content_change_init" execute_order="10" callback_class="IC\StockMarket\Listener" callback_method="userContentChangeInit" active="1" description="Handles username changes in Stock Market tables"/>
+  <listener event_id="user_delete_clean_init" execute_order="10" callback_class="IC\StockMarket\Listener" callback_method="userDeleteCleanInit" active="1" description="Cleans up user data when user is deleted"/>
+  <listener event_id="user_merge_combine" execute_order="10" callback_class="IC\StockMarket\Listener" callback_method="userMergeCombine" active="1" description="Merges trading data when users are merged"/>
+  <listener event_id="user_searcher_orders" execute_order="10" callback_class="IC\StockMarket\Listener" callback_method="userSearcherOrders" active="1" description="Adds trading-related sort options to user search"/>
+</code_event_listeners>
